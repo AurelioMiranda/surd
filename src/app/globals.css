@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+#text-style {
+  text-underline-offset: .3rem;
+  color: black;
+  background-color: transparent;
+  font-size: 1.4rem;
+  font-family: inherit;
+}
+
+footer {
+  border-top: .1rem solid lightgrey;
+  margin-top: 5.5rem;
+}
+
+.footer-top {
+  padding-top: 4rem;
+}
+
+.footer-top-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.footer-top-container div {
+  width: fit-content;
+}
+
+.footer-bottom {
+  padding: 1.7rem 90px;
+  width: 70%;
+  /* mudar depois */
+  margin: 0 auto;
+}
+
+.footer-bottom-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.footer-bottom-container div {
+  padding-top: 2rem;
+}
+
+/* Scroll bar styles and stuff */
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: white;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
