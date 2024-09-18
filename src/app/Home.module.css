@@ -1,0 +1,68 @@
+.container {
+    padding: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.oqueESurd {
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+
+.oqueESurd h1 {
+    font-size: 2.5rem;
+    color: #333;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.oqueESurd p {
+    font-size: 1.2rem;
+    line-height: 1.7;
+    text-align: justify;
+}
+
+.equipe, .valores {
+    margin-bottom: 30px;
+}
+
+.equipe h2, .valores h2 {
+    font-size: 2rem;
+    color: #555;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.equipe p, .valores p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #666;
+    text-align: justify;
+}
+
+.sustentabilidade {
+    background-color: #e9ffe9;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 40px;
+}
+
+.sustentabilidade h3 {
+    font-size: 1.8rem;
+    color: #2e7d32;
+    margin-bottom: 15px;
+}
+
+.sustentabilidade ul {
+    list-style-type: disc;
+    padding-left: 40px;
+}
+
+.sustentabilidade ul li {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    line-height: 1.5;
+    color: #444;
+}

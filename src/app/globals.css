@@ -45,6 +45,25 @@ footer {
   width: fit-content;
 }
 
+.extensionLinks {
+  margin: 7px;
+  padding: 5px;
+}
+
+.extensionLinks:hover {
+  text-decoration: underline 1px;
+  ;
+}
+
+.socials {
+  display: flex;
+}
+
+.socials a {
+  margin: 0.5rem;
+  padding: 1px;
+}
+
 .footer-bottom {
   padding: 1.7rem 90px;
   width: 70%;
@@ -60,6 +79,56 @@ footer {
 
 .footer-bottom-container div {
   padding-top: 2rem;
+}
+
+.footer-img-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.footer-img-container img {
+  margin-left: 25px;
+  height: 50px;
+  max-height: 100%;
+  width: auto;
+}
+
+.footer-img-container-mobile {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.footer-img-container-mobile img {
+  height: 50px;
+  max-height: 100%;
+  width: auto;
+}
+
+.footer-img-container-mobile div {
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+}
+
+@media (max-width: 990px) {
+  .footer-bottom {
+    padding: 1.7rem 0;
+    width: 90%;
+  }
+
+  .footer-img-container {
+    display: none;
+  }
+
+  .footer-img-container-mobile {
+    display: flex!important;
+  }
+
+  .smallMenu {
+    display: flex !important;
+  }
 }
 
 /* Scroll bar styles and stuff */

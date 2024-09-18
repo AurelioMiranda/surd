@@ -1,0 +1,50 @@
+.precosContainer987 {
+    padding: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+}
+
+.precosSection987 {
+    margin-top: 10px;
+}
+
+.precosTitle987 {
+    font-size: 2.5rem;
+    color: #2b2b2b;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.priceImageContainer987 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.precoImage987 {
+    width: 100%;
+    height: auto;
+    max-width: 600px;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+}
+
+.imageCaption987 {
+    font-size: 0.9rem;
+    color: #777;
+    margin-top: 5px;
+}
+
+.deliveryInfo987 {
+    font-size: 1.2rem;
+    color: #333;
+    margin-top: 30px;
+    text-align: center;
+    padding: 10px;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+}
