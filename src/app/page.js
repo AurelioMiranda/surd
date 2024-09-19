@@ -4,7 +4,11 @@ import styles from './Home.module.css';
 export default function HomePage() {
   return (
     <>
-      <div className={styles.container} style={{marginTop: '1rem'}}>
+      <img maw={240} width="100%" height="25"
+        src="SURD-banner-fixed.png"
+        alt="SURD Banner" className='banner-img-desktop' />
+
+      <div className={styles.container} style={{ marginTop: '1rem' }}>
         <section className={styles.oqueESurd}>
           <h1>O que é a SURD?</h1>
           <p>
@@ -42,6 +46,10 @@ export default function HomePage() {
           </ul>
         </section>
       </div>
+
+      <img maw={240} width="100%" height="25"
+        src="SURD-banner-fixed.png"
+        alt="SURD Banner" className='banner-img-desktop' />
     </>
   )
 }

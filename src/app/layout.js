@@ -21,7 +21,6 @@ export default function RootLayout({ children }) {
               <div>
                 <div style={{ width: 'fit-content', height: 'fit-content' }}>
                   <Link href="/" className='extensionLinks'>Início</Link>
-                  <Link href="/sobre" className='extensionLinks'>Quem Somos</Link>
                   <Link href="/faq" className='extensionLinks'>FAQ</Link>
                   <Link href="/precos" className='extensionLinks'>Preços</Link>
                   <Link href="/contacto" className='extensionLinks'>Contacto</Link>
@@ -35,7 +34,7 @@ export default function RootLayout({ children }) {
                       src="https://www.iconpacks.net/icons/2/free-instagram-logo-icon-3497-thumb.png"
                       alt="Instagram" />
                   </a>
-                  <a href="https://www.tiktok.com/" target="_blank" rel="noopener noreferrer">
+                  <a href="https://www.tiktok.com/" target="_blank" rel="noopener noreferrer" style={{ display: 'none' }}>
                     <img maw={240} width="25" height="25" style={{ borderRadius: '5px' }}
                       src="https://cdn.pixabay.com/photo/2021/06/15/12/28/tiktok-6338429_1280.png"
                       alt="Tiktok" />
@@ -83,8 +82,13 @@ export default function RootLayout({ children }) {
                     alt="MBWay" />
                 </div>
               </div>
-              <div style={{ fontSize: '0.9rem' }}>
-                © 2024, SURD
+              <div className='footer-banner-credits'>
+                <div style={{color: 'white'}}>
+                  buy our stickers :)
+                </div>
+                <div style={{ fontSize: '0.9rem' }}>
+                  © 2024, SURD
+                </div>
               </div>
             </div>
           </div>

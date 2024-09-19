@@ -19,7 +19,6 @@ const Navbar = () => {
             <div>
                 <div style={{ width: 'fit-content', height: 'fit-content' }} className={styles.extensionLinks}>
                     <Link href="/">Início</Link>
-                    <Link href="/sobre">Quem Somos</Link>
                     <Link href="/faq">FAQ</Link>
                     <Link href="/precos">Preços</Link>
                     <Link href="/contacto">Contacto</Link>
@@ -54,10 +53,9 @@ const Navbar = () => {
                 <span className={styles.dropdownMenu}>
                     <div>
                         <Link href="/">Início</Link>
-                        <Link href="/sobre">Quem Somos</Link>
+                        <Link href="/faq">FAQ</Link>
                     </div>
                     <div>
-                        <Link href="/faq">FAQ</Link>
                         <Link href="/precos">Preços</Link>
                         <Link href="/contacto">Contacto</Link>
                     </div>

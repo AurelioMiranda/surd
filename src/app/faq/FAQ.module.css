@@ -48,3 +48,16 @@
     font-size: 1.1rem;
     color: #666;
 }
+
+.subStepsList123 {
+    margin-top: 8px;
+    list-style-type: none;
+    counter-reset: substep;
+    margin-left: 20px;
+}
+
+.subStepsList123 li::before {
+    content: "4." counter(substep);
+    counter-increment: substep;
+    margin-right: 5px;
+}

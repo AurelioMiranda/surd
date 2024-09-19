@@ -7,7 +7,6 @@ export default function Sobre() {
         <h1>Quem Somos</h1>
         <p>
           A SURD é uma empresa dedicada a oferecer autocolantes totalmente personalizáveis, respondendo às necessidades de expressão única dos nossos clientes.
-          Começamos com o modelo de drop shipping para manter os custos baixos e a eficiência alta, com planos futuros para adquirir nossa própria infraestrutura de produção. <b>remover isto maybe</b>
         </p>
       </section>
 
@@ -22,7 +21,7 @@ export default function Sobre() {
         <h2>A Nossa Equipa</h2>
         <p>
           A nossa equipa é formada por profissionais apaixonados pela personalização e pela inovação. Estamos sempre prontos para ouvir nossos clientes e adaptar nossos produtos para melhor atendê-los.
-        <b> desenvolver mais isto ig</b></p>
+        </p>
       </section>
 
       <section className={styles.sustentabilidade}>
@@ -33,7 +32,6 @@ export default function Sobre() {
       </section>
 
       <section className={styles.tabela}>
-      <b>ns se esta tabela fica</b>
         <h2>Valores da Empresa</h2>
         <br/>
         <table>
