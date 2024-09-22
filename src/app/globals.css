@@ -10,6 +10,11 @@
 body {
   color: var(--foreground);
   background: var(--background);
+  background-image: url('/SURD-Background.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 @layer utilities {
@@ -28,6 +33,7 @@ body {
 
 footer {
   border-top: .1rem solid lightgrey;
+  background-color: #fff;
 }
 
 .footer-top {
