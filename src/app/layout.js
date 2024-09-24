@@ -34,12 +34,12 @@ export default function RootLayout({ children }) {
                       src="https://www.iconpacks.net/icons/2/free-instagram-logo-icon-3497-thumb.png"
                       alt="Instagram" />
                   </a>
-                  <a href="https://www.tiktok.com/" target="_blank" rel="noopener noreferrer" style={{ display: 'none' }}>
+                  <a href="https://www.tiktok.com/@surd.pt" target="_blank" rel="noopener noreferrer">
                     <img maw={240} width="25" height="25" style={{ borderRadius: '5px' }}
                       src="https://cdn.pixabay.com/photo/2021/06/15/12/28/tiktok-6338429_1280.png"
                       alt="Tiktok" />
                   </a>
-                  <a href="https://www.linkedin.com/in/mirandex/" target="_blank" rel="noopener noreferrer">
+                  <a href="https://www.linkedin.com/in/mirandex/" target="_blank" rel="noopener noreferrer" style={{ display: 'none' }}>
                     <img maw={240} width="25" height="25"
                       src="https://cdn-icons-png.flaticon.com/512/61/61109.png"
                       alt="LinkedIn" />
