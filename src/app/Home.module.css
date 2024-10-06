@@ -21,7 +21,7 @@
 .oqueESurd p {
     font-size: 1.2rem;
     line-height: 1.7;
-    text-align: justify;
+    /*text-align: justify;*/
 }
 
 .equipe, .valores {
@@ -42,7 +42,7 @@
     font-size: 1.1rem;
     line-height: 1.6;
     color: #666;
-    text-align: justify;
+    /*text-align: justify;*/
 }
 
 .sustentabilidade {

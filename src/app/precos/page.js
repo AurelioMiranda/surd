@@ -7,13 +7,23 @@ export default function Precos() {
         <h1 className={styles.precosTitle987}>Preçário</h1>
 
         <div className={styles.priceImageContainer987}>
-          <img src="sticker-prices.png" alt="Tabela de preços dos stickers" className={styles.precoImage987} />
-          <p className={styles.imageCaption987}>Figura 1- Preço dos stickers</p>
+          <img src="square-or-rectangle-price.jpeg" alt="Stickers price per unit (rectangular)" className={styles.precoImage987} />
+          <p className={styles.imageCaption987}>Figura 1- Preço de stickers retangulares por unidade</p>
         </div>
 
         <div className={styles.priceImageContainer987}>
-          <img src="shipping-costs.png" alt="Tabela de preços dos portes de envio" className={styles.precoImage987} />
-          <p className={styles.imageCaption987}>Figura 2- Portes de envio</p>
+          <img src="circular-or-customized-price.jpeg" alt="Stickers price per unit (circular/customizable)" className={styles.precoImage987} />
+          <p className={styles.imageCaption987}>Figura 2- Preço dos stickers por unidade (corte circular/customizado)</p>
+        </div>
+
+        <div className={styles.priceImageContainer987}>
+          <img src="shipping-costs.jpeg" alt="Shipping costs" className={styles.precoImage987} />
+          <p className={styles.imageCaption987}>Figura 3- Portes de envio</p>
+        </div>
+
+        <div className={styles.priceImageContainer987}>
+          <img src="treatment-prices.jpeg" alt="Treatment prices" className={styles.precoImage987} />
+          <p className={styles.imageCaption987}>Figura 4- Preços de tratamento</p>
         </div>
 
         <div className={styles.deliveryInfo987}>

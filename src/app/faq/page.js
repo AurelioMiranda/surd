@@ -56,17 +56,14 @@ export default function FAQ() {
         </div>
 
         <div className={styles.questionBlock123}>
-          <h2 className={styles.question123}>O que é o tratamento de imagem e a verificação?</h2>
+          <h2 className={styles.question123}>O que é o tratamento de imagem?</h2>
           <p className={styles.answer123}>
-            A verificação da imagem consiste em verificar a existência de erros de impressão e corrigi-los,
-            bem como garantir que os autocolantes estão em conformidade com a encomenda.
-            <br /><br />
-            O tratamento de imagem consiste na modificação de qualquer característica técnica relacionada com a imagem,
-            como a remoção do fundo, alteração da forma, recorte especial, edição da imagem (contraste, brilho, exposição, etc.),
-            remoção ou inserção de objetos, efeitos, inserção de texto, entre outros.
-            <br /><br />
-            O número de tratamentos representa o número máximo de modificações que podem ser alteradas sem custos adicionais.
-            Pode ser aumentado, com um custo adicional de 1€ por tratamento extra.
+            O tratamento de imagem consiste na modificação de qualquer característica técnica relacionada com a imagem, como retirar
+            o fundo, alterar a forma, editar a imagem (contraste, brilho, exposição, etc.), retirar ou colocar objetos, efeitos, inserir
+            texto, entre outros.
+            O número de tratamentos representa o número máximo de alterações que podem ser feitas para cada quantidade, sem incorrer em
+            custos adicionais. Este pode ser aumentado sem necessidade de encomendar mais unidades, com um custo adicional de 1€ por
+            cada tratamento adicional.
           </p>
         </div>
       </section>
