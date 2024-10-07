@@ -8,12 +8,12 @@ export default function Precos() {
 
         <div className={styles.priceImageContainer987}>
           <img src="square-or-rectangle-price.jpeg" alt="Stickers price per unit (rectangular)" className={styles.precoImage987} />
-          <p className={styles.imageCaption987}>Figura 1- Preço de stickers retangulares por unidade</p>
+          <p className={styles.imageCaption987}>Figura 1- Preço por unidade dos stickers quadrangulares e retangulares.</p>
         </div>
 
         <div className={styles.priceImageContainer987}>
           <img src="circular-or-customized-price.jpeg" alt="Stickers price per unit (circular/customizable)" className={styles.precoImage987} />
-          <p className={styles.imageCaption987}>Figura 2- Preço dos stickers por unidade (corte circular/customizado)</p>
+          <p className={styles.imageCaption987}>Figura 2- Preço por unidade dos stickers com corte circular/customizado</p>
         </div>
 
         <div className={styles.priceImageContainer987}>
@@ -23,7 +23,7 @@ export default function Precos() {
 
         <div className={styles.priceImageContainer987}>
           <img src="treatment-prices.jpeg" alt="Treatment prices" className={styles.precoImage987} />
-          <p className={styles.imageCaption987}>Figura 4- Preços de tratamento</p>
+          <p className={styles.imageCaption987}>Figura 4- Preço do tratamento de imagem, em função da quantidade encomendada.</p>
         </div>
 
         <div className={styles.deliveryInfo987}>
