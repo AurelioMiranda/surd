@@ -1,0 +1,123 @@
+.containerPayment123 {
+    padding: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.titleXYZ {
+    font-size: 2.5rem;
+    color: #2b2b2b;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.sectionABCD {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: end;
+}
+
+.label_001 {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.totalPrice_99 {
+    font-size: 1.5rem;
+    color: #2b2b2b;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.btnSubmit {
+    padding: 10px 20px;
+    background-color: #2b2b2b;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+.btnSubmit:hover {
+    background-color: #333;
+}
+
+.productsList_2024 {
+    margin-top: 30px;
+}
+
+.productsTitle_abc {
+    font-size: 2rem;
+    color: #2b2b2b;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.listProduct {
+    list-style-type: none;
+    padding: 0;
+}
+
+.itemProduct_1 {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    margin: 5px 0;
+    background-color: #ffffff;
+}
+
+.btnRemove_2023 {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.btnRemove_2023:hover {
+    background-color: #c0392b;
+}
+
+.shippingContainer {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+}
+
+.shippingTitle {
+    font-size: 2rem;
+    color: #2b2b2b;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.label_001 {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.select {
+    padding: 8px;
+    font-size: 1rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.btnSubmitContainer5845 {
+    display: flex;
+    justify-content: center;
+}

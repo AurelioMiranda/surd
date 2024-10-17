@@ -43,9 +43,13 @@ const Navbar = () => {
                     />
                 </div>
 
-                <div style={{ justifyContent: 'flex-end', zIndex: '-5' }}>
-                    <span class="material-symbols-outlined" style={{ fontSize: '1.9rem', color: 'black' }}>search</span>
-                    <span class="material-symbols-outlined" style={{ fontSize: '1.9rem', color: 'black', marginLeft: '10px' }}>shopping_cart</span>
+                <div style={{ justifyContent: 'flex-end' }}>
+                    {
+                        //<span class="material-symbols-outlined" style={{ fontSize: '1.9rem', color: 'black' }}>search</span>
+                    }
+                    <a href='/payment'>
+                        <span class="material-symbols-outlined" style={{ fontSize: '1.9rem', color: 'black', marginLeft: '10px' }}>shopping_cart</span>
+                    </a>
                 </div>
             </div>
             {/* Dropdown Links */}
@@ -58,6 +62,7 @@ const Navbar = () => {
                     <div>
                         <Link href="/precos">Preços</Link>
                         <Link href="/contacto">Contacto</Link>
+                        <Link href="/payment">Comprar</Link>
                     </div>
                 </span>
             )
