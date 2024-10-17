@@ -1,74 +1,110 @@
 
 .nav div {
-    display: grid;
-    grid-template-areas: "left-icon heading icons";
-    grid-template-columns: 1fr 2fr 1fr;
-    align-items: center;
-    background-color: #fff;
-  }
+  display: grid;
+  grid-template-areas: "left-icon heading icons";
+  grid-template-columns: 1fr 2fr 1fr;
+  align-items: center;
+  background-color: #fff;
+}
 
-  .nav div div {
-    display: flex;
-    width: 100%;
-    justify-content: center;
-  }
-  
-  .nav div a {
-    text-decoration: none;
-    color: #333;
-    font-size: 1rem;
-  }
-  
-  .nav div a:hover {
-    color: #000;
-  }
-  
+.nav div div {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
 
-  .nav {
-    background-color: #fff;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 12px 10%;
+.nav div a {
+  text-decoration: none;
+  color: #333;
+  font-size: 1rem;
+}
+
+.nav div a:hover {
+  color: #000;
+}
+
+
+.nav {
+  background-color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 12px 10%;
 }
 
 .smallMenu {
-    display: none;
-    justify-content: flex-start!important;
+  display: none;
+  justify-content: flex-start!important;
 }
 
 .extensionLinks a {
-  margin: 7px;  
-  padding: 5px;
+margin: 7px;  
+padding: 5px;
 }
 
 .extensionLinks a:hover {
-  text-decoration: underline 1px;;
+text-decoration: underline 1px;;
 }
 
 .dropdownMenu {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  padding: 12px
+display: flex;
+flex-direction: column;
+width: 100%;
+padding: 12px
 }
 
 .dropdownMenu div {
-  display: flex;
-  justify-content: space-around;
-  padding: 7px;
+display: flex;
+justify-content: space-around;
+padding: 7px;
 }
 
-@media (max-width: 990px) {
-    .extensionLinks {
-        display: none!important;
-    }
+.searchInput {
+padding: 5px;
+font-size: 1.1rem;
+border: 1px solid #ccc;
+border-radius: 4px;
+margin-right: 10px;
+width: 200px;
+}
 
-    .smallMenu {
-        display: flex!important;
-    }
+.searchResults {
+background-color: white;
+border: 1px solid #ddd;
+position: absolute;
+top: 100%; 
+left: 0;
+width: 100%;
+max-height: 200px;
+overflow-y: auto;
+z-index: 10;
+}
+
+.searchResults div {
+padding: 10px;
+border-bottom: 1px solid #eee;
+cursor: pointer;
+}
+
+.searchResults div:hover {
+background-color: #f2f2f2;
+}
+
+
+@media (max-width: 990px) {
+  .extensionLinks {
+      display: none!important;
+  }
+
+  .searchContainer {
+    display: none!important;
+  }
+
+  .smallMenu {
+      display: flex!important;
+  }
 }
 
 @media (min-width: 990px) {
-    .dropdownMenu {
-        display: none!important;
-    }
+  .dropdownMenu {
+      display: none!important;
+  }
 }

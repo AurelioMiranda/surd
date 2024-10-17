@@ -8,10 +8,44 @@ import styles from './Navbar.module.css';
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [searchQuery, setSearchQuery] = useState("");
+    const [searchResults, setSearchResults] = useState([]);
 
-    // Toggle the menu open/close state
+    const pages = {
+        home: ['stickers', 'decals', 'vinyl', 'custom', 'personalized', 'waterproof', 'weatherproof', 'durable', 'high-quality', 'unique', 'original', 'trendy', 'cool', 'cute', 'funny', 'motivational', 'inspirational', 'laptop', 'phone', 'car', 'water bottle', 'planner', 'journal', 'notebook', 'luggage', 'skateboard', 'bicycle', 'helmet', 'surfboard', 'wall', 'window', 'anime', 'gaming', 'sports', 'movie', 'TV', 'music', 'band', 'artist', 'travel', 'city', 'country', 'nature', 'animal', 'pet', 'floral', 'abstract', 'geometric', 'minimalist', 'vintage', 'retro', 'boho', 'kawaii', 'gothic', 'grunge', 'psychedelic', 'inspirational quotes', 'motivational sayings', 'funny quotes', 'pun', 'sarcastic', 'meme', 'pop culture', 'holiday', 'seasonal', 'birthday', 'anniversary', 'wedding', 'baby', 'kids', 'teen', 'adult',],
+        faq: ['faq', 'questions', 'shipping', 'payment', 'order'],
+        precos: ['prices', 'cost', 'preços', 'stickers'],
+        contacto: ['contact', 'instagram', 'help', 'social'],
+        embaixadores: []
+    };
+
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
+    };
+
+    const searchKeyword = (query) => {
+        const results = [];
+        for (const [page, keywords] of Object.entries(pages)) {
+            if (keywords.some(word => word.toLowerCase().includes(query.toLowerCase()))) {
+                results.push(page);
+            }
+        }
+        return results;
+    };
+
+    const handleSearch = (e) => {
+        const query = e.target.value;
+        setSearchQuery(query);
+        if (query.length > 0) {
+            const results = searchKeyword(query);
+            setSearchResults(results);
+        } else {
+            setSearchResults([]);
+        }
+    };
+
+    const mapResultToLink = (result) => {
+        return result === 'home' ? '/' : `/${result}`;
     };
 
     return (
@@ -43,11 +77,30 @@ const Navbar = () => {
                     />
                 </div>
 
-                <div style={{ justifyContent: 'flex-end', zIndex: '-5' }}>
-                    <span class="material-symbols-outlined" style={{ fontSize: '1.9rem', color: 'black' }}>search</span>
-                    <span class="material-symbols-outlined" style={{ fontSize: '1.9rem', color: 'black', marginLeft: '10px' }}>shopping_cart</span>
+                {/* Search Input */}
+                <div style={{ position: 'relative', justifyContent: 'flex-end', display: 'flex', alignItems: 'center' }}
+                    className={styles.searchContainer}>
+                    <input
+                        type="text"
+                        value={searchQuery}
+                        onChange={handleSearch}
+                        placeholder="Search..."
+                        className={styles.searchInput}
+                    />
+
+                    {/* Display search results */}
+                    {searchResults.length > 0 && (
+                        <div className={styles.searchResults} style={{ width: 'unset' }}>
+                            {searchResults.map((result, index) => (
+                                <div key={index} style={{ width: 'unset' }}>
+                                    <Link href={mapResultToLink(result)}>{result.charAt(0).toUpperCase() + result.slice(1)}</Link>
+                                </div>
+                            ))}
+                        </div>
+                    )}
                 </div>
             </div>
+
             {/* Dropdown Links */}
             {isMenuOpen && (
                 <span className={styles.dropdownMenu}>
@@ -60,9 +113,8 @@ const Navbar = () => {
                         <Link href="/contacto">Contacto</Link>
                     </div>
                 </span>
-            )
-            }
-        </nav >
+            )}
+        </nav>
     );
 };
 
