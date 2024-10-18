@@ -2,10 +2,10 @@ import styles from './Precos.module.css'
 
 export default function Precos() {
   return (
-    <div className={styles.precosContainer987} style={{marginTop: '20px'}}>
+    <div className={styles.precosContainer987} style={{ marginTop: '20px', marginBottom: '20px' }}>
       <section className={styles.precosSection987}>
         <h1 className={styles.precosTitle987}>Preçário</h1>
-
+        {/*
         <h2 className={styles.precosTitle958}>Stickers Clássicos</h2>
 
         <div className={styles.priceImageContainer987}>
@@ -16,21 +16,21 @@ export default function Precos() {
         <div className={styles.priceImageContainer987}>
           <img src="circular-or-customized-price.jpeg" alt="Stickers price per unit (circular/customizable)" className={styles.precoImage987} />
           <p className={styles.imageCaption987}>Figura 2 - Preço por unidade dos stickers com corte circular/customizado.</p>
-        </div>
-
-        <h2 className={styles.precosTitle958}>Stickers Premium de Vinyl</h2>
-
-        <div className={styles.priceImageContainer987}>
-          <img src="vinyl-square-rectangular.jpeg" alt="Stickers price per unit (rectangular vinyl)" className={styles.precoImage987} />
-          <p className={styles.imageCaption987}>Figura 3 - Preço por unidade dos stickers de vinyl quadrangulares e retangulares.</p>
-        </div>
+        </div>*/
+        }
+        <h2 className={styles.precosTitle958}>Stickers customizados</h2>
 
         <div className={styles.priceImageContainer987}>
-          <img src="vinyl-custom-circular.jpeg" alt="Stickers price per unit (circular/customizable vinyl)" className={styles.precoImage987} />
-          <p className={styles.imageCaption987}>Figura 4 - Preço por unidade dos stickers de vinyl com corte circular/customizado.</p>
+          <img src="vinyl-square-rectangular.jpeg" alt="Stickers price per unit (rectangular)" className={styles.precoImage987} />
+          <p className={styles.imageCaption987}>Figura 3 - Preço por unidade dos stickers quadrangulares e retangulares.</p>
         </div>
 
-        <h2 className={styles.precosTitle958}>Stickers para Superfícies de Vidro</h2>
+        <div className={styles.priceImageContainer987}>
+          <img src="vinyl-custom-circular.jpeg" alt="Stickers price per unit (circular/customizable)" className={styles.precoImage987} />
+          <p className={styles.imageCaption987}>Figura 4 - Preço por unidade dos stickers com corte circular/customizado.</p>
+        </div>
+
+        <h2 className={styles.precosTitle958}>Stickers para superfícies de vidro</h2>
 
         <div className={styles.priceImageContainer987}>
           <img src="glass-stickers.jpeg" alt="Stickers price per unit (glass)" className={styles.precoImage987} />
@@ -58,7 +58,7 @@ export default function Precos() {
 
         <div className={styles.deliveryInfo987}>
           <p>
-            Tenha em atenção que o prazo de entrega e de produção varia entre <strong>11 e 17 dias</strong>,
+            Tenha em atenção que o prazo de entrega e de produção varia entre <strong>10 e 16 dias</strong>,
             consoante a encomenda. Garantimos que a qualidade dos nossos produtos compensa qualquer tempo de espera adicional!
           </p>
         </div>
