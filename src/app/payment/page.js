@@ -112,9 +112,21 @@ export default function Payment() {
     setProducts(updatedProducts);  // Remove product from the list
   };
 
-  const handleSubmit = () => { // TODO: send via email to SURD
+  const handleSubmit = async () => {
     const finalPrice = products.reduce((acc, product) => acc + product.price, 0).toFixed(2);
-    alert(`Submitting products: ${JSON.stringify(products)} \nShipping to: ${location} \nTotal Price: ${finalPrice}€`);
+    alert();
+    const response = await fetch('/api/sendEmail', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        products,
+        finalPrice,
+        location
+      })
+    });
+  
+    const result = await response.json();
+    alert(`Submitting products: ${JSON.stringify(products)} \nShipping to: ${location} \nTotal Price: ${finalPrice}€ ${result.message}`);
   };
 
 
