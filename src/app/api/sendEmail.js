@@ -4,8 +4,10 @@ import sendgrid from "@sendgrid/mail";
 sendgrid.setApiKey(process.env.SENDGRID_API_KEY);
 
 export default async function handler(req, res) {
+  console.log("handling send email...")
   if (req.method === "POST") {
     const { products, totalPrice, location } = req.body;
+    console.log("post accepted")
 
     const emailContent = `
       <h1>Order Summary</h1>

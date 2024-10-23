@@ -113,8 +113,8 @@ export default function Payment() {
   };
 
   const handleSubmit = async () => {
+    console.log("submitting...")
     const finalPrice = products.reduce((acc, product) => acc + product.price, 0).toFixed(2);
-    alert();
     const response = await fetch('/api/sendEmail', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -124,6 +124,7 @@ export default function Payment() {
         location
       })
     });
+    console.log("process finished")
   
     const result = await response.json();
     alert(`Submitting products: ${JSON.stringify(products)} \nShipping to: ${location} \nTotal Price: ${finalPrice}€ ${result.message}`);
