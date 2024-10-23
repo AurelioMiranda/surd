@@ -53,6 +53,9 @@ export default function Payment() {
   const [location, setLocation] = useState("PORTUGAL");
   const [imageTreatment, setImageTreatment] = useState(false);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [showModal, setShowModal] = useState(false); 
+  const [userEmail, setUserEmail] = useState(""); 
+  const [instagram, setInstagram] = useState("");
   const [products, setProducts] = useState([]); // Stores the products added by the user
 
   const calculatePrice = () => {
@@ -112,8 +115,7 @@ export default function Payment() {
     setProducts(updatedProducts);  // Remove product from the list
   };
 
-  const handleSubmit = async () => {
-    console.log("Submitting...")
+  const handleFinalSubmit = async () => {
     const finalPrice = products.reduce((acc, product) => acc + product.price, 0).toFixed(2);
     const response = await fetch('/api/apiroute', {
       method: 'POST',
@@ -121,13 +123,26 @@ export default function Payment() {
       body: JSON.stringify({
         products,
         finalPrice,
-        location
+        location,
+        userEmail,
+        instagram 
       })
     });
-    console.log("Order submitted.")
-  
+
     const result = await response.json();
-    alert(`Submitting products: ${JSON.stringify(products)} \nShipping to: ${location} \nTotal Price: ${finalPrice}€ ${result.message}`);
+    alert(`{result.message}`);
+    
+    // Reset all states after submission
+    resetForm();
+    setProducts([]); 
+    setLocation("PORTUGAL"); 
+    setUserEmail(""); 
+    setInstagram(""); 
+    setShowModal(false); 
+  };
+
+  const handleSubmit = () => {
+    setShowModal(true);
   };
 
 
@@ -222,6 +237,50 @@ export default function Payment() {
         </div>
       )}
 
+      {/* Modal for capturing user email and Instagram */}
+      {showModal && (
+        <div className={styles.modalOverlay}>
+          <div className={styles.modalContent}>
+            <h2>Please Enter Your Details</h2>
+
+            <label className={styles.label_001}>
+              Email (Required):
+              <input
+                className={styles.input}
+                type="email"
+                value={userEmail}
+                onChange={(e) => setUserEmail(e.target.value)}
+                required
+              />
+            </label>
+
+            <label className={styles.label_001}>
+              Instagram Handle (Optional):
+              <input
+                className={styles.input}
+                type="text"
+                value={instagram}
+                onChange={(e) => setInstagram(e.target.value)}
+              />
+            </label>
+
+            {/* Any other info you need to collect */}
+            {/* Add more fields as necessary */}
+
+            <button
+              className={styles.btnSubmit}
+              onClick={handleFinalSubmit}
+              disabled={!userEmail}  // Disable if email is not provided
+            >
+              Submit Order
+            </button>
+
+            <button className={styles.btnClose} onClick={() => setShowModal(false)}>
+              Cancel
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
