@@ -4,7 +4,7 @@ import sendgrid from "@sendgrid/mail";
 
 // Firebase config
 const firebaseConfig = {
-  apiKey: process.env.FIREBASE_API_KEY, 
+  apiKey: process.env.FIREBASE_API_KEY,
   authDomain: "surd-4315d.firebaseapp.com",
   projectId: "surd-4315d",
   storageBucket: "surd-4315d.appspot.com",
@@ -21,17 +21,11 @@ sendgrid.setApiKey(process.env.SENDGRID_API_KEY);
 export async function POST(req) {
   const { products, finalPrice, location, userEmail, instagram } = await req.json();
 
-  try {
-    await addDoc(collection(db, 'orders'), {
-      products,
-      finalPrice,
-      location,
-      userEmail,
-      instagram,
-      timestamp: new Date()
-    });
-    console.log("Order and personal info saved in Firebase.");
+  if (isNaN(finalPrice)) {
+    return new Response(JSON.stringify({ message: "Error processing order: Unable to process the price. If the issue persists, DM us @surd.pt on instagram."}), { status: 500 });
+  }
 
+  try {
     const emailContent = `
       <h1>Order Summary</h1>
       <p><strong>Email:</strong> ${userEmail}</p>
@@ -54,10 +48,20 @@ export async function POST(req) {
     });
     console.log("Email sent successfully.");
 
+    await addDoc(collection(db, 'orders'), {
+      products,
+      finalPrice,
+      location,
+      userEmail,
+      instagram,
+      timestamp: new Date()
+    });
+    console.log("Order and personal info saved in Firebase.");
+
     // Return success response
     return new Response(JSON.stringify({ message: "Order saved and email sent successfully!" }), { status: 200 });
   } catch (error) {
     console.error("Error saving order or sending email: ", error);
-    return new Response(JSON.stringify({ message: "Error processing order." }), { status: 500 });
+    return new Response(JSON.stringify({ message: "Error saving order or sending email: " + error }), { status: 500 });
   }
 }

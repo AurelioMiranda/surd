@@ -33,6 +33,11 @@ const stickerPrices = {
     "90x90": [31.50, 27.00, 24.17, 20.50, 19.50, 14.00],
     "120x120": [41.50, 35.00, 30.17, 25.75, 21.50, 16.00],
   },
+  instaStickers: {
+    "15cm/20cm (Black/White Outside)": [7.00, 2.40, 1.50, 0.88, 0.66],
+    "15cm (Colour Outside/Inside)": [9.00, 3.78, 2.64],
+    "20cm (Colour Outside/Inside)": [10.50, 4.13, 2.99],
+  },
   temporary_tattoos: {
     "2,5X2,5": [6.40, 2.85, 1.65, 1.36, 1.04],
     "5X5": [7.40, 3.77, 2.48, 2.12, 1.73],
@@ -42,6 +47,46 @@ const stickerPrices = {
     "10X10": [9.95, 6.08, 4.60, 4.06, 3.48],
   }
 };
+
+const stickerQuantities = {
+  circular: {
+    "3X3 (vinyl)": [5, 10, 20, 30, 40, 50],
+    "5X5 (vinyl)": [5, 10, 20, 30, 40, 50],
+    "7X7 (paper, customized)": [5, 10, 20, 30, 40, 50],
+    "7X7 (vinyl, circular)": [5, 10, 20, 30, 40, 50],
+    "10X10 (paper, customized)": [5, 10, 20, 30, 40, 50],
+    "10X10 (vinyl, circular)": [5, 10, 20, 30, 40, 50],
+  },
+  square: {
+    "3X3 (vinyl)": [5, 10, 20, 30, 40, 50],
+    "5X5 (vinyl)": [5, 10, 20, 30, 40, 50],
+    "7X7 (vinyl)": [5, 10, 20, 30, 40, 50],
+    "10X10 (vinyl)": [5, 10, 20, 30, 40, 50],
+    "8,5X5,5 (vinyl)": [5, 10, 20, 30, 40, 50],
+    "11X9 (vinyl)": [5, 10, 20, 30, 40, 50],
+  },
+  glass: {
+    "20x20": [1, 2, 3, 4, 5, 10],
+    "40x40": [1, 2, 3, 4, 5, 10],
+    "60x60": [1, 2, 3, 4, 5, 10],
+    "90x90": [1, 2, 3, 4, 5, 10],
+    "120x120": [1, 2, 3, 4, 5, 10],
+  },
+  instaStickers: {
+    "15cm/20cm (Black/White Outside)": [1, 5, 10, 25, 50],
+    "15cm (Colour Outside/Inside)": [1, 5, 10],
+    "20cm (Colour Outside/Inside)": [1, 5, 10],
+  },
+  temporary_tattoos: {
+    "2,5X2,5": [1, 5, 15, 25, 50],
+    "5X5": [1, 5, 15, 25, 50],
+    "7,5X7,5": [1, 5, 15, 25, 50],
+    "10X5": [1, 5, 15, 25, 50],
+    "13X6,5": [1, 5, 15, 25, 50],
+    "10X10": [1, 5, 15, 25, 50],
+  }
+};
+
 
 const imageTreatmentPrices = [1.50, 3.00, 4.00, 5.00, 5.50, 6.00];
 
@@ -57,28 +102,25 @@ export default function Payment() {
   const [userEmail, setUserEmail] = useState(""); 
   const [instagram, setInstagram] = useState("");
   const [products, setProducts] = useState([]); // Stores the products added by the user
+  const [showImage, setShowImage] = useState(false);
+
+  const handleIconClick = () => {
+    setShowImage(true);
+  };
+
+  const handleCloseClick = () => {
+    setShowImage(false);
+  };
 
   const calculatePrice = () => {
-    let index;
-    if (quantity >= 5 && quantity < 10) {
-      index = 0;
-    } else if (quantity >= 10 && quantity < 50) {
-      index = 1;
-    } else if (quantity >= 50 && quantity < 100) {
-      index = 2;
-    } else if (quantity >= 100 && quantity < 200) {
-      index = 3;
-    } else if (quantity >= 200 && quantity < 500) {
-      index = 4;
-    } else if (quantity >= 500) {
-      index = 5;
-    }
-
+    const index = stickerQuantities[stickerType][size].indexOf(quantity);
+    if (index === -1) return 0; // Handle case where quantity is invalid
     const basePrice = stickerPrices[stickerType][size][index];
     const shippingCost = shippingCosts[location];
     const treatmentCost = imageTreatment ? imageTreatmentPrices[index] : 0;
     return basePrice * quantity + shippingCost + treatmentCost;
   };
+
 
   const handleNext = () => {
     setStep((prevStep) => prevStep + 1); // Move to the next step
@@ -125,20 +167,20 @@ export default function Payment() {
         finalPrice,
         location,
         userEmail,
-        instagram 
+        instagram
       })
     });
 
     const result = await response.json();
-    alert(`{result.message}`);
-    
+    alert(result.message);
+
     // Reset all states after submission
     resetForm();
-    setProducts([]); 
-    setLocation("PORTUGAL"); 
-    setUserEmail(""); 
-    setInstagram(""); 
-    setShowModal(false); 
+    setProducts([]);
+    setLocation("PORTUGAL");
+    setUserEmail("");
+    setInstagram("");
+    setShowModal(false);
   };
 
   const handleSubmit = () => {
@@ -150,16 +192,30 @@ export default function Payment() {
     <div className={styles.containerPayment123}>
       <h1 className={styles.titleXYZ}>Sticker Order Form</h1>
 
+      <div className={styles.progressBarContainer}>
+        <div className={`${styles.stepItem} ${step >= 0 ? styles.activeStep : ""}`}>
+          <span className={styles.stepNumber}>1</span> Type
+        </div>
+        <div className={`${styles.stepItem} ${step >= 1 ? styles.activeStep : ""}`}>
+          <span className={styles.stepNumber}>2</span> Size
+        </div>
+        <div className={`${styles.stepItem} ${step >= 2 ? styles.activeStep : ""}`}>
+          <span className={styles.stepNumber}>3</span> Quantity
+        </div>
+      </div>
+
       {step === 0 && (
         <div className={styles.sectionABCD}>
           {/* Sticker Type Selection */}
           <label className={styles.label_001}>
-            Sticker Type:
+            Sticker Type
             <select className={styles.select} value={stickerType} onChange={(e) => setStickerType(e.target.value)}>
-              <option value="">Select a type</option>
+              <option value="">Selecione um tipo</option>
               <option value="circular">Circular</option>
-              <option value="square">Square</option>
-              {/* More options */}
+              <option value="square">Quadrado</option>
+              <option value="glass">Para vidro</option>
+              <option value="instaStickers">@ do Instagram</option>
+              <option value="temporary_tattoos">Tatuagem temporária</option>
             </select>
           </label>
           <div>
@@ -172,39 +228,65 @@ export default function Payment() {
         <div className={styles.sectionABCD}>
           {/* Size Selection */}
           <label className={styles.label_001}>
-            Size:
+            Size <span class="material-symbols-outlined" onClick={handleIconClick}>info</span>
             <select className={styles.select} value={size} onChange={(e) => setSize(e.target.value)}>
-              <option value="">Select a size</option>
+              <option value="">Selecione um tamanho</option>
               {stickerType && Object.keys(stickerPrices[stickerType]).map((sizeOption) => (
                 <option key={sizeOption} value={sizeOption}>{sizeOption}</option>
               ))}
             </select>
           </label>
-          <div>
+          <div className={styles.navButtons182}>
             <button className={styles.btnSubmit} onClick={handlePrevious}>Back</button>
-            <button style={{ marginLeft: '20px' }} className={styles.btnSubmit} onClick={handleNext} disabled={!size}>Next</button>
+            <button style={{ marginLeft: '10px' }} className={styles.btnSubmit} onClick={handleNext} disabled={!size}>Next</button>
+          </div>
+        </div>
+      )}
+
+      {showImage && (
+        <div className={styles.overlay5168}>
+          <div className={styles.imageContainer17552}>
+            <span className={styles.closeButton884656} onClick={handleCloseClick}>X</span>
+            <img src="Tamanho-a-encomendar.png" alt="Size to order info" className={styles.image1456} />
           </div>
         </div>
       )}
 
       {step === 2 && (
-        <div className={styles.sectionABCD}>
+        <div className={styles.quantityAndTreatment}>
           {/* Quantity and Image Treatment */}
-          <label className={styles.label_001}>
-            Quantity:
-            <input className={styles.input} type="number" value={quantity} onChange={(e) => setQuantity(parseInt(e.target.value, 10) || 0)} />
-          </label>
-          <label className={styles.label_001}>
-            Image Treatment:
-            <input type="checkbox" checked={imageTreatment} onChange={(e) => setImageTreatment(e.target.checked)} />
-          </label>
-          <button className={styles.btnSubmit} onClick={handlePrevious}>Back</button>
-          <button style={{ marginLeft: '20px' }} className={styles.btnSubmit} onClick={handleAddProduct}>Add Product</button>
+          <div>
+            <label className={styles.label_001}>
+              Quantidade <span class="material-symbols-outlined" title="Se precisar de uma quantidade não listada, envie-nos mensagem diretamente no instagram!">info</span>
+              <select className={styles.select} value={quantity} onChange={(e) => setQuantity(parseInt(e.target.value, 10))}>
+                <option value="">Selecione a quantidade</option>
+                {stickerQuantities && size && stickerQuantities[stickerType][size]?.map((qty) => (
+                  <option key={qty} value={qty}>{qty}</option>
+                ))}
+              </select>
+            </label>
+            <div style={{ marginTop: '5px', width: 'fit-content', display: 'flex', alignItems: 'center' }}>
+              <label className={styles.label_001} htmlFor="imageTreatmentCheckbox">
+                Tratamento de imagem:
+              </label>
+              <input
+                type="checkbox"
+                id="imageTreatmentCheckbox"
+                checked={imageTreatment}
+                onChange={(e) => setImageTreatment(e.target.checked)}
+                style={{ marginLeft: '4px', width: '15px', height: '15px' }}
+              />
+            </div>
+          </div>
+          <div className={styles.btnAddProductContainer}>
+            <button className={styles.btnSubmit} onClick={handlePrevious}>Back</button>
+            <button style={{ marginLeft: '20px' }} className={styles.btnSubmit} onClick={handleAddProduct}>Adicionar produto</button>
+          </div>
         </div>
       )}
 
       <div className={styles.productsList_2024}>
-        <h2 className={styles.productsTitle_abc}>Products Added</h2>
+        <h2 className={styles.productsTitle_abc}>Produtos adicionados</h2>
         {products.map((product, index) => (
           <div key={index} className={styles.itemProduct_1}>
             <span>{`${product.quantity}x ${product.stickerType} (${product.size}) - Price: ${product.price.toFixed(2)}`}</span>
@@ -214,12 +296,12 @@ export default function Payment() {
       </div>
 
       <div className={styles.totalContainer}>
-        <h2 className={styles.totalPrice_99}>Total Price: {products.reduce((acc, product) => acc + product.price, 0).toFixed(2)}€</h2>
+        <h2 className={styles.totalPrice_99}>Preço total: {products.reduce((acc, product) => acc + product.price, 0).toFixed(2)}€</h2>
       </div>
 
       {/* Shipping Location */}
       <div className={styles.shippingContainer}>
-        <h2 className={styles.shippingTitle}>Shipping Details</h2>
+        <h2 className={styles.shippingTitle}>Detalhes de envio</h2>
         <label className={styles.label_001}>
           Shipping Location:
           <select className={styles.select} value={location} onChange={(e) => setLocation(e.target.value)}>
@@ -233,7 +315,7 @@ export default function Payment() {
       {/* Submit the order */}
       {products.length > 0 && (
         <div className={styles.btnSubmitContainer5845}>
-          <button className={styles.btnSubmit} onClick={handleSubmit}>Submit Order</button>
+          <button className={styles.btnSubmit} onClick={handleSubmit}>Submeter pedido</button>
         </div>
       )}
 
@@ -241,43 +323,48 @@ export default function Payment() {
       {showModal && (
         <div className={styles.modalOverlay}>
           <div className={styles.modalContent}>
-            <h2>Please Enter Your Details</h2>
+            <h2 style={{ fontSize: '1.2rem', color: '#333'}}>Por favor insira o email que deseja associar à compra</h2>
+            {/*<p>Estes dados são necessários para que possamos processar a sua encomenda da forma mais segura e cómoda
+              possível e para que receba todos os detalhes via email.</p>
+            <p>Caso deseje fazer o pedido diretamente connosco envie mensagem para o nosso
+              instagram <a href="https://www.instagram.com/surd.pt/" target="_blank" rel="noopener noreferrer">@surd.pt</a></p>*/}
 
-            <label className={styles.label_001}>
-              Email (Required):
+            <label className={styles.label_001} style={{ marginBottom: '5px' }}>
+              Email (Obrigatório):
               <input
                 className={styles.input}
                 type="email"
                 value={userEmail}
                 onChange={(e) => setUserEmail(e.target.value)}
+                style={{ border: '1px solid black', borderRadius: '2px' }}
                 required
               />
             </label>
 
-            <label className={styles.label_001}>
-              Instagram Handle (Optional):
+            <label className={styles.label_001} style={{ marginBottom: '15px' }}>
+              @ do Instagram (Opcional):
               <input
                 className={styles.input}
                 type="text"
                 value={instagram}
                 onChange={(e) => setInstagram(e.target.value)}
+                style={{ border: '1px solid black', borderRadius: '2px' }}
               />
             </label>
 
-            {/* Any other info you need to collect */}
-            {/* Add more fields as necessary */}
+            <div styles={styles.submitBtnContainer47862}>
+              <button
+                className={styles.btnSubmit}
+                onClick={handleFinalSubmit}
+                disabled={!userEmail}
+              >
+                Submeter pedido
+              </button>
 
-            <button
-              className={styles.btnSubmit}
-              onClick={handleFinalSubmit}
-              disabled={!userEmail}  // Disable if email is not provided
-            >
-              Submit Order
-            </button>
-
-            <button className={styles.btnClose} onClick={() => setShowModal(false)}>
-              Cancel
-            </button>
+              <button className={styles.btnClose} onClick={() => setShowModal(false)}>
+                Cancelar
+              </button>
+            </div>
           </div>
         </div>
       )}
