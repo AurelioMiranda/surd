@@ -97,9 +97,10 @@ export default function Payment() {
   const [quantity, setQuantity] = useState(5);
   const [location, setLocation] = useState("PORTUGAL");
   const [imageTreatment, setImageTreatment] = useState(false);
+  const [imageTreatmentText, setImageTreatmentText] = useState("");
   const [totalPrice, setTotalPrice] = useState(0);
-  const [showModal, setShowModal] = useState(false); 
-  const [userEmail, setUserEmail] = useState(""); 
+  const [showModal, setShowModal] = useState(false);
+  const [userEmail, setUserEmail] = useState("");
   const [instagram, setInstagram] = useState("");
   const [products, setProducts] = useState([]); // Stores the products added by the user
   const [showImage, setShowImage] = useState(false);
@@ -137,6 +138,7 @@ export default function Payment() {
       size,
       quantity,
       imageTreatment,
+      imageTreatmentText,
       price
     };
 
@@ -194,13 +196,13 @@ export default function Payment() {
 
       <div className={styles.progressBarContainer}>
         <div className={`${styles.stepItem} ${step >= 0 ? styles.activeStep : ""}`}>
-          <span className={styles.stepNumber}>1</span> Type
+          <span className={styles.stepNumber}>1</span> Tipo
         </div>
         <div className={`${styles.stepItem} ${step >= 1 ? styles.activeStep : ""}`}>
-          <span className={styles.stepNumber}>2</span> Size
+          <span className={styles.stepNumber}>2</span> Tamanho
         </div>
         <div className={`${styles.stepItem} ${step >= 2 ? styles.activeStep : ""}`}>
-          <span className={styles.stepNumber}>3</span> Quantity
+          <span className={styles.stepNumber}>3</span> Quantidade
         </div>
       </div>
 
@@ -208,7 +210,7 @@ export default function Payment() {
         <div className={styles.sectionABCD}>
           {/* Sticker Type Selection */}
           <label className={styles.label_001}>
-            Sticker Type
+            Tipo de Sticker
             <select className={styles.select} value={stickerType} onChange={(e) => setStickerType(e.target.value)}>
               <option value="">Selecione um tipo</option>
               <option value="circular">Circular</option>
@@ -228,7 +230,7 @@ export default function Payment() {
         <div className={styles.sectionABCD}>
           {/* Size Selection */}
           <label className={styles.label_001}>
-            Size <span class="material-symbols-outlined" onClick={handleIconClick}>info</span>
+            Tamanho <span class="material-symbols-outlined" onClick={handleIconClick}>info</span>
             <select className={styles.select} value={size} onChange={(e) => setSize(e.target.value)}>
               <option value="">Selecione um tamanho</option>
               {stickerType && Object.keys(stickerPrices[stickerType]).map((sizeOption) => (
@@ -277,6 +279,20 @@ export default function Payment() {
                 style={{ marginLeft: '4px', width: '15px', height: '15px' }}
               />
             </div>
+
+            {imageTreatment && (
+              <div style={{ marginTop: '5px', width: 'fit-content', display: 'flex', alignItems: 'center' }}>
+                <label className={styles.label_001} htmlFor="imageTreatmentText">
+                  Descrição do tratamento:
+                </label>
+                <textarea
+                  value={imageTreatmentText}
+                  onChange={(e) => setImageTreatmentText(e.target.value)}
+                  placeholder="Descreva o tratamento que deseja"
+                  style={{ width: '100%', height: '100%', resize: 'vertical', marginTop: '5px', padding: '8px' }}
+                />
+              </div>
+            )}
           </div>
           <div className={styles.btnAddProductContainer}>
             <button className={styles.btnSubmit} onClick={handlePrevious}>Back</button>
@@ -303,7 +319,7 @@ export default function Payment() {
       <div className={styles.shippingContainer}>
         <h2 className={styles.shippingTitle}>Detalhes de envio</h2>
         <label className={styles.label_001}>
-          Shipping Location:
+          Local de envio
           <select className={styles.select} value={location} onChange={(e) => setLocation(e.target.value)}>
             {Object.keys(shippingCosts).map((loc) => (
               <option key={loc} value={loc}>{loc}</option>
@@ -323,7 +339,7 @@ export default function Payment() {
       {showModal && (
         <div className={styles.modalOverlay}>
           <div className={styles.modalContent}>
-            <h2 style={{ fontSize: '1.2rem', color: '#333'}}>Por favor insira o email que deseja associar à compra</h2>
+            <h2 style={{ fontSize: '1.2rem', color: '#333' }}>Por favor insira o email que deseja associar à compra</h2>
             {/*<p>Estes dados são necessários para que possamos processar a sua encomenda da forma mais segura e cómoda
               possível e para que receba todos os detalhes via email.</p>
             <p>Caso deseje fazer o pedido diretamente connosco envie mensagem para o nosso

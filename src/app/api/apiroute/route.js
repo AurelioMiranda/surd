@@ -22,7 +22,7 @@ export async function POST(req) {
   const { products, finalPrice, location, userEmail, instagram } = await req.json();
 
   if (isNaN(finalPrice)) {
-    return new Response(JSON.stringify({ message: "Error processing order: Unable to process the price. If the issue persists, DM us @surd.pt on instagram."}), { status: 500 });
+    return new Response(JSON.stringify({ message: "Error processing order: Unable to process the price. If the issue persists, DM us @surd.pt on instagram." }), { status: 500 });
   }
 
   try {
@@ -34,11 +34,15 @@ export async function POST(req) {
       <p><strong>Total Price:</strong> ${finalPrice}€</p>
       <ul>
         ${products.map(product => `
-          <li>${product.quantity}x ${product.stickerType} (${product.size}) - ${product.price}€</li>
+          <li>
+            ${product.quantity}x ${product.stickerType} (${product.size}) - ${product.price}€
+            ${product.imageTreatment ? `<br><em>Image Treatment: ${product.imageTreatmentText}</em>` : ""}
+          </li>
         `).join('')}
       </ul>
       <p>Thank you for your order!</p>
     `;
+
 
     await sendgrid.send({
       to: [userEmail, 'surd.emailsender@gmail.com'], //, 'stickyourdesign4customer@gmail.com' TODO: when payment ready
