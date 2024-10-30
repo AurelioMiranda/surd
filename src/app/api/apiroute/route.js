@@ -20,6 +20,11 @@ sendgrid.setApiKey(process.env.SENDGRID_API_KEY);
 
 export async function POST(req) {
   const { products, finalPrice, location, userEmail, instagram } = await req.json();
+  console.log(products)
+  console.log(finalPrice)
+  console.log(location)
+  console.log(userEmail)
+  console.log(instagram)
 
   if (isNaN(finalPrice)) {
     return new Response(JSON.stringify({ message: "Error processing order: Unable to process the price. If the issue persists, DM us @surd.pt on instagram." }), { status: 500 });

@@ -100,8 +100,13 @@ export default function Payment() {
   const [imageTreatmentText, setImageTreatmentText] = useState("");
   const [totalPrice, setTotalPrice] = useState(0);
   const [showModal, setShowModal] = useState(false);
-  const [userEmail, setUserEmail] = useState("");
+  const [userEmail, setUserEmail] = useState(""); // User details
   const [instagram, setInstagram] = useState("");
+  const [deliveryAddress, setDeliveryAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [postalCode, setPostalCode] = useState("");
+  const [country, setCountry] = useState("");
+  const [deliveryNotes, setDeliveryNotes] = useState("");
   const [products, setProducts] = useState([]); // Stores the products added by the user
   const [showImage, setShowImage] = useState(false);
 
@@ -122,6 +127,11 @@ export default function Payment() {
     return basePrice * quantity + shippingCost + treatmentCost;
   };
 
+  const handleSetStep = (setTo) => {
+    if (setTo !== step) {
+      setStep((prevStep) => setTo);
+    }
+  };
 
   const handleNext = () => {
     setStep((prevStep) => prevStep + 1); // Move to the next step
@@ -196,13 +206,13 @@ export default function Payment() {
 
       <div className={styles.progressBarContainer}>
         <div className={`${styles.stepItem} ${step >= 0 ? styles.activeStep : ""}`}>
-          <span className={styles.stepNumber}>1</span> Tipo
+          <span className={styles.stepNumber}>1</span> Produtos
         </div>
-        <div className={`${styles.stepItem} ${step >= 1 ? styles.activeStep : ""}`}>
-          <span className={styles.stepNumber}>2</span> Tamanho
+        <div className={`${styles.stepItem} ${step >= 3 ? styles.activeStep : ""}`}>
+          <span className={styles.stepNumber}>2</span> Endereço
         </div>
-        <div className={`${styles.stepItem} ${step >= 2 ? styles.activeStep : ""}`}>
-          <span className={styles.stepNumber}>3</span> Quantidade
+        <div className={`${styles.stepItem} ${step >= 4 ? styles.activeStep : ""}`}>
+          <span className={styles.stepNumber}>3</span> Checkout
         </div>
       </div>
 
@@ -301,38 +311,141 @@ export default function Payment() {
         </div>
       )}
 
-      <div className={styles.productsList_2024}>
-        <h2 className={styles.productsTitle_abc}>Produtos adicionados</h2>
-        {products.map((product, index) => (
-          <div key={index} className={styles.itemProduct_1}>
-            <span>{`${product.quantity}x ${product.stickerType} (${product.size}) - Price: ${product.price.toFixed(2)}`}</span>
-            <button className={styles.btnRemove_2023} onClick={() => handleRemoveProduct(index)}>Remove</button>
+      {step <= 2 && (
+        <div>
+          <div className={styles.productsList_2024}>
+            <h2 className={styles.productsTitle_abc}>Produtos adicionados</h2>
+            {products.map((product, index) => (
+              <div key={index} className={styles.itemProduct_1}>
+                <span>{`${product.quantity}x ${product.stickerType} (${product.size}) - Price: ${product.price.toFixed(2)}`}</span>
+                <button className={styles.btnRemove_2023} onClick={() => handleRemoveProduct(index)}>Remove</button>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
 
-      <div className={styles.totalContainer}>
-        <h2 className={styles.totalPrice_99}>Preço total: {products.reduce((acc, product) => acc + product.price, 0).toFixed(2)}€</h2>
-      </div>
+          <div className={styles.totalContainer}>
+            <h2 className={styles.totalPrice_99}>Preço total: {products.reduce((acc, product) => acc + product.price, 0).toFixed(2)}€</h2>
+          </div>
+        </div>
+      )}
+
+      {(products.length > 0 && step <= 2) && (
+        <div className={styles.btnAddProductContainer}>
+          {step > 2 && (
+            <button className={styles.btnSubmit} onClick={handlePrevious}>Back</button>
+          )}
+          <button style={{ marginLeft: '20px' }} className={styles.btnSubmit} onClick={() => handleSetStep(3)}>Continuar</button>
+        </div>
+      )}
 
       {/* Shipping Location */}
-      <div className={styles.shippingContainer}>
-        <h2 className={styles.shippingTitle}>Detalhes de envio</h2>
-        <label className={styles.label_001}>
-          Local de envio
-          <select className={styles.select} value={location} onChange={(e) => setLocation(e.target.value)}>
-            {Object.keys(shippingCosts).map((loc) => (
-              <option key={loc} value={loc}>{loc}</option>
-            ))}
-          </select>
-        </label>
-      </div>
+      {step === 3 && (
+        <div className={styles.shippingContainer}>
+          <h2 className={styles.shippingTitle}>Detalhes de envio</h2>
+          <label className={styles.label_001}>
+            Local de envio
+            <select className={styles.select} value={location} onChange={(e) => setLocation(e.target.value)}>
+              {Object.keys(shippingCosts).map((loc) => (
+                <option key={loc} value={loc}>{loc}</option>
+              ))}
+            </select>
+          </label>
 
-      {/* Submit the order */}
-      {products.length > 0 && (
-        <div className={styles.btnSubmitContainer5845}>
-          <button className={styles.btnSubmit} onClick={handleSubmit}>Submeter pedido</button>
+          {products.length > 0 && (
+            <div className={styles.btnAddProductContainer}>
+              <button className={styles.btnSubmit} onClick={() => handleSetStep(0)}>Back</button>
+              <button style={{ marginLeft: '10px' }} className={styles.btnSubmit} onClick={handleNext}>Continuar</button>
+            </div>
+          )}
         </div>
+      )}
+
+      {/* Shipping Location */}
+      {step === 4 && (
+        <form className={styles.containerPayment123} onSubmit={handleFinalSubmit}>
+          <h2 className={styles.titleXYZ}>Delivery Information</h2>
+
+          <div className={styles.sectionABCD}>
+            <label className={styles.label_001}>Email:</label>
+            <input
+              type="email"
+              value={userEmail}
+              onChange={(e) => setUserEmail(e.target.value)}
+              required
+              className={styles.modalInput}
+            />
+          </div>
+
+          <div className={styles.sectionABCD}>
+            <label className={styles.label_001}>Instagram (optional):</label>
+            <input
+              type="text"
+              value={instagram}
+              onChange={(e) => setInstagram(e.target.value)}
+              className={styles.modalInput}
+            />
+          </div>
+
+          <div className={styles.sectionABCD}>
+            <label className={styles.label_001}>Delivery Address:</label>
+            <input
+              type="text"
+              value={deliveryAddress}
+              onChange={(e) => setDeliveryAddress(e.target.value)}
+              required
+              className={styles.modalInput}
+            />
+          </div>
+
+          <div className={styles.sectionABCD}>
+            <label className={styles.label_001}>City:</label>
+            <input
+              type="text"
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+              required
+              className={styles.modalInput}
+            />
+          </div>
+
+          <div className={styles.sectionABCD}>
+            <label className={styles.label_001}>Postal Code:</label>
+            <input
+              type="text"
+              value={postalCode}
+              onChange={(e) => setPostalCode(e.target.value)}
+              required
+              className={styles.modalInput}
+            />
+          </div>
+
+          <div className={styles.sectionABCD}>
+            <label className={styles.label_001}>Country:</label>
+            <input
+              type="text"
+              value={country}
+              onChange={(e) => setCountry(e.target.value)}
+              required
+              className={styles.modalInput}
+            />
+          </div>
+
+          <div className={styles.sectionABCD}>
+            <label className={styles.label_001}>Delivery Notes (optional):</label>
+            <textarea
+              value={deliveryNotes}
+              onChange={(e) => setDeliveryNotes(e.target.value)}
+              className={styles.modalInput}
+            />
+          </div>
+
+          <div className={styles.btnAddProductContainer}>
+            <button className={styles.btnSubmit} onClick={handlePrevious}>Back</button>
+            <button type="submit" className={styles.btnSubmit} disabled={!userEmail}>
+              Submit
+            </button>
+          </div>
+        </form>
       )}
 
       {/* Modal for capturing user email and Instagram */}
