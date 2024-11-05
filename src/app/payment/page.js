@@ -3,10 +3,10 @@ import { useState } from "react";
 import styles from './Payment.module.css';
 
 const shippingCosts = {
-  "PORTUGAL": 1.63,
-  "EUROPE (EXCEPT PT)": 2.60,
-  "USA": 3.63,
-  "REST OF THE WORLD": 3.40
+  "PORTUGAL": 0.90,
+  "EUROPE (EXCEPT PT)": 1.45,
+  "USA": 3.63, //remove?
+  "REST OF THE WORLD": 1.55
 };
 
 const stickerPrices = {
@@ -116,14 +116,8 @@ export default function Payment() {
 
   const [discountCode, setDiscountCode] = useState(""); // Discount section
   const [discountApplied, setDiscountApplied] = useState(false);
-  const [discountOfferValue, setDiscountOfferValue] = useState(1); // 20 for the price of 10, etc...
-  const [discountOfferMin, setDiscountOfferMin] = useState(100); // only applies discount of greater than this number
-  const [discountOfferInstaValue, setDiscountOfferInstaValue] = useState(1); // 20 for the price of 10 but instaStickers only
-  const [discountOfferInstaMin, setDiscountOfferInstaMin] = useState(1); // only applies discount of greater than this number
-  const [discountPercentage, setDiscountPercentage] = useState(0);
-  const [discountOfferPercValue, setDiscountOfferPercValue] = useState(1); // takes a % off of the price (above 10 units)
-  const [discountShipping, setdiscountShipping] = useState(1); // takes a % off of the shipping price (above 2 products)
-  const [discountTreatment, setdiscountTreatment] = useState(1); // takes a % off of the image treatment price
+  const [treatmentDiscountApplied, setTreatmentDiscount] = useState(false);
+  const [quantityDiscountApplied, setQuantityDiscount] = useState(false);
 
   const handleIconClick = () => {
     setShowImage(true);
@@ -146,7 +140,20 @@ export default function Payment() {
     return price.toFixed(2);
   };
 
+  const calculateTempTotalPrice = () => {
+    let price = tempProducts.reduce((acc, product) => acc + product.price, 0);
+    price += shippingCosts[location];
+    return price.toFixed(2);
+  };
+
+  const calculateTempTotalPriceNoShipping = () => {
+    let price = tempProducts.reduce((acc, product) => acc + product.price, 0);
+    return price.toFixed(2);
+  };
+
   const handleApplyDiscount = async (discountCodeTemp) => {
+    let usedDiscount = false
+
     const response = await fetch('/api/apifire', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -162,31 +169,73 @@ export default function Payment() {
     }
     var activeDiscount = ""
     var isShippingDiscount = ""
+    var isTreatmentDiscount = ""
     var discountPercentage = ""
+    var minAmountQuantity = ""
+    var isMoreStickers = ""
+    var isVinylSticker = ""
+    var moreStickerAmount = ""
 
     const data = await response.json();
     console.log("Response data:", data);
     data.discounts.forEach((discount) => {
       activeDiscount = discount.active;
       isShippingDiscount = discount.isShipping;
+      isTreatmentDiscount = discount.isTreatment;
       discountPercentage = discount.percentage;
+      minAmountQuantity = discount.minAmount;
+      isMoreStickers = discount.moreStickers;
+      isVinylSticker = discount.isVinyl;
+      moreStickerAmount = discount.moreAmount;
+
       console.log("Discount Code:", discount.code);
       console.log("Active:", discount.active);
-      console.log("Discount ID:", discount.id);
-      console.log("Is Common:", discount.isCommon);
-      console.log("Is Shipping Discount:", discount.isShipping);
-      console.log("Is Treatment Discount:", discount.isTreatment);
-      console.log("Is Vinyl Discount:", discount.isVinyl);
+      console.log("Is Common:", discount.isCommon); // ?
       console.log("Minimum Amount Required:", discount.minAmount);
-      console.log("Additional Amount Required:", discount.moreAmount);
       console.log("Requires More Stickers:", discount.moreStickers);
       console.log("Discount Percentage:", discount.percentage);
     });
 
-    if (activeDiscount && isShippingDiscount) { // Shipping
+    if (activeDiscount && isShippingDiscount && tempProducts.length > 1) { // Shipping
       let shipping = shippingCosts[location] - shippingCosts[location] * (discountPercentage / 100)
-      let tempPrice = parseFloat(calculateTotalPrice()) + shipping;
+      let tempPrice = parseFloat(calculateTempTotalPriceNoShipping()) + shipping;
       setTotalPrice(tempPrice);
+      usedDiscount = true;
+      alert(`Desconto aplicado a portes: -${discountPercentage}%`);
+    }
+
+    if (activeDiscount && isTreatmentDiscount && !treatmentDiscountApplied) { // Treatment
+      let hasTreatment = false
+      tempProducts.forEach((product) => {
+        if (product.quantity > minAmountQuantity && product.imageTreatment) {
+          let index = getTreatmentIndex(minAmountQuantity)
+          product.price -= imageTreatmentPrices[index] * (discountPercentage / 100);
+          hasTreatment = true;
+          let tempPrice = parseFloat(calculateTempTotalPrice());
+          setTotalPrice(tempPrice);
+        }
+      });
+      if (hasTreatment) {
+        usedDiscount = true;
+        setTreatmentDiscount(true);
+        alert(`Desconto aplicado a tratamento: -${discountPercentage}%`);
+      }
+    }
+
+    if (activeDiscount && isMoreStickers && !quantityDiscountApplied) { // More stickers
+      let hasMoreStickers = false
+      tempProducts.forEach((product) => {
+        if (product.quantity > minAmountQuantity &&
+          (product.stickerType == "square" || product.stickerType == "circular")) { //TODO: add to everyone or just once?
+          product.quantity += moreStickerAmount;
+          hasMoreStickers = true;
+        }
+      });
+      if (hasMoreStickers) {
+        usedDiscount = true;
+        setQuantityDiscount(true);
+        alert(`Desconto aplicado a tratamento: -${discountPercentage}%`);
+      }
     }
 
     // TODO: the rest...........
@@ -196,15 +245,33 @@ export default function Payment() {
 
       //setDiscountPercentage(codeValue);
       //setDiscountApplied(true);
-      alert(`Discount applied: ${discountPercentage}%`);
+      if (!usedDiscount) {
+        alert(`Desconto não aplicável a produtos atuais.`);
+      }
     } else {
       alert("Invalid discount code.");
     }
   };
 
+  const getTreatmentIndex = (min) => {
+    let idx = 0;
+    if (min <= 10) {
+      idx = 1;
+    } else if (min <= 20) {
+      idx = 2
+    } else if (min <= 30) {
+      idx = 3
+    } else if (min <= 40) {
+      idx = 4
+    } else if (min <= 50) {
+      idx = 5
+    }
+    return idx
+  }
+
   const handleDiscountMode = () => {
     handleSetStep(3);
-    setTempProducts(products);
+    setTempProducts(JSON.parse(JSON.stringify(products)));
 
     updateTotalPriceWLocation();
   }
@@ -477,7 +544,7 @@ export default function Payment() {
           </div>
 
           <div className={styles.totalContainer}>
-            <h2 className={styles.totalPrice_99}>Preço total: {totalPrice}€</h2>
+            <h2 className={styles.totalPrice_99}>Preço total: {totalPrice.toFixed(2)}€</h2>
           </div>
         </div>
       )}
@@ -616,7 +683,18 @@ export default function Payment() {
             ))}
           </ul>
 
+          <p
+            className={`${styles.totalPrice_99} ${totalPrice !== products.reduce((acc, product) => acc + product.price, 0) + shippingCosts[location] ? styles.strikethrough : ""}`}
+            style={{
+              color: totalPrice !== products.reduce((acc, product) => acc + product.price, 0) + shippingCosts[location] ? 'red' : 'inherit',
+              fontSize: totalPrice !== products.reduce((acc, product) => acc + product.price, 0) + shippingCosts[location] ? '0.9em' : 'inherit',
+              display: totalPrice < products.reduce((acc, product) => acc + product.price, 0) + shippingCosts[location] ? 'block' : 'none',
+            }}
+          >
+            Preço total: {(products.reduce((acc, product) => acc + product.price, 0) + shippingCosts[location]).toFixed(2)}€
+          </p>
           <p className={styles.totalPrice_99}>Total: ${totalPrice}</p>
+
 
           {/* Buttons Section */}
           <div className={styles.btnAddProductContainer}>

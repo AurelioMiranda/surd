@@ -388,3 +388,9 @@
     color: #333;
     margin-bottom: 10px;
 }
+
+.strikethrough {
+    text-decoration: line-through;
+    color: red;
+    font-size: 0.9em;
+}
