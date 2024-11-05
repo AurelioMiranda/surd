@@ -91,6 +91,7 @@ const stickerQuantities = {
 const imageTreatmentPrices = [1.50, 3.00, 4.00, 5.00, 5.50, 6.00];
 
 export default function Payment() {
+
   const [step, setStep] = useState(0);  // Controls the current step in the form
   const [stickerType, setStickerType] = useState("");
   const [size, setSize] = useState("");
@@ -98,8 +99,8 @@ export default function Payment() {
   const [location, setLocation] = useState("PORTUGAL");
   const [imageTreatment, setImageTreatment] = useState(false);
   const [imageTreatmentText, setImageTreatmentText] = useState("");
-  const [totalPrice, setTotalPrice] = useState(0);
-  const [showModal, setShowModal] = useState(false);
+  const [showImage, setShowImage] = useState(false);
+
   const [userEmail, setUserEmail] = useState(""); // User details
   const [instagram, setInstagram] = useState("");
   const [deliveryAddress, setDeliveryAddress] = useState("");
@@ -107,8 +108,22 @@ export default function Payment() {
   const [postalCode, setPostalCode] = useState("");
   const [country, setCountry] = useState("");
   const [deliveryNotes, setDeliveryNotes] = useState("");
+
   const [products, setProducts] = useState([]); // Stores the products added by the user
-  const [showImage, setShowImage] = useState(false);
+  const [tempProducts, setTempProducts] = useState([]); // Stores the products added by the user
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const [discountCode, setDiscountCode] = useState(""); // Discount section
+  const [discountApplied, setDiscountApplied] = useState(false);
+  const [discountOfferValue, setDiscountOfferValue] = useState(1); // 20 for the price of 10, etc...
+  const [discountOfferMin, setDiscountOfferMin] = useState(100); // only applies discount of greater than this number
+  const [discountOfferInstaValue, setDiscountOfferInstaValue] = useState(1); // 20 for the price of 10 but instaStickers only
+  const [discountOfferInstaMin, setDiscountOfferInstaMin] = useState(1); // only applies discount of greater than this number
+  const [discountPercentage, setDiscountPercentage] = useState(0);
+  const [discountOfferPercValue, setDiscountOfferPercValue] = useState(1); // takes a % off of the price (above 10 units)
+  const [discountShipping, setdiscountShipping] = useState(1); // takes a % off of the shipping price (above 2 products)
+  const [discountTreatment, setdiscountTreatment] = useState(1); // takes a % off of the image treatment price
 
   const handleIconClick = () => {
     setShowImage(true);
@@ -122,10 +137,93 @@ export default function Payment() {
     const index = stickerQuantities[stickerType][size].indexOf(quantity);
     if (index === -1) return 0; // Handle case where quantity is invalid
     const basePrice = stickerPrices[stickerType][size][index];
-    const shippingCost = shippingCosts[location];
     const treatmentCost = imageTreatment ? imageTreatmentPrices[index] : 0;
-    return basePrice * quantity + shippingCost + treatmentCost;
+    return basePrice * quantity + treatmentCost;
   };
+
+  const calculateTotalPrice = () => {
+    const price = products.reduce((acc, product) => acc + product.price, 0);
+    return price.toFixed(2);
+  };
+
+  const handleApplyDiscount = async (discountCodeTemp) => {
+    const response = await fetch('/api/apifire', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        discountCodeTemp,
+      })
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      alert(errorData.message);
+      return;
+    }
+    var activeDiscount = ""
+    var isShippingDiscount = ""
+    var discountPercentage = ""
+
+    const data = await response.json();
+    console.log("Response data:", data);
+    data.discounts.forEach((discount) => {
+      activeDiscount = discount.active;
+      isShippingDiscount = discount.isShipping;
+      discountPercentage = discount.percentage;
+      console.log("Discount Code:", discount.code);
+      console.log("Active:", discount.active);
+      console.log("Discount ID:", discount.id);
+      console.log("Is Common:", discount.isCommon);
+      console.log("Is Shipping Discount:", discount.isShipping);
+      console.log("Is Treatment Discount:", discount.isTreatment);
+      console.log("Is Vinyl Discount:", discount.isVinyl);
+      console.log("Minimum Amount Required:", discount.minAmount);
+      console.log("Additional Amount Required:", discount.moreAmount);
+      console.log("Requires More Stickers:", discount.moreStickers);
+      console.log("Discount Percentage:", discount.percentage);
+    });
+
+    if (activeDiscount && isShippingDiscount) { // Shipping
+      let shipping = shippingCosts[location] - shippingCosts[location] * (discountPercentage / 100)
+      let tempPrice = parseFloat(calculateTotalPrice()) + shipping;
+      setTotalPrice(tempPrice);
+    }
+
+    // TODO: the rest...........
+
+    if (data.discounts && data.discounts.length > 0) {
+      const discountValue = data.discounts[0];
+
+      //setDiscountPercentage(codeValue);
+      //setDiscountApplied(true);
+      alert(`Discount applied: ${discountPercentage}%`);
+    } else {
+      alert("Invalid discount code.");
+    }
+  };
+
+  const handleDiscountMode = () => {
+    handleSetStep(3);
+    setTempProducts(products);
+
+    updateTotalPriceWLocation();
+  }
+
+  const updateTotalPriceWLocation = (newLocation) => {
+    if (newLocation === undefined) {
+      newLocation = "PORTUGAL";
+      setLocation(newLocation);
+    }
+    let totalPriceTemp = calculateTotalPrice();
+    totalPriceTemp = parseFloat(totalPriceTemp);
+    totalPriceTemp += shippingCosts[newLocation];
+    setTotalPrice(totalPriceTemp);
+  }
+
+  const handleLocationChange = (newLocation) => {
+    setLocation(newLocation);
+    updateTotalPriceWLocation(newLocation);
+  }
 
   const handleSetStep = (setTo) => {
     if (setTo !== step) {
@@ -170,6 +268,7 @@ export default function Payment() {
   };
 
   const handleFinalSubmit = async () => {
+    setIsSubmitting(true);
     const finalPrice = products.reduce((acc, product) => acc + product.price, 0).toFixed(2);
     const response = await fetch('/api/apiroute', {
       method: 'POST',
@@ -186,19 +285,19 @@ export default function Payment() {
     const result = await response.json();
     alert(result.message);
 
-    // Reset all states after submission
-    resetForm();
-    setProducts([]);
-    setLocation("PORTUGAL");
-    setUserEmail("");
-    setInstagram("");
-    setShowModal(false);
+    if (response.ok) {
+      // Reset all states after submission if successful
+      resetForm();
+      setProducts([]);
+      setDiscountCode("");
+      setLocation("PORTUGAL");
+      setUserEmail("");
+      setInstagram("");
+    }
+    setTimeout(() => {
+      setIsSubmitting(false);
+    }, 300);
   };
-
-  const handleSubmit = () => {
-    setShowModal(true);
-  };
-
 
   return (
     <div className={styles.containerPayment123}>
@@ -208,10 +307,10 @@ export default function Payment() {
         <div className={`${styles.stepItem} ${step >= 0 ? styles.activeStep : ""}`}>
           <span className={styles.stepNumber}>1</span> Produtos
         </div>
-        <div className={`${styles.stepItem} ${step >= 3 ? styles.activeStep : ""}`}>
+        <div className={`${styles.stepItem} ${step >= 4 ? styles.activeStep : ""}`}>
           <span className={styles.stepNumber}>2</span> Endereço
         </div>
-        <div className={`${styles.stepItem} ${step >= 4 ? styles.activeStep : ""}`}>
+        <div className={`${styles.stepItem} ${step >= 5 ? styles.activeStep : ""}`}>
           <span className={styles.stepNumber}>3</span> Checkout
         </div>
       </div>
@@ -311,14 +410,51 @@ export default function Payment() {
         </div>
       )}
 
-      {step <= 2 && (
+      {step === 3 && (
+        <div className={styles.shippingContainer}>
+          {/* Shipping Details */}
+          <h2 className={styles.shippingTitle}>Detalhes de envio</h2>
+          <label className={styles.label_001}>
+            Local de envio
+            <select className={styles.select} value={location} onChange={(e) => handleLocationChange(e.target.value)}>
+              {Object.keys(shippingCosts).map((loc) => (
+                <option key={loc} value={loc}>{loc}</option>
+              ))}
+            </select>
+          </label>
+
+          {/* Discount Code Area */}
+          <div className={styles.discountCodeContainer} style={{ marginTop: '30px' }}>
+            <h2 className={styles.shippingTitle}>Código de desconto</h2>
+            <input
+              type="text"
+              placeholder="Código de desconto"
+              value={discountCode}
+              onChange={(e) => setDiscountCode(e.target.value)}
+              disabled={discountApplied}
+              className={styles.modalInput}
+              style={{ width: '60%' }}
+            />
+            <button
+              onClick={() => handleApplyDiscount(discountCode)}
+              disabled={discountApplied}
+              className={discountApplied ? styles.disabledButton : styles.btnSubmit}
+              style={{ marginLeft: '10px' }}
+            >
+              {discountApplied ? "Aplicado" : "Aplicar"}
+            </button>
+          </div>
+        </div>
+      )}
+
+      {(products.length > 0 && step <= 2) && (
         <div>
           <div className={styles.productsList_2024}>
             <h2 className={styles.productsTitle_abc}>Produtos adicionados</h2>
             {products.map((product, index) => (
               <div key={index} className={styles.itemProduct_1}>
                 <span>{`${product.quantity}x ${product.stickerType} (${product.size}) - Price: ${product.price.toFixed(2)}`}</span>
-                <button className={styles.btnRemove_2023} onClick={() => handleRemoveProduct(index)}>Remove</button>
+                <button className={styles.btnRemove_2023} onClick={() => handleRemoveProduct(index)}>Remover</button>
               </div>
             ))}
           </div>
@@ -329,40 +465,45 @@ export default function Payment() {
         </div>
       )}
 
+      {(products.length > 0 && step > 2 && step < 5) && (
+        <div>
+          <div className={styles.productsList_2024}>
+            <h2 className={styles.productsTitle_abc}>Produtos adicionados</h2>
+            {tempProducts.map((product, index) => (
+              <div key={index} className={styles.itemProduct_1}>
+                <span>{`${product.quantity}x ${product.stickerType} (${product.size}) - Price: ${product.price.toFixed(2)}`}</span>
+              </div>
+            ))}
+          </div>
+
+          <div className={styles.totalContainer}>
+            <h2 className={styles.totalPrice_99}>Preço total: {totalPrice}€</h2>
+          </div>
+        </div>
+      )}
+
       {(products.length > 0 && step <= 2) && (
         <div className={styles.btnAddProductContainer}>
           {step > 2 && (
             <button className={styles.btnSubmit} onClick={handlePrevious}>Back</button>
           )}
-          <button style={{ marginLeft: '20px' }} className={styles.btnSubmit} onClick={() => handleSetStep(3)}>Continuar</button>
+          <button style={{ marginLeft: '20px' }} className={styles.btnSubmit} onClick={() => handleDiscountMode()}>Continuar</button>
         </div>
       )}
 
-      {/* Shipping Location */}
-      {step === 3 && (
-        <div className={styles.shippingContainer}>
-          <h2 className={styles.shippingTitle}>Detalhes de envio</h2>
-          <label className={styles.label_001}>
-            Local de envio
-            <select className={styles.select} value={location} onChange={(e) => setLocation(e.target.value)}>
-              {Object.keys(shippingCosts).map((loc) => (
-                <option key={loc} value={loc}>{loc}</option>
-              ))}
-            </select>
-          </label>
-
-          {products.length > 0 && (
-            <div className={styles.btnAddProductContainer}>
-              <button className={styles.btnSubmit} onClick={() => handleSetStep(0)}>Back</button>
-              <button style={{ marginLeft: '10px' }} className={styles.btnSubmit} onClick={handleNext}>Continuar</button>
-            </div>
-          )}
+      {/* Shipping Location Nav */}
+      {(step === 3 && products.length > 0) && (
+        <div>
+          <div className={styles.btnAddProductContainer}>
+            <button className={styles.btnSubmit} onClick={() => handleSetStep(0)}>Back</button>
+            <button style={{ marginLeft: '10px' }} className={styles.btnSubmit} onClick={handleNext}>Continuar</button>
+          </div>
         </div>
       )}
 
       {/* Shipping Location */}
       {step === 4 && (
-        <form className={styles.containerPayment123} onSubmit={handleFinalSubmit}>
+        <form className={styles.containerPayment123} onSubmit={handleNext}>
           <h2 className={styles.titleXYZ}>Delivery Information</h2>
 
           <div className={styles.sectionABCD}>
@@ -387,7 +528,7 @@ export default function Payment() {
           </div>
 
           <div className={styles.sectionABCD}>
-            <label className={styles.label_001}>Delivery Address:</label>
+            <label className={styles.label_001}>Endereço:</label>
             <input
               type="text"
               value={deliveryAddress}
@@ -448,52 +589,41 @@ export default function Payment() {
         </form>
       )}
 
-      {/* Modal for capturing user email and Instagram */}
-      {showModal && (
-        <div className={styles.modalOverlay}>
-          <div className={styles.modalContent}>
-            <h2 style={{ fontSize: '1.2rem', color: '#333' }}>Por favor insira o email que deseja associar à compra</h2>
-            {/*<p>Estes dados são necessários para que possamos processar a sua encomenda da forma mais segura e cómoda
-              possível e para que receba todos os detalhes via email.</p>
-            <p>Caso deseje fazer o pedido diretamente connosco envie mensagem para o nosso
-              instagram <a href="https://www.instagram.com/surd.pt/" target="_blank" rel="noopener noreferrer">@surd.pt</a></p>*/}
+      {/* Checkout Area */}
+      {step === 5 && (
+        <div className={styles.containerPayment123}>
+          <h2 className={styles.titleXYZ}>Checkout</h2>
 
-            <label className={styles.label_001} style={{ marginBottom: '5px' }}>
-              Email (Obrigatório):
-              <input
-                className={styles.input}
-                type="email"
-                value={userEmail}
-                onChange={(e) => setUserEmail(e.target.value)}
-                style={{ border: '1px solid black', borderRadius: '2px' }}
-                required
-              />
-            </label>
+          {/* User Details Section */}
+          <div className={styles.userDetailsContainer}>
+            <h3 className={styles.userDetailsTitle}>Detalhes do pedido</h3>
+            <p className={styles.userDetailItem}><strong>Email:</strong> {userEmail}</p>
+            <p className={styles.userDetailItem}><strong>Instagram:</strong> {instagram}</p>
+            <p className={styles.userDetailItem}><strong>Endereço:</strong> {deliveryAddress}</p>
+            <p className={styles.userDetailItem}><strong>Cidade:</strong> {city}</p>
+            <p className={styles.userDetailItem}><strong>Código Postal:</strong> {postalCode}</p>
+            <p className={styles.userDetailItem}><strong>País:</strong> {country}</p>
+            <p className={styles.userDetailItem}><strong>Notas de envio:</strong> {deliveryNotes}</p>
+          </div>
 
-            <label className={styles.label_001} style={{ marginBottom: '15px' }}>
-              @ do Instagram (Opcional):
-              <input
-                className={styles.input}
-                type="text"
-                value={instagram}
-                onChange={(e) => setInstagram(e.target.value)}
-                style={{ border: '1px solid black', borderRadius: '2px' }}
-              />
-            </label>
+          {/* Products List Section */}
+          <h2 className={styles.titleXYZ}>Produtos</h2>
+          <ul className={styles.productsList_2024}>
+            {tempProducts.map((product, index) => (
+              <li key={index} className={styles.itemProduct_1}>
+                {product.stickerType} - {product.size} - Qty: {product.quantity} - Price: ${product.price.toFixed(2)}
+              </li>
+            ))}
+          </ul>
 
-            <div styles={styles.submitBtnContainer47862}>
-              <button
-                className={styles.btnSubmit}
-                onClick={handleFinalSubmit}
-                disabled={!userEmail}
-              >
-                Submeter pedido
-              </button>
+          <p className={styles.totalPrice_99}>Total: ${totalPrice}</p>
 
-              <button className={styles.btnClose} onClick={() => setShowModal(false)}>
-                Cancelar
-              </button>
-            </div>
+          {/* Buttons Section */}
+          <div className={styles.btnAddProductContainer}>
+            <button className={styles.btnSubmit} onClick={handlePrevious}>Back</button>
+            <button onClick={handleFinalSubmit} className={styles.btnSubmit} disabled={isSubmitting}>
+              {isSubmitting ? 'A enviar...' : 'Submeter pedido'}
+            </button>
           </div>
         </div>
       )}
