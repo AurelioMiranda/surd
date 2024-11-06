@@ -5,14 +5,12 @@ import styles from './Payment.module.css';
 const shippingCosts = {
   "PORTUGAL": 0.90,
   "EUROPE (EXCEPT PT)": 1.45,
-  "USA": 3.63, //remove?
   "REST OF THE WORLD": 1.55
 };
 
 const locationTime = {
   "PORTUGAL": "10 a 15 dias úteis",
   "EUROPE (EXCEPT PT)": "12 a 17 dias úteis",
-  "USA": "14 a 19 dias úteis", //remove?
   "REST OF THE WORLD": "14 a 19 dias úteis"
 };
 
@@ -20,10 +18,10 @@ const stickerPrices = {
   circular: {
     "3X3 (vinyl)": [2.55, 1.47, 0.84, 0.62, 0.52, 0.44],
     "5X5 (vinyl)": [3.83, 2.12, 1.16, 0.84, 0.68, 0.57],
-    "7X7 (paper, customized)": [3.98, 2.44, 1.70, 1.36, 1.20, 0.97],
+    "7X7 (paper, customized)": [3.98, 2.44, 1.70, 1.36, 1.20, 0.97], // fix here
     "7X7 (vinyl, circular)": [4.90, 2.65, 1.43, 1.02, 0.81, 0.68],
     "10X10 (paper, customized)": [4.49, 2.78, 2.04, 1.70, 1.51, 1.38],
-    "10X10 (vinyl, circular)": [5.90, 3.15, 1.62, 1.18, 0.94, 0.78],
+    "10X10 (vinyl, circular)": [5.90, 3.15, 1.62, 1.18, 0.94, 0.78], // | ou / ou -
   },
   square: {
     "3X3 (vinyl)": [2.09, 1.24, 0.72, 0.55, 0.46, 0.40],
@@ -377,7 +375,7 @@ export default function Payment() {
 
   return (
     <div className={styles.containerPayment123}>
-      <h1 className={styles.titleXYZ}>Sticker Order Form</h1>
+      <h1 className={styles.titleXYZ}>Carrinho</h1>
 
       <div className={styles.progressBarContainer}>
         <div className={`${styles.stepItem} ${step >= 0 ? styles.activeStep : ""}`}>
@@ -395,13 +393,14 @@ export default function Payment() {
         <div className={styles.sectionABCD}>
           {/* Sticker Type Selection */}
           <label className={styles.label_001}>
-            Tipo de Sticker
+            Produto
             <select className={styles.select} value={stickerType} onChange={(e) => setStickerType(e.target.value)}>
               <option value="">Selecione um tipo</option>
-              <option value="circular">Circular</option>
-              <option value="square">Quadrado</option>
-              <option value="glass">Para vidro</option>
-              <option value="instaStickers">@ do Instagram</option>
+              <option value="circular">Sticker Circular</option>
+              <option value="circular">Sticker Customizado</option>
+              <option value="square">Sticker Quadrangular/Retangular</option>
+              <option value="glass">Sticker para vidros</option>
+              <option value="instaStickers">Sticker com @ do Instagram</option>
               <option value="temporary_tattoos">Tatuagem temporária</option>
             </select>
           </label>
@@ -473,7 +472,7 @@ export default function Payment() {
                 <textarea
                   value={imageTreatmentText}
                   onChange={(e) => setImageTreatmentText(e.target.value)}
-                  placeholder="Descreva o tratamento que deseja"
+                  placeholder="Especifique todos os tratamentos que deseja"
                   style={{ width: '100%', height: '100%', resize: 'vertical', marginTop: '5px', padding: '8px' }}
                 />
               </div>
@@ -497,7 +496,7 @@ export default function Payment() {
                 <option key={loc} value={loc}>{loc}</option>
               ))}
             </select>
-            <p style={{fontSize: '14px', marginLeft: '5px', marginTop: '5px'}}>{locationTime[currentLocationTime]}</p>
+            <p style={{ fontSize: '14px', marginLeft: '5px', marginTop: '5px' }}>Tempo de entrega: {locationTime[currentLocationTime]}</p>
           </label>
 
           {/* Discount Code Area */}
@@ -530,7 +529,7 @@ export default function Payment() {
             <h2 className={styles.productsTitle_abc}>Produtos adicionados</h2>
             {products.map((product, index) => (
               <div key={index} className={styles.itemProduct_1}>
-                <span>{`${product.quantity}x ${product.stickerType} (${product.size}) - Price: ${product.price.toFixed(2)}`}</span>
+                <span>{`${product.quantity}x ${product.stickerType} ${product.size} - Preço: ${product.price.toFixed(2)}`}</span>
                 <button className={styles.btnRemove_2023} onClick={() => handleRemoveProduct(index)}>Remover</button>
               </div>
             ))}
@@ -548,7 +547,7 @@ export default function Payment() {
             <h2 className={styles.productsTitle_abc}>Produtos adicionados</h2>
             {tempProducts.map((product, index) => (
               <div key={index} className={styles.itemProduct_1}>
-                <span>{`${product.quantity}x ${product.stickerType} (${product.size}) - Price: ${product.price.toFixed(2)}`}</span>
+                <span>{`${product.quantity}x ${product.stickerType} ${product.size} - Preço: ${product.price.toFixed(2)}`}</span>
               </div>
             ))}
           </div>
@@ -581,10 +580,10 @@ export default function Payment() {
       {/* Shipping Location */}
       {step === 4 && (
         <form className={styles.containerPayment123} onSubmit={handleNext}>
-          <h2 className={styles.titleXYZ}>Delivery Information</h2>
+          <h2 className={styles.titleXYZ}>Informação de envio</h2>
 
           <div className={styles.sectionABCD}>
-            <label className={styles.label_001}>Email:</label>
+            <label className={styles.label_001}>Endereço de correio eletrónico:</label>
             <input
               type="email"
               value={userEmail}
@@ -595,7 +594,7 @@ export default function Payment() {
           </div>
 
           <div className={styles.sectionABCD}>
-            <label className={styles.label_001}>Instagram (optional):</label>
+            <label className={styles.label_001}>Nome e Apelido:</label>
             <input
               type="text"
               value={instagram}
@@ -605,7 +604,7 @@ export default function Payment() {
           </div>
 
           <div className={styles.sectionABCD}>
-            <label className={styles.label_001}>Endereço:</label>
+            <label className={styles.label_001}>Morada (Avenida/Rua, Porta, Piso):</label>
             <input
               type="text"
               value={deliveryAddress}
@@ -616,7 +615,7 @@ export default function Payment() {
           </div>
 
           <div className={styles.sectionABCD}>
-            <label className={styles.label_001}>City:</label>
+            <label className={styles.label_001}>Localidade e distrito:</label>
             <input
               type="text"
               value={city}
@@ -627,18 +626,7 @@ export default function Payment() {
           </div>
 
           <div className={styles.sectionABCD}>
-            <label className={styles.label_001}>Postal Code:</label>
-            <input
-              type="text"
-              value={postalCode}
-              onChange={(e) => setPostalCode(e.target.value)}
-              required
-              className={styles.modalInput}
-            />
-          </div>
-
-          <div className={styles.sectionABCD}>
-            <label className={styles.label_001}>Country:</label>
+            <label className={styles.label_001}>País:</label>
             <input
               type="text"
               value={country}
@@ -649,7 +637,26 @@ export default function Payment() {
           </div>
 
           <div className={styles.sectionABCD}>
-            <label className={styles.label_001}>Delivery Notes (optional):</label>
+            <label className={styles.label_001}>Código Postal:</label>
+            <input
+              type="text"
+              value={postalCode}
+              onChange={(e) => setPostalCode(e.target.value)}
+              required
+              className={styles.modalInput}
+            />
+          </div>
+
+          <div className={styles.sectionABCD}>
+            <label className={styles.label_001}>Telefone/telemóvel:</label> {/**todo, here */}
+            <input
+              type="text"
+              className={styles.modalInput}
+            />
+          </div>
+
+          <div className={styles.sectionABCD}>
+            <label className={styles.label_001}>Notas de encomenda (opcional):</label>
             <textarea
               value={deliveryNotes}
               onChange={(e) => setDeliveryNotes(e.target.value)}
@@ -673,7 +680,7 @@ export default function Payment() {
 
           {/* User Details Section */}
           <div className={styles.userDetailsContainer}>
-            <h3 className={styles.userDetailsTitle}>Detalhes do pedido</h3>
+            <h3 className={styles.userDetailsTitle}>Informação de envio</h3>
             <p className={styles.userDetailItem}><strong>Email:</strong> {userEmail}</p>
             <p className={styles.userDetailItem}><strong>Instagram:</strong> {instagram}</p>
             <p className={styles.userDetailItem}><strong>Endereço:</strong> {deliveryAddress}</p>
