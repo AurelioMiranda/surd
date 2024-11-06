@@ -9,6 +9,13 @@ const shippingCosts = {
   "REST OF THE WORLD": 1.55
 };
 
+const locationTime = {
+  "PORTUGAL": "10 a 15 dias úteis",
+  "EUROPE (EXCEPT PT)": "12 a 17 dias úteis",
+  "USA": "14 a 19 dias úteis", //remove?
+  "REST OF THE WORLD": "14 a 19 dias úteis"
+};
+
 const stickerPrices = {
   circular: {
     "3X3 (vinyl)": [2.55, 1.47, 0.84, 0.62, 0.52, 0.44],
@@ -97,6 +104,7 @@ export default function Payment() {
   const [size, setSize] = useState("");
   const [quantity, setQuantity] = useState(5);
   const [location, setLocation] = useState("PORTUGAL");
+  const [currentLocationTime, setCurrentLocationTime] = useState("PORTUGAL");
   const [imageTreatment, setImageTreatment] = useState(false);
   const [imageTreatmentText, setImageTreatmentText] = useState("");
   const [showImage, setShowImage] = useState(false);
@@ -290,6 +298,7 @@ export default function Payment() {
   const handleLocationChange = (newLocation) => {
     setLocation(newLocation);
     updateTotalPriceWLocation(newLocation);
+    setCurrentLocationTime(newLocation);
   }
 
   const handleSetStep = (setTo) => {
@@ -488,6 +497,7 @@ export default function Payment() {
                 <option key={loc} value={loc}>{loc}</option>
               ))}
             </select>
+            <p style={{fontSize: '14px', marginLeft: '5px', marginTop: '5px'}}>{locationTime[currentLocationTime]}</p>
           </label>
 
           {/* Discount Code Area */}
