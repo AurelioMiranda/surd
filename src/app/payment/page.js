@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import styles from './Payment.module.css';
+import ImageUpload from './ImageUpload';
 
 const shippingCosts = {
   "PORTUGAL": 0.90,
@@ -16,20 +17,22 @@ const locationTime = {
 
 const stickerPrices = {
   circular: {
-    "3X3 (vinyl)": [2.55, 1.47, 0.84, 0.62, 0.52, 0.44],
-    "5X5 (vinyl)": [3.83, 2.12, 1.16, 0.84, 0.68, 0.57],
-    "7X7 (paper, customized)": [3.98, 2.44, 1.70, 1.36, 1.20, 0.97], // fix here
-    "7X7 (vinyl, circular)": [4.90, 2.65, 1.43, 1.02, 0.81, 0.68],
-    "10X10 (paper, customized)": [4.49, 2.78, 2.04, 1.70, 1.51, 1.38],
-    "10X10 (vinyl, circular)": [5.90, 3.15, 1.62, 1.18, 0.94, 0.78], // | ou / ou -
+    "3X3": [2.55, 1.47, 0.84, 0.62, 0.52, 0.44],
+    "5X5": [3.83, 2.12, 1.16, 0.84, 0.68, 0.57],
+    "7X7": [4.90, 2.65, 1.43, 1.02, 0.81, 0.68],
+    "10X10": [5.90, 3.15, 1.62, 1.18, 0.94, 0.78],
+  },
+  custom: {
+    "7X7": [3.98, 2.44, 1.70, 1.36, 1.20, 0.97],
+    "10X10": [4.49, 2.78, 2.04, 1.70, 1.51, 1.38],
   },
   square: {
-    "3X3 (vinyl)": [2.09, 1.24, 0.72, 0.55, 0.46, 0.40],
-    "5X5 (vinyl)": [3.37, 1.89, 1.04, 0.76, 0.62, 0.53],
-    "7X7 (vinyl)": [5.10, 2.75, 1.48, 1.05, 0.86, 0.70],
-    "10X10 (vinyl)": [6.70, 3.55, 1.88, 1.32, 1.06, 0.86],
-    "8,5X5,5 (vinyl)": [3.97, 2.19, 1.19, 0.86, 0.70, 0.59],
-    "11X9 (vinyl)": [5.45, 2.93, 1.56, 1.32, 1.04, 0.86],
+    "3X3": [2.09, 1.24, 0.72, 0.55, 0.46, 0.40],
+    "5X5": [3.37, 1.89, 1.04, 0.76, 0.62, 0.53],
+    "7X7": [5.10, 2.75, 1.48, 1.05, 0.86, 0.70],
+    "10X10": [6.70, 3.55, 1.88, 1.32, 1.06, 0.86],
+    "8,5X5,5": [3.97, 2.19, 1.19, 0.86, 0.70, 0.59],
+    "11X9": [5.45, 2.93, 1.56, 1.32, 1.04, 0.86],
   },
   glass: {
     "20x20": [15.50, 12.50, 11.17, 10.25, 8.98, 4.74],
@@ -39,9 +42,9 @@ const stickerPrices = {
     "120x120": [41.50, 35.00, 30.17, 25.75, 21.50, 16.00],
   },
   instaStickers: {
-    "15cm/20cm (Black/White Outside)": [7.00, 2.40, 1.50, 0.88, 0.66],
-    "15cm (Colour Outside/Inside)": [9.00, 3.78, 2.64],
-    "20cm (Colour Outside/Inside)": [10.50, 4.13, 2.99],
+    "15cm/20cm (Preto/Branco Exterior)": [7.00, 2.40, 1.50, 0.88, 0.66],
+    "15cm (Cores Exterior/Interior)": [9.00, 3.78, 2.64],
+    "20cm (Cores Exterior/Interior)": [10.50, 4.13, 2.99],
   },
   temporary_tattoos: {
     "2,5X2,5": [6.40, 2.85, 1.65, 1.36, 1.04],
@@ -55,20 +58,22 @@ const stickerPrices = {
 
 const stickerQuantities = {
   circular: {
-    "3X3 (vinyl)": [5, 10, 20, 30, 40, 50],
-    "5X5 (vinyl)": [5, 10, 20, 30, 40, 50],
-    "7X7 (paper, customized)": [5, 10, 20, 30, 40, 50],
-    "7X7 (vinyl, circular)": [5, 10, 20, 30, 40, 50],
-    "10X10 (paper, customized)": [5, 10, 20, 30, 40, 50],
-    "10X10 (vinyl, circular)": [5, 10, 20, 30, 40, 50],
+    "3X3": [5, 10, 20, 30, 40, 50],
+    "5X5": [5, 10, 20, 30, 40, 50],
+    "7X7": [5, 10, 20, 30, 40, 50],
+    "10X10": [5, 10, 20, 30, 40, 50],
+  },
+  custom: {
+    "7X7": [5, 10, 20, 30, 40, 50],
+    "10X10": [5, 10, 20, 30, 40, 50],
   },
   square: {
-    "3X3 (vinyl)": [5, 10, 20, 30, 40, 50],
-    "5X5 (vinyl)": [5, 10, 20, 30, 40, 50],
-    "7X7 (vinyl)": [5, 10, 20, 30, 40, 50],
-    "10X10 (vinyl)": [5, 10, 20, 30, 40, 50],
-    "8,5X5,5 (vinyl)": [5, 10, 20, 30, 40, 50],
-    "11X9 (vinyl)": [5, 10, 20, 30, 40, 50],
+    "3X3": [5, 10, 20, 30, 40, 50],
+    "5X5": [5, 10, 20, 30, 40, 50],
+    "7X7": [5, 10, 20, 30, 40, 50],
+    "10X10": [5, 10, 20, 30, 40, 50],
+    "8,5X5,5": [5, 10, 20, 30, 40, 50],
+    "11X9": [5, 10, 20, 30, 40, 50],
   },
   glass: {
     "20x20": [1, 2, 3, 4, 5, 10],
@@ -78,9 +83,9 @@ const stickerQuantities = {
     "120x120": [1, 2, 3, 4, 5, 10],
   },
   instaStickers: {
-    "15cm/20cm (Black/White Outside)": [1, 5, 10, 25, 50],
-    "15cm (Colour Outside/Inside)": [1, 5, 10],
-    "20cm (Colour Outside/Inside)": [1, 5, 10],
+    "15cm/20cm (Preto/Branco Exterior)": [1, 5, 10, 25, 50],
+    "15cm (Cores Exterior/Interior)": [1, 5, 10],
+    "20cm (Cores Exterior/Interior)": [1, 5, 10],
   },
   temporary_tattoos: {
     "2,5X2,5": [1, 5, 15, 25, 50],
@@ -92,6 +97,55 @@ const stickerQuantities = {
   }
 };
 
+const stickerName = {
+  circular: "Circular",
+  custom: "Customizado",
+  square: "Sticker Quadrangular/Retangular",
+  glass: "Sticker para vidros",
+  instaStickers: "Sticker com @ do Instagram",
+  temporary_tattoos: "Tatuagem temporária"
+};
+
+const stickerNameSpecification = {
+  circular: {
+    "3X3": "vinil",
+    "5X5": "vinil",
+    "7X7": "vinil",
+    "10X10": "vinil",
+  },
+  custom: {
+    "7X7": "papel",
+    "10X10": "papel",
+  },
+  square: {
+    "3X3": "vinil",
+    "5X5": "vinil",
+    "7X7": "vinil",
+    "10X10": "vinil",
+    "8,5X5,5": "vinil",
+    "11X9": "vinil",
+  },
+  glass: {
+    "20x20": "vinil",
+    "40x40": "vinil",
+    "60x60": "vinil",
+    "90x90": "vinil",
+    "120x120": "vinil",
+  },
+  instaStickers: {
+    "15cm/20cm (Preto/Branco Exterior)": "(Preto/Branco Exterior)",
+    "15cm (Cores Exterior/Interior)": "(Cores Exterior/Interior)",
+    "20cm (Cores Exterior/Interior)": "(Cores Exterior/Interior)",
+  },
+  temporary_tattoos: {
+    "2,5X2,5": "",
+    "5X5": "",
+    "7,5X7,5": "",
+    "10X5": "",
+    "13X6,5": "",
+    "10X10": "",
+  }
+};
 
 const imageTreatmentPrices = [1.50, 3.00, 4.00, 5.00, 5.50, 6.00];
 
@@ -106,6 +160,9 @@ export default function Payment() {
   const [imageTreatment, setImageTreatment] = useState(false);
   const [imageTreatmentText, setImageTreatmentText] = useState("");
   const [showImage, setShowImage] = useState(false);
+  const [imageFile, setImageFile] = useState(null);
+  const [isImageModalOpen, setImageModalOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
 
   const [userEmail, setUserEmail] = useState(""); // User details
   const [instagram, setInstagram] = useState("");
@@ -114,6 +171,7 @@ export default function Payment() {
   const [postalCode, setPostalCode] = useState("");
   const [country, setCountry] = useState("");
   const [deliveryNotes, setDeliveryNotes] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
 
   const [products, setProducts] = useState([]); // Stores the products added by the user
   const [tempProducts, setTempProducts] = useState([]); // Stores the products added by the user
@@ -321,8 +379,10 @@ export default function Payment() {
       quantity,
       imageTreatment,
       imageTreatmentText,
+      imageFile,
       price
     };
+    console.log(newProduct);
 
     setProducts([...products, newProduct]); // Add the product to the list
     resetForm();
@@ -334,11 +394,28 @@ export default function Payment() {
     setSize("");
     setQuantity(5);
     setImageTreatment(false);
+    setImageFile(null)
   };
 
   const handleRemoveProduct = (index) => {
     const updatedProducts = products.filter((_, i) => i !== index);
     setProducts(updatedProducts);  // Remove product from the list
+  };
+
+  const toggleImageModal = (newImage) => {
+    setSelectedImage(newImage);
+    setImageModalOpen(!isImageModalOpen);
+  };
+
+  const getImageUrl = (file) => {
+    return file ? URL.createObjectURL(file) : '';
+  };
+
+  const getTreatmentText = (hasTreatment) => {
+    if (hasTreatment) {
+      return "(Com tratamento)"
+    }
+    return "";
   };
 
   const handleFinalSubmit = async () => {
@@ -348,11 +425,17 @@ export default function Payment() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        products,
+        products, //TODO: image not being processed
         finalPrice,
         location,
         userEmail,
-        instagram
+        instagram,
+        deliveryAddress,
+        city,
+        postalCode,
+        country,
+        phoneNumber,
+        deliveryNotes
       })
     });
 
@@ -390,41 +473,49 @@ export default function Payment() {
       </div>
 
       {step === 0 && (
-        <div className={styles.sectionABCD}>
+        <div className={styles.sectionEfrgt5}>
           {/* Sticker Type Selection */}
           <label className={styles.label_001}>
             Produto
             <select className={styles.select} value={stickerType} onChange={(e) => setStickerType(e.target.value)}>
               <option value="">Selecione um tipo</option>
               <option value="circular">Sticker Circular</option>
-              <option value="circular">Sticker Customizado</option>
+              <option value="custom">Sticker Customizado</option>
               <option value="square">Sticker Quadrangular/Retangular</option>
               <option value="glass">Sticker para vidros</option>
               <option value="instaStickers">Sticker com @ do Instagram</option>
               <option value="temporary_tattoos">Tatuagem temporária</option>
             </select>
           </label>
-          <div>
-            <button className={styles.btnSubmit} onClick={handleNext} disabled={!stickerType}>Next</button>
+          <div style={{ marginTop: '10px' }}>
+            <button className={styles.btnSubmit} onClick={handleNext} disabled={!stickerType}>Selecionar</button>
           </div>
         </div>
       )}
 
       {step === 1 && (
-        <div className={styles.sectionABCD}>
+        <div className={styles.sectionEfrgt5}>
           {/* Size Selection */}
-          <label className={styles.label_001}>
-            Tamanho <span class="material-symbols-outlined" onClick={handleIconClick}>info</span>
-            <select className={styles.select} value={size} onChange={(e) => setSize(e.target.value)}>
-              <option value="">Selecione um tamanho</option>
-              {stickerType && Object.keys(stickerPrices[stickerType]).map((sizeOption) => (
-                <option key={sizeOption} value={sizeOption}>{sizeOption}</option>
-              ))}
-            </select>
-          </label>
-          <div className={styles.navButtons182}>
-            <button className={styles.btnSubmit} onClick={handlePrevious}>Back</button>
-            <button style={{ marginLeft: '10px' }} className={styles.btnSubmit} onClick={handleNext} disabled={!size}>Next</button>
+          <div>
+            <label className={styles.label_001}>
+              Tamanho <span class="material-symbols-outlined" onClick={handleIconClick}>info</span>
+              <select className={styles.select} value={size} onChange={(e) => setSize(e.target.value)}>
+                <option value="">Selecione um tamanho</option>
+                {stickerType && Object.keys(stickerPrices[stickerType]).map((sizeOption) => (
+                  <option key={sizeOption} value={sizeOption}>{sizeOption}</option>
+                ))}
+              </select>
+            </label>
+            <div style={{ marginTop: '8px' }}>
+              <label className={styles.label_001}>
+                Design
+              </label>
+              <ImageUpload onUpload={setImageFile} />
+            </div>
+          </div>
+          <div style={{ marginTop: '10px' }} className={styles.navButtons182}>
+            <button className={styles.btnSubmit} onClick={handlePrevious}>Voltar</button>
+            <button style={{ marginLeft: '10px' }} className={styles.btnSubmit} onClick={handleNext} disabled={!size || !imageFile}>Selecionar</button>
           </div>
         </div>
       )}
@@ -443,7 +534,7 @@ export default function Payment() {
           {/* Quantity and Image Treatment */}
           <div>
             <label className={styles.label_001}>
-              Quantidade <span class="material-symbols-outlined" title="Se precisar de uma quantidade não listada, envie-nos mensagem diretamente no instagram!">info</span>
+              Quantidade {/*<span class="material-symbols-outlined" title="Se precisar de uma quantidade não listada, envie-nos mensagem diretamente no instagram!">info</span>*/}
               <select className={styles.select} value={quantity} onChange={(e) => setQuantity(parseInt(e.target.value, 10))}>
                 <option value="">Selecione a quantidade</option>
                 {stickerQuantities && size && stickerQuantities[stickerType][size]?.map((qty) => (
@@ -479,7 +570,7 @@ export default function Payment() {
             )}
           </div>
           <div className={styles.btnAddProductContainer}>
-            <button className={styles.btnSubmit} onClick={handlePrevious}>Back</button>
+            <button className={styles.btnSubmit} onClick={handlePrevious}>Voltar</button>
             <button style={{ marginLeft: '20px' }} className={styles.btnSubmit} onClick={handleAddProduct}>Adicionar produto</button>
           </div>
         </div>
@@ -527,12 +618,37 @@ export default function Payment() {
         <div>
           <div className={styles.productsList_2024}>
             <h2 className={styles.productsTitle_abc}>Produtos adicionados</h2>
-            {products.map((product, index) => (
-              <div key={index} className={styles.itemProduct_1}>
-                <span>{`${product.quantity}x ${product.stickerType} ${product.size} - Preço: ${product.price.toFixed(2)}`}</span>
-                <button className={styles.btnRemove_2023} onClick={() => handleRemoveProduct(index)}>Remover</button>
+            <div className={styles.productAlignment}>
+              {products.map((product, index) => (
+                <div key={index} className={styles.itemProduct_1}>
+                  <span>
+                    {`${stickerName[product.stickerType]} | ${product.quantity}x | 
+                    ${product.size} ${getTreatmentText(product.imageTreatment)} - ${product.price.toFixed(2)}€`}
+                  </span>
+
+                  <div className={styles.itemProduct_2}>
+                    <button className={styles.btnShowImage} onClick={() => toggleImageModal(product.imageFile)}>
+                      Mostrar
+                    </button>
+
+                    <button className={styles.btnRemove_2023} onClick={() => handleRemoveProduct(index)}>
+                      Remover
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {isImageModalOpen && selectedImage && (
+              <div className={styles.imageModalOverlay} onClick={() => setImageModalOpen(false)}>
+                <div className={styles.imageModalContent} onClick={(e) => e.stopPropagation()}>
+                  <img src={getImageUrl(selectedImage)} alt="Preview" width="400" />
+                  <button className={styles.btnCloseModal} onClick={() => setImageModalOpen(false)}>
+                    X
+                  </button>
+                </div>
               </div>
-            ))}
+            )}
           </div>
 
           <div className={styles.totalContainer}>
@@ -547,7 +663,10 @@ export default function Payment() {
             <h2 className={styles.productsTitle_abc}>Produtos adicionados</h2>
             {tempProducts.map((product, index) => (
               <div key={index} className={styles.itemProduct_1}>
-                <span>{`${product.quantity}x ${product.stickerType} ${product.size} - Preço: ${product.price.toFixed(2)}`}</span>
+                <span>
+                  {`${stickerName[product.stickerType]} | ${product.quantity}x | 
+                  ${product.size} ${getTreatmentText(product.imageTreatment)} - ${product.price.toFixed(2)}€`}
+                </span>
               </div>
             ))}
           </div>
@@ -561,7 +680,7 @@ export default function Payment() {
       {(products.length > 0 && step <= 2) && (
         <div className={styles.btnAddProductContainer}>
           {step > 2 && (
-            <button className={styles.btnSubmit} onClick={handlePrevious}>Back</button>
+            <button className={styles.btnSubmit} onClick={handlePrevious}>Voltar</button>
           )}
           <button style={{ marginLeft: '20px' }} className={styles.btnSubmit} onClick={() => handleDiscountMode()}>Continuar</button>
         </div>
@@ -571,7 +690,7 @@ export default function Payment() {
       {(step === 3 && products.length > 0) && (
         <div>
           <div className={styles.btnAddProductContainer}>
-            <button className={styles.btnSubmit} onClick={() => handleSetStep(0)}>Back</button>
+            <button className={styles.btnSubmit} onClick={() => handleSetStep(0)}>Voltar</button>
             <button style={{ marginLeft: '10px' }} className={styles.btnSubmit} onClick={handleNext}>Continuar</button>
           </div>
         </div>
@@ -582,8 +701,8 @@ export default function Payment() {
         <form className={styles.containerPayment123} onSubmit={handleNext}>
           <h2 className={styles.titleXYZ}>Informação de envio</h2>
 
-          <div className={styles.sectionABCD}>
-            <label className={styles.label_001}>Endereço de correio eletrónico:</label>
+          <div className={styles.sectionEfrgt5}>
+            <label className={styles.label_001}>Endereço de correio eletrónico*</label>
             <input
               type="email"
               value={userEmail}
@@ -593,18 +712,19 @@ export default function Payment() {
             />
           </div>
 
-          <div className={styles.sectionABCD}>
-            <label className={styles.label_001}>Nome e Apelido:</label>
+          <div className={styles.sectionEfrgt5}>
+            <label className={styles.label_001}>Nome e Apelido*</label>
             <input
               type="text"
               value={instagram}
               onChange={(e) => setInstagram(e.target.value)}
+              required
               className={styles.modalInput}
             />
           </div>
 
-          <div className={styles.sectionABCD}>
-            <label className={styles.label_001}>Morada (Avenida/Rua, Porta, Piso):</label>
+          <div className={styles.sectionEfrgt5}>
+            <label className={styles.label_001}>Morada (Avenida/Rua, Porta, Piso)*</label>
             <input
               type="text"
               value={deliveryAddress}
@@ -614,8 +734,8 @@ export default function Payment() {
             />
           </div>
 
-          <div className={styles.sectionABCD}>
-            <label className={styles.label_001}>Localidade e distrito:</label>
+          <div className={styles.sectionEfrgt5}>
+            <label className={styles.label_001}>Localidade e distrito*</label>
             <input
               type="text"
               value={city}
@@ -625,8 +745,8 @@ export default function Payment() {
             />
           </div>
 
-          <div className={styles.sectionABCD}>
-            <label className={styles.label_001}>País:</label>
+          <div className={styles.sectionEfrgt5}>
+            <label className={styles.label_001}>País*</label>
             <input
               type="text"
               value={country}
@@ -636,8 +756,8 @@ export default function Payment() {
             />
           </div>
 
-          <div className={styles.sectionABCD}>
-            <label className={styles.label_001}>Código Postal:</label>
+          <div className={styles.sectionEfrgt5}>
+            <label className={styles.label_001}>Código Postal*</label>
             <input
               type="text"
               value={postalCode}
@@ -647,16 +767,19 @@ export default function Payment() {
             />
           </div>
 
-          <div className={styles.sectionABCD}>
-            <label className={styles.label_001}>Telefone/telemóvel:</label> {/**todo, here */}
+          <div className={styles.sectionEfrgt5}>
+            <label className={styles.label_001}>Telefone/telemóvel*</label> {/**todo, here */}
             <input
               type="text"
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
+              required
               className={styles.modalInput}
             />
           </div>
 
-          <div className={styles.sectionABCD}>
-            <label className={styles.label_001}>Notas de encomenda (opcional):</label>
+          <div className={styles.sectionEfrgt5}>
+            <label className={styles.label_001}>Notas de encomenda (opcional)</label>
             <textarea
               value={deliveryNotes}
               onChange={(e) => setDeliveryNotes(e.target.value)}
@@ -665,7 +788,7 @@ export default function Payment() {
           </div>
 
           <div className={styles.btnAddProductContainer}>
-            <button className={styles.btnSubmit} onClick={handlePrevious}>Back</button>
+            <button className={styles.btnSubmit} onClick={handlePrevious}>Voltar</button>
             <button type="submit" className={styles.btnSubmit} disabled={!userEmail}>
               Submit
             </button>
@@ -688,34 +811,35 @@ export default function Payment() {
             <p className={styles.userDetailItem}><strong>Código Postal:</strong> {postalCode}</p>
             <p className={styles.userDetailItem}><strong>País:</strong> {country}</p>
             <p className={styles.userDetailItem}><strong>Notas de envio:</strong> {deliveryNotes}</p>
+
+            {/* Products List Section */}
+            <h2 className={styles.titleXYZ}>Produtos</h2>
+            <ul className={styles.productsList_2024}>
+              {tempProducts.map((product, index) => (
+                <li key={index} className={styles.itemProduct_1}>
+                  {`${stickerName[product.stickerType]} | ${product.quantity}x | 
+                ${product.size} ${getTreatmentText(product.imageTreatment)} - ${product.price.toFixed(2)}€`}
+                </li>
+              ))}
+            </ul>
+
+            <p
+              className={`${styles.totalPrice_99} ${totalPrice !== products.reduce((acc, product) => acc + product.price, 0) + shippingCosts[location] ? styles.strikethrough : ""}`}
+              style={{
+                color: totalPrice !== products.reduce((acc, product) => acc + product.price, 0) + shippingCosts[location] ? 'red' : 'inherit',
+                fontSize: totalPrice !== products.reduce((acc, product) => acc + product.price, 0) + shippingCosts[location] ? '0.9em' : 'inherit',
+                display: totalPrice < products.reduce((acc, product) => acc + product.price, 0) + shippingCosts[location] ? 'block' : 'none',
+              }}
+            >
+              Total: {(products.reduce((acc, product) => acc + product.price, 0) + shippingCosts[location]).toFixed(2)}€
+            </p>
+            <p className={styles.totalPrice_99}>Total: ${totalPrice}</p>
           </div>
-
-          {/* Products List Section */}
-          <h2 className={styles.titleXYZ}>Produtos</h2>
-          <ul className={styles.productsList_2024}>
-            {tempProducts.map((product, index) => (
-              <li key={index} className={styles.itemProduct_1}>
-                {product.stickerType} - {product.size} - Qty: {product.quantity} - Price: ${product.price.toFixed(2)}
-              </li>
-            ))}
-          </ul>
-
-          <p
-            className={`${styles.totalPrice_99} ${totalPrice !== products.reduce((acc, product) => acc + product.price, 0) + shippingCosts[location] ? styles.strikethrough : ""}`}
-            style={{
-              color: totalPrice !== products.reduce((acc, product) => acc + product.price, 0) + shippingCosts[location] ? 'red' : 'inherit',
-              fontSize: totalPrice !== products.reduce((acc, product) => acc + product.price, 0) + shippingCosts[location] ? '0.9em' : 'inherit',
-              display: totalPrice < products.reduce((acc, product) => acc + product.price, 0) + shippingCosts[location] ? 'block' : 'none',
-            }}
-          >
-            Preço total: {(products.reduce((acc, product) => acc + product.price, 0) + shippingCosts[location]).toFixed(2)}€
-          </p>
-          <p className={styles.totalPrice_99}>Total: ${totalPrice}</p>
 
 
           {/* Buttons Section */}
           <div className={styles.btnAddProductContainer}>
-            <button className={styles.btnSubmit} onClick={handlePrevious}>Back</button>
+            <button className={styles.btnSubmit} onClick={handlePrevious}>Voltar</button>
             <button onClick={handleFinalSubmit} className={styles.btnSubmit} disabled={isSubmitting}>
               {isSubmitting ? 'A enviar...' : 'Submeter pedido'}
             </button>

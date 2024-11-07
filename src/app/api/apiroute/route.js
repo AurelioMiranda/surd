@@ -19,7 +19,8 @@ const db = getFirestore(app);
 sendgrid.setApiKey(process.env.SENDGRID_API_KEY);
 
 export async function POST(req) {
-  const { products, finalPrice, location, userEmail, instagram } = await req.json();
+  const { products, finalPrice, location, userEmail, instagram,
+    deliveryAddress, city, postalCode, country, phoneNumber, deliveryNotes } = await req.json();
   console.log(products)
   console.log(finalPrice)
   console.log(location)
@@ -32,45 +33,60 @@ export async function POST(req) {
 
   try {
     const emailContent = `
-      <h1>Order Summary</h1>
+      <h1>Sumário da encomenda</h1>
       <p><strong>Email:</strong> ${userEmail}</p>
-      <p><strong>Instagram:</strong> ${instagram}</p>
-      <p><strong>Shipping to:</strong> ${location}</p>
-      <p><strong>Total Price:</strong> ${finalPrice}€</p>
+      <p><strong>Nome:</strong> ${instagram}</p>
+      <p><strong>Enviar para:</strong> ${location}</p>
+      <p><strong>Endereço:</strong> ${deliveryAddress}</p>
+      <p><strong>Cidade:</strong> ${city}</p>
+      <p><strong>Código postal:</strong> ${postalCode}</p>
+      <p><strong>País:</strong> ${country}</p>
+      <p><strong>Telefone/telemóvel:</strong> ${phoneNumber}</p>
+      ${deliveryNotes ? <p><strong>Notas:</strong> ${deliveryNotes}</p> : ""}
+      <p><strong>Total:</strong> ${finalPrice}€</p>
+      <br>
+      <p><strong>Produtos:</strong></p>
       <ul>
         ${products.map(product => `
           <li>
-            ${product.quantity}x ${product.stickerType} (${product.size}) - ${product.price}€
+            ${product.stickerType} | ${product.quantity}x | ${product.size} - ${product.price.toFixed(2)}€
             ${product.imageTreatment ? `<br><em>Image Treatment: ${product.imageTreatmentText}</em>` : ""}
+            ${<img src={product.imageFile ? URL.createObjectURL(product.imageFile) : ''} alt="Preview" width="200" />}
           </li>
         `).join('')}
       </ul>
-      <p>Thank you for your order!</p>
+      <p>Obrigado pela sua encomenda!</p>
     `;
 
 
     await sendgrid.send({
       to: [userEmail, 'surd.emailsender@gmail.com'], //, 'stickyourdesign4customer@gmail.com' TODO: when payment ready
       from: 'surd.emailsender@gmail.com',
-      subject: 'Your Order Confirmation',
+      subject: 'Confirmação da sua encomenda',
       html: emailContent,
     });
     console.log("Email sent successfully.");
 
     await addDoc(collection(db, 'orders'), {
-      products,
+      products: productsWithImages,
       finalPrice,
       location,
       userEmail,
       instagram,
-      timestamp: new Date()
+      deliveryAddress,
+      city,
+      postalCode,
+      country,
+      phoneNumber,
+      deliveryNotes,
+      timestamp: new Date(),
     });
     console.log("Order and personal info saved in Firebase.");
 
     // Return success response
-    return new Response(JSON.stringify({ message: "Order saved and email sent successfully!" }), { status: 200 });
+    return new Response(JSON.stringify({ message: "Encomenda guardada e email enviado com sucesso, irá ser contactado pela @surd.pt/stickyourdesign4customer@gmail.com brevemente!" }), { status: 200 });
   } catch (error) {
-    console.error("Error saving order or sending email: ", error);
-    return new Response(JSON.stringify({ message: "Error saving order or sending email: " + error }), { status: 500 });
+    console.error("Error saving order or sending email:", error);
+    return new Response(JSON.stringify({ message: "Erro a guardar envomenda ou a enviar email, contacte stickyourdesign4customer@gmail.com de imediato!"}), { status: 500 });
   }
 }
