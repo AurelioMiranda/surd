@@ -7,14 +7,14 @@ import 'react-phone-number-input/style.css'
 
 const shippingCosts = {
   "PORTUGAL": 0.90,
-  "EUROPE (EXCEPT PT)": 1.45,
-  "REST OF THE WORLD": 1.55
+  "EUROPE (EXCETO PT)": 1.45,
+  "RESTO DO MUNDO": 1.55
 };
 
 const locationTime = {
   "PORTUGAL": "10 a 15 dias úteis",
-  "EUROPE (EXCEPT PT)": "12 a 17 dias úteis",
-  "REST OF THE WORLD": "14 a 19 dias úteis"
+  "EUROPE (EXCETO PT)": "12 a 17 dias úteis",
+  "RESTO DO MUNDO": "14 a 19 dias úteis"
 };
 
 const stickerPrices = {
@@ -149,6 +149,13 @@ const stickerNameSpecification = {
   }
 };
 
+const fontNames = {
+  "15cm/20cm (Preto/Branco Exterior)": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+  "15cm (Cores Exterior/Interior)": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
+  "20cm (Cores Exterior/Interior)": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
+  "qtt1": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+};
+
 const imageTreatmentPrices = [1.50, 3.00, 4.00, 5.00, 5.50, 6.00];
 
 export default function Payment() {
@@ -165,6 +172,9 @@ export default function Payment() {
   const [imageFile, setImageFile] = useState(null);
   const [isImageModalOpen, setImageModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [chosenFont, setChosenFont] = useState("");
+  const [instagramText, setInstagramText] = useState("");
+  const [showFonts, setShowFonts] = useState(false);
 
   const [userEmail, setUserEmail] = useState(""); // User details
   const [instagram, setInstagram] = useState("");
@@ -193,6 +203,14 @@ export default function Payment() {
 
   const handleCloseClick = () => {
     setShowImage(false);
+  };
+
+  const handleFontClick = () => {
+    setShowFonts(true);
+  };
+
+  const handleFontCloseClick = () => {
+    setShowFonts(false);
   };
 
   const calculatePrice = () => {
@@ -297,6 +315,8 @@ export default function Payment() {
   const handleDiscountMode = () => {
     handleSetStep(3);
     setTempProducts(JSON.parse(JSON.stringify(products)));
+    // setAffiliateCode(0)
+    // setUsedAffiliateCode(false)
 
     updateTotalPriceWLocation();
   }
@@ -333,11 +353,18 @@ export default function Payment() {
   };
 
   const handlePrevious = () => {
+    console.log("deliveryNotes" + deliveryNotes)
     setStep((prevStep) => prevStep - 1); // Go back to the previous step
   };
 
   const handleAddProduct = () => {
     if (imageTreatment && !imageTreatmentText) {
+      return
+    }
+    if (!imageFile && !chosenFont) {
+      return
+    }
+    if (chosenFont && !instagramText) {
       return
     }
 
@@ -349,6 +376,8 @@ export default function Payment() {
       imageTreatment,
       imageTreatmentText,
       imageFile,
+      chosenFont,
+      instagramText,
       price
     };
     console.log(newProduct);
@@ -364,7 +393,9 @@ export default function Payment() {
     setQuantity(5);
     setImageTreatment(false);
     setImageTreatmentText("");
-    setImageFile(null)
+    setImageFile(null);
+    setChosenFont("");
+    setInstagramText("");
   };
 
   const handleRemoveProduct = (index) => {
@@ -405,25 +436,29 @@ export default function Payment() {
   const uploadProductImages = async (orderProducts) => {
     return await Promise.all(
       orderProducts.map(async (product) => {
-        const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
-        const uploadUrl = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`;
+        if (product.imageFile) {
+          const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
+          const uploadUrl = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`;
 
-        const formData = new FormData();
-        formData.append('file', product.imageFile);
-        formData.append('upload_preset', 'designs');
+          const formData = new FormData();
+          formData.append('file', product.imageFile);
+          formData.append('upload_preset', 'designs');
 
-        const response = await fetch(uploadUrl, {
-          method: 'POST',
-          body: formData
-        });
+          const response = await fetch(uploadUrl, {
+            method: 'POST',
+            body: formData
+          });
 
-        const result = await response.json();
-        console.log(result);
+          const result = await response.json();
+          console.log(result);
 
-        return {
-          ...product,
-          imageFile: result.secure_url
-        };
+          return {
+            ...product,
+            imageFile: result.secure_url // Replace imageFile with the uploaded URL
+          };
+        } else {
+          return product;
+        }
       })
     );
   };
@@ -541,16 +576,31 @@ export default function Payment() {
                 ))}
               </select>
             </label>
-            <div style={{ marginTop: '8px' }}>
-              <label className={styles.label_001}>
-                Design
-              </label>
-              <ImageUpload onUpload={setImageFile} />
-            </div>
+            {!(stickerType == 'instaStickers') &&
+              <div style={{ marginTop: '8px' }}>
+                <label className={styles.label_001}>
+                  Design
+                </label>
+                <ImageUpload onUpload={setImageFile} />
+              </div>
+            }
+            {(stickerType == 'instaStickers') &&
+              <div>
+                <label className={styles.label_001}>
+                  Quantidade {/*<span class="material-symbols-outlined" title="Se precisar de uma quantidade não listada, envie-nos mensagem diretamente no instagram!">info</span>*/}
+                  <select className={styles.select} value={quantity} onChange={(e) => setQuantity(parseInt(e.target.value, 10))}>
+                    <option value="">Selecione a quantidade</option>
+                    {stickerQuantities && size && stickerQuantities[stickerType][size]?.map((qty) => (
+                      <option key={qty} value={qty}>{qty}</option>
+                    ))}
+                  </select>
+                </label>
+              </div>
+            }
           </div>
           <div style={{ marginTop: '10px' }} className={styles.navButtons182}>
             <button className={styles.btnSubmit} onClick={handlePrevious}>Voltar</button>
-            <button style={{ marginLeft: '10px' }} className={styles.btnSubmit} onClick={handleNext} disabled={!size || !imageFile}>Selecionar</button>
+            <button style={{ marginLeft: '10px' }} className={styles.btnSubmit} onClick={handleNext} disabled={!size || (!imageFile && !(stickerType == 'instaStickers'))}>Selecionar</button>
           </div>
         </div>
       )}
@@ -568,27 +618,115 @@ export default function Payment() {
         <div className={styles.quantityAndTreatment}>
           {/* Quantity and Image Treatment */}
           <div>
-            <label className={styles.label_001}>
-              Quantidade {/*<span class="material-symbols-outlined" title="Se precisar de uma quantidade não listada, envie-nos mensagem diretamente no instagram!">info</span>*/}
-              <select className={styles.select} value={quantity} onChange={(e) => setQuantity(parseInt(e.target.value, 10))}>
-                <option value="">Selecione a quantidade</option>
-                {stickerQuantities && size && stickerQuantities[stickerType][size]?.map((qty) => (
-                  <option key={qty} value={qty}>{qty}</option>
-                ))}
-              </select>
-            </label>
-            <div style={{ marginTop: '5px', width: 'fit-content', display: 'flex', alignItems: 'center' }}>
-              <label className={styles.label_001} htmlFor="imageTreatmentCheckbox">
-                Tratamento de imagem:
+            {!(stickerType == 'instaStickers') &&
+              <label className={styles.label_001}>
+                Quantidade {/*<span class="material-symbols-outlined" title="Se precisar de uma quantidade não listada, envie-nos mensagem diretamente no instagram!">info</span>*/}
+                <select className={styles.select} value={quantity} onChange={(e) => setQuantity(parseInt(e.target.value, 10))}>
+                  <option value="">Selecione a quantidade</option>
+                  {stickerQuantities && size && stickerQuantities[stickerType][size]?.map((qty) => (
+                    <option key={qty} value={qty}>{qty}</option>
+                  ))}
+                </select>
               </label>
-              <input
-                type="checkbox"
-                id="imageTreatmentCheckbox"
-                checked={imageTreatment}
-                onChange={(e) => setImageTreatment(e.target.checked)}
-                style={{ marginLeft: '4px', width: '15px', height: '15px' }}
-              />
-            </div>
+            }
+            {!(stickerType == 'instaStickers') &&
+              <div style={{ marginTop: '5px', width: 'fit-content', display: 'flex', alignItems: 'center' }}>
+                <label className={styles.label_001} htmlFor="imageTreatmentCheckbox">
+                  Tratamento de imagem:
+                </label>
+                <input
+                  type="checkbox"
+                  id="imageTreatmentCheckbox"
+                  checked={imageTreatment}
+                  onChange={(e) => setImageTreatment(e.target.checked)}
+                  style={{ marginLeft: '4px', width: '15px', height: '15px' }}
+                />
+              </div>
+            }
+
+            {(stickerType == 'instaStickers') &&
+              <div>
+                <label className={styles.label_001}>
+                  Tipo de fonte <span class="material-symbols-outlined" onClick={handleFontClick}>info</span>
+                  <select className={styles.select} value={chosenFont} onChange={(e) => setChosenFont(e.target.value)} disabled={!size}>
+                    <option value="">Selecione uma fonte</option>
+                    {((quantity == 1) && size != "15cm/20cm (Preto/Branco Exterior)") &&
+                      fontNames["qtt1"].map((sizeOption) => (
+                        <option key={sizeOption} value={sizeOption}>
+                          {sizeOption}
+                        </option>
+                      ))
+                    }
+                    {((quantity > 1) || ((quantity == 1) && size == "15cm/20cm (Preto/Branco Exterior)"))
+                      && size == "15cm (Cores Exterior/Interior)" &&
+                      fontNames["15cm (Cores Exterior/Interior)"].map((sizeOption) => (
+                        <option key={sizeOption} value={sizeOption}>
+                          {sizeOption}
+                        </option>
+                      ))
+                    }
+                    {((quantity > 1) || ((quantity == 1) && size == "15cm/20cm (Preto/Branco Exterior)"))
+                      && size == "20cm (Cores Exterior/Interior)" &&
+                      fontNames["20cm (Cores Exterior/Interior)"].map((sizeOption) => (
+                        <option key={sizeOption} value={sizeOption}>
+                          {sizeOption}
+                        </option>
+                      ))
+                    }
+                    {((quantity > 1) || ((quantity == 1) && size == "15cm/20cm (Preto/Branco Exterior)")) &&
+                      fontNames["15cm/20cm (Preto/Branco Exterior)"].map((sizeOption) => (
+                        <option key={sizeOption} value={sizeOption}>
+                          {sizeOption}
+                        </option>
+                      ))
+                    }
+                  </select>
+                </label>
+                <div className={styles.fontGuide} onClick={handleFontClick}>Guia de fontes</div>
+                <label className={styles.label_001}>
+                  Texto do sticker {/*<span class="material-symbols-outlined" onClick={handleFontClick}>info</span>*/}
+                  <div className={styles.sectionEfrgt5}>
+                    <input
+                      type="text"
+                      value={instagramText}
+                      onChange={(e) => setInstagramText(e.target.value)}
+                      required
+                      className={styles.modalInput}
+                      disabled={!size}
+                    />
+                  </div>
+                </label>
+              </div>
+            }
+
+            {showFonts && (
+              <div>
+                {((quantity == 1) && size != "15cm/20cm (Preto/Branco Exterior)") &&
+                  <div className={styles.overlay5168}>
+                    <div className={styles.imageContainer17552}>
+                      <span className={styles.closeButton884656} onClick={handleFontCloseClick}>X</span>
+                      <img src="InstaHandleColorJustOne.jpeg" alt="Font to choose" className={styles.image1456} />
+                    </div>
+                  </div>
+                }
+                {((quantity > 1) || ((quantity == 1) && size == "15cm/20cm (Preto/Branco Exterior)")) &&
+                  <div className={styles.overlay5168}>
+                    {size == "15cm/20cm (Preto/Branco Exterior)" &&
+                      <div className={styles.imageContainer17552}>
+                        <span className={styles.closeButton884656} onClick={handleFontCloseClick}>X</span>
+                        <img src="InstaHandleBandWAllQuantities.jpeg" alt="Font to choose" className={styles.image1456} />
+                      </div>
+                    }
+                    {size != "15cm/20cm (Preto/Branco Exterior)" &&
+                      <div className={styles.imageContainer17552}>
+                        <span className={styles.closeButton884656} onClick={handleFontCloseClick}>X</span>
+                        <img src="InstaHandleColorAllQuantities.jpeg" alt="Font to choose" className={styles.image1456} />
+                      </div>
+                    }
+                  </div>
+                }
+              </div>
+            )}
 
             {imageTreatment && (
               <div style={{ marginTop: '5px', width: 'fit-content', display: 'flex', alignItems: 'center' }}>
@@ -669,9 +807,11 @@ export default function Payment() {
                   </span>
 
                   <div className={styles.itemProduct_2}>
-                    <button className={styles.btnShowImage} onClick={() => toggleImageModal(product.imageFile)}>
-                      Mostrar
-                    </button>
+                    {!(product.stickerType == 'instaStickers') &&
+                      <button className={styles.btnShowImage} onClick={() => toggleImageModal(product.imageFile)}>
+                        Mostrar
+                      </button>
+                    }
 
                     <button className={styles.btnRemove_2023} onClick={() => handleRemoveProduct(index)}>
                       Remover

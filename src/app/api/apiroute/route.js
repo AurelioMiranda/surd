@@ -26,6 +26,7 @@ export async function POST(req) {
   console.log(location)
   console.log(userEmail)
   console.log(instagram)
+  console.log(deliveryNotes)
 
   if (isNaN(finalPrice)) {
     return new Response(JSON.stringify({ message: "Error processing order: Unable to process the price. If the issue persists, DM us @surd.pt on instagram." }), { status: 500 });
@@ -42,7 +43,7 @@ export async function POST(req) {
       <p><strong>Código postal:</strong> ${postalCode}</p>
       <p><strong>País:</strong> ${country}</p>
       <p><strong>Telefone/telemóvel:</strong> ${phoneNumber}</p>
-      ${deliveryNotes ? <p><strong>Notas:</strong> ${deliveryNotes}</p> : ""}
+      ${deliveryNotes ? `<p><strong>Notas:</strong> ${deliveryNotes}</p>` : ""}
       <p><strong>Total:</strong> ${finalPrice}€</p>
       <br>
       <p><strong>Produtos:</strong></p>
@@ -52,6 +53,9 @@ export async function POST(req) {
             ${product.stickerType} | ${product.quantity}x | ${product.size} - ${product.price.toFixed(2)}€
             ${product.imageTreatment ? `<br><em>Image Treatment: ${product.imageTreatmentText}</em>` : ""}
             ${product.imageFile ? `<br><img src="${product.imageFile}" alt="Product Image" width="200" />` : ""}
+            ${product.chosenFont ? `<br><p><strong>Fonte: </strong>${product.chosenFont}</p>` : ""}
+            ${product.instagramText ? `<br><p><strong>Texto: </strong>${product.instagramText}</p>` : ""}
+            <br>
           </li>
         `).join('')}
       </ul>

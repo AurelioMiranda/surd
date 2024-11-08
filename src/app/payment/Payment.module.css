@@ -491,3 +491,9 @@
     font-size: 16px;
     margin-left: -10px;
 }
+
+.fontGuide {
+    text-decoration: underline;
+    font-size: 15px;
+    margin-left: 13px;
+}
