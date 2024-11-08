@@ -19,9 +19,9 @@ const db = getFirestore(app);
 sendgrid.setApiKey(process.env.SENDGRID_API_KEY);
 
 export async function POST(req) {
-  const { products, finalPrice, location, userEmail, instagram,
+  const { orderId, orderReadyProducts, finalPrice, location, userEmail, instagram,
     deliveryAddress, city, postalCode, country, phoneNumber, deliveryNotes } = await req.json();
-  console.log(products)
+  console.log(orderReadyProducts)
   console.log(finalPrice)
   console.log(location)
   console.log(userEmail)
@@ -47,11 +47,11 @@ export async function POST(req) {
       <br>
       <p><strong>Produtos:</strong></p>
       <ul>
-        ${products.map(product => `
+        ${orderReadyProducts.map(product => `
           <li>
             ${product.stickerType} | ${product.quantity}x | ${product.size} - ${product.price.toFixed(2)}€
             ${product.imageTreatment ? `<br><em>Image Treatment: ${product.imageTreatmentText}</em>` : ""}
-            ${<img src={product.imageFile ? URL.createObjectURL(product.imageFile) : ''} alt="Preview" width="200" />}
+            ${product.imageFile ? `<br><img src="${product.imageFile}" alt="Product Image" width="200" />` : ""}
           </li>
         `).join('')}
       </ul>
@@ -68,7 +68,7 @@ export async function POST(req) {
     console.log("Email sent successfully.");
 
     await addDoc(collection(db, 'orders'), {
-      products: productsWithImages,
+      orderReadyProducts,
       finalPrice,
       location,
       userEmail,
@@ -87,6 +87,6 @@ export async function POST(req) {
     return new Response(JSON.stringify({ message: "Encomenda guardada e email enviado com sucesso, irá ser contactado pela @surd.pt/stickyourdesign4customer@gmail.com brevemente!" }), { status: 200 });
   } catch (error) {
     console.error("Error saving order or sending email:", error);
-    return new Response(JSON.stringify({ message: "Erro a guardar envomenda ou a enviar email, contacte stickyourdesign4customer@gmail.com de imediato!"}), { status: 500 });
+    return new Response(JSON.stringify({ message: "Erro a guardar encomenda ou a enviar email, contacte stickyourdesign4customer@gmail.com de imediato!" }), { status: 500 });
   }
 }

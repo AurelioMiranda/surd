@@ -98,8 +98,8 @@ const stickerQuantities = {
 };
 
 const stickerName = {
-  circular: "Circular",
-  custom: "Customizado",
+  circular: "Sticker Circular",
+  custom: "Sticker Customizado",
   square: "Sticker Quadrangular/Retangular",
   glass: "Sticker para vidros",
   instaStickers: "Sticker com @ do Instagram",
@@ -347,7 +347,9 @@ export default function Payment() {
     }
     let totalPriceTemp = calculateTotalPrice();
     totalPriceTemp = parseFloat(totalPriceTemp);
-    totalPriceTemp += shippingCosts[newLocation];
+    if (products.length < 2) {
+      totalPriceTemp += shippingCosts[newLocation];
+    }
     setTotalPrice(totalPriceTemp);
   }
 
@@ -372,6 +374,10 @@ export default function Payment() {
   };
 
   const handleAddProduct = () => {
+    if (imageTreatment && !imageTreatmentText) {
+      return
+    }
+
     const price = calculatePrice();
     const newProduct = {
       stickerType,
@@ -394,6 +400,7 @@ export default function Payment() {
     setSize("");
     setQuantity(5);
     setImageTreatment(false);
+    setImageTreatmentText("");
     setImageFile(null)
   };
 
@@ -418,14 +425,71 @@ export default function Payment() {
     return "";
   };
 
+  function generateUniqueString(length = 10) {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()';
+    let result = '';
+    const charactersLength = characters.length;
+
+    for (let
+      i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+
+    return result;
+
+  }
+
+  const uploadProductImages = async (orderProducts) => {
+    return await Promise.all(
+      orderProducts.map(async (product) => {
+        const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
+        const uploadUrl = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`;
+
+        const formData = new FormData();
+        formData.append('file', product.imageFile);
+        formData.append('upload_preset', 'designs');
+
+        const response = await fetch(uploadUrl, {
+          method: 'POST',
+          body: formData
+        });
+
+        const result = await response.json();
+        console.log(result);
+
+        return {
+          ...product,
+          imageFile: result.secure_url
+        };
+      })
+    );
+  };
+
+
+  async function saveDesignImages(orderProducts) {
+    try {
+      const updatedProducts = await uploadProductImages(orderProducts);
+      return updatedProducts;
+    } catch (error) {
+      console.error("Error processing order: ", error);
+      return [];
+    }
+  }
+
+
   const handleFinalSubmit = async () => {
     setIsSubmitting(true);
     const finalPrice = products.reduce((acc, product) => acc + product.price, 0).toFixed(2);
+
+    const orderId = generateUniqueString();
+    const orderReadyProducts = await saveDesignImages(products);
+
     const response = await fetch('/api/apiroute', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        products, //TODO: image not being processed
+        orderId,
+        orderReadyProducts,
         finalPrice,
         location,
         userEmail,
@@ -450,6 +514,14 @@ export default function Payment() {
       setLocation("PORTUGAL");
       setUserEmail("");
       setInstagram("");
+      setDeliveryAddress("");
+      setCity("");
+      setPostalCode("");
+      setCountry("");
+      setCountry("");
+      setDeliveryNotes("");
+      setPhoneNumber("");
+      setStep(0);
     }
     setTimeout(() => {
       setIsSubmitting(false);
@@ -589,6 +661,13 @@ export default function Payment() {
             </select>
             <p style={{ fontSize: '14px', marginLeft: '5px', marginTop: '5px' }}>Tempo de entrega: {locationTime[currentLocationTime]}</p>
           </label>
+          <span>
+            {products.length > 1 && (
+              <span className={styles.offerMessage}>
+                Oferta de portes: {products.length} produtos no carrinho!
+              </span>
+            )}
+          </span>
 
           {/* Discount Code Area */}
           <div className={styles.discountCodeContainer} style={{ marginTop: '30px' }}>
@@ -696,7 +775,7 @@ export default function Payment() {
         </div>
       )}
 
-      {/* Shipping Location */}
+      {/* User details */}
       {step === 4 && (
         <form className={styles.containerPayment123} onSubmit={handleNext}>
           <h2 className={styles.titleXYZ}>Informação de envio</h2>
@@ -789,8 +868,11 @@ export default function Payment() {
 
           <div className={styles.btnAddProductContainer}>
             <button className={styles.btnSubmit} onClick={handlePrevious}>Voltar</button>
-            <button type="submit" className={styles.btnSubmit} disabled={!userEmail}>
-              Submit
+            <button
+              type="submit"
+              className={styles.btnSubmit}
+              disabled={!userEmail || !instagram || !deliveryAddress || !city || !country || !postalCode || !phoneNumber}>
+              Submeter
             </button>
           </div>
         </form>
@@ -833,7 +915,7 @@ export default function Payment() {
             >
               Total: {(products.reduce((acc, product) => acc + product.price, 0) + shippingCosts[location]).toFixed(2)}€
             </p>
-            <p className={styles.totalPrice_99}>Total: ${totalPrice}</p>
+            <p className={styles.totalPrice_99}>Total: ${totalPrice.toFixed(2)}</p>
           </div>
 
 
