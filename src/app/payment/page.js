@@ -230,7 +230,10 @@ export default function Payment() {
 
     setTempProducts(updatedProducts);
 
-    const tempPrice = updatedProducts.reduce((total, product) => total + parseFloat(product.price), 0);
+    let tempPrice = updatedProducts.reduce((total, product) => total + parseFloat(product.price), 0);
+    if (updatedProducts.length < 2) {
+      tempPrice += shippingCosts[location];
+    }
     setTotalPrice(tempPrice);
 
     console.log("Updated Products with Discounted Prices:", updatedProducts);
