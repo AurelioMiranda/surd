@@ -28,6 +28,15 @@ export async function POST(req) {
   console.log(instagram)
   console.log(deliveryNotes)
 
+  const stickerName = {
+    circular: "Sticker Circular",
+    custom: "Sticker Customizado",
+    square: "Sticker Quadrangular/Retangular",
+    glass: "Sticker para vidros",
+    instaStickers: "Sticker com @ do Instagram",
+    temporary_tattoos: "Tatuagem temporária"
+  };
+
   if (isNaN(finalPrice)) {
     return new Response(JSON.stringify({ message: "Error processing order: Unable to process the price. If the issue persists, DM us @surd.pt on instagram." }), { status: 500 });
   }
@@ -50,11 +59,11 @@ export async function POST(req) {
       <ul>
         ${orderReadyProducts.map(product => `
           <li>
-            ${product.stickerType} | ${product.quantity}x | ${product.size} - ${product.price.toFixed(2)}€
+            ${stickerName[product.stickerType]} | ${product.quantity}x | ${product.size} - ${product.price.toFixed(2)}€
             ${product.imageTreatment ? `<br><em>Image Treatment: ${product.imageTreatmentText}</em>` : ""}
             ${product.imageFile ? `<br><img src="${product.imageFile}" alt="Product Image" width="200" />` : ""}
             ${product.chosenFont ? `<br><p><strong>Fonte: </strong>${product.chosenFont}</p>` : ""}
-            ${product.instagramText ? `<br><p><strong>Texto: </strong>${product.instagramText}</p>` : ""}
+            ${product.instagramText ? `<p><strong>Texto: </strong>${product.instagramText}</p>` : ""}
             <br>
           </li>
         `).join('')}

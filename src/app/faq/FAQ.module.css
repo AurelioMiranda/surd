@@ -49,6 +49,18 @@
     color: #666;
 }
 
+.stepsList123hjjy {
+    list-style-type: disc;
+    margin-top: 20px;
+    padding-left: 20px;
+}
+
+.stepsList123hjjy li {
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+    color: #666;
+}
+
 .subStepsList123 {
     margin-top: 8px;
     list-style-type: none;

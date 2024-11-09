@@ -12,9 +12,8 @@ export default function HomePage() {
         <section className={styles.oqueESurd}>
           <h1>O que é a SURD?</h1>
           <p>
-            A SURD é uma startup portuguesa que comercializa stickers completamente personalizados por si, de alta qualidade e de forma sustentável.
-            Connosco vai poder personalizar TUDO! O seu sticker terá o seu design ou caso não tenha um, nós criamo-lo por si, só tem de nos dizer o que deseja!
-            Além disso, é você que escolhe o tamanho, o tipo de corte e para que tipo de ambiente será o sticker.
+            A SURD é uma startup portuguesa que comercializa stickers e tatuagens completamente personalizados por si, de alta qualidade e de forma sustentável.
+            Connosco vai poder personalizar TUDO! O seu produto terá o seu design ou caso não tenha um, nós criamo-lo por si, só tem de nos dizer o que deseja!
           </p>
         </section>
 

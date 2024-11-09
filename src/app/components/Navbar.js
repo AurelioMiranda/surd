@@ -19,9 +19,9 @@ const Navbar = () => {
             <div>
                 <div style={{ width: 'fit-content', height: 'fit-content' }} className={styles.extensionLinks}>
                     <Link href="/">Início</Link>
-                    <Link href="/faq">FAQ</Link>
-                    <Link href="/precos">Preços</Link>
                     <Link href="/contacto">Contacto</Link>
+                    <Link href="/precos">Preços</Link>
+                    <Link href="/faq">FAQ</Link>
                 </div>
 
                 {/* Burger Menu for smaller screens */}
@@ -35,12 +35,14 @@ const Navbar = () => {
                 </div>
 
                 <div>
-                    <Image
-                        src="/surdlogo.png"
-                        alt="SURD Logo"
-                        width={44}
-                        height={50}
-                    />
+                    <a href="/">
+                        <Image
+                            src="/surdlogo.png"
+                            alt="SURD Logo"
+                            width={44}
+                            height={50}
+                        />
+                    </a>
                 </div>
 
                 <div style={{ justifyContent: 'flex-end' }}>

@@ -37,28 +37,33 @@ export default function Precos() {
           <p className={styles.imageCaption987}>Figura 3 - Preço por unidade dos stickers para vidro quadrangulares.</p>
         </div>
 
+        <div className={styles.priceImageContainer987}>
+          <img src="InstaStickersPrice.jpeg" alt="Stickers price per unit (instagram)" className={styles.precoImage987} />
+          <p className={styles.imageCaption987}>Figura 4 - Preço por unidade dos insta stickers.</p>
+        </div>
+
         <h2 className={styles.precosTitle958}>Tatuagens temporárias</h2>
 
         <div className={styles.priceImageContainer987}>
           <img src="temporary-tattoos.jpeg" alt="Temporary tattoos" className={styles.precoImage987} />
-          <p className={styles.imageCaption987}>Figura 4 - Preço por unidade das tatuagens temporárias.</p>
+          <p className={styles.imageCaption987}>Figura 5 - Preço por unidade das tatuagens temporárias.</p>
         </div>
 
         <h2 className={styles.precosTitle958}>Serviços e tarifas</h2>
 
         <div className={styles.priceImageContainer987}>
-          <img src="shipping-costs.jpeg" alt="Shipping costs" className={styles.precoImage987} />
-          <p className={styles.imageCaption987}>Figura 5 - Portes de envio.</p>
+          <img src="shippingCosts.jpeg" alt="Shipping costs" className={styles.precoImage987} />
+          <p className={styles.imageCaption987}>Figura 6 - Portes de envio.</p>
         </div>
 
         <div className={styles.priceImageContainer987}>
           <img src="treatment-prices.jpeg" alt="Treatment prices" className={styles.precoImage987} />
-          <p className={styles.imageCaption987}>Figura 6 - Preço do tratamento de imagem, em função da quantidade encomendada.</p>
+          <p className={styles.imageCaption987}>Figura 7 - Preço do tratamento de imagem, em função da quantidade encomendada.</p>
         </div>
 
         <div className={styles.deliveryInfo987}>
           <p>
-            Tenha em atenção que o prazo de entrega e de produção varia entre <strong>10 e 16 dias</strong>,
+            Tenha em atenção que o prazo de entrega e de produção varia entre <strong>10 e 15 dias</strong>,
             consoante a encomenda. Garantimos que a qualidade dos nossos produtos compensa qualquer tempo de espera adicional!
           </p>
         </div>

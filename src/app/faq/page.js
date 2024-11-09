@@ -9,15 +9,22 @@ export default function FAQ() {
         <div className={styles.questionBlock123}>
           <h2 className={styles.question123}>Como posso comprar?</h2>
           <p className={styles.answer123}>
-            É simples: escolha o tamanho, a quantidade, o tipo de corte e se quer ou não que a imagem seja processada por nós
-            (todas as informações estão disponíveis nas secções “preços” e “+info” no nosso Instagram <a href="https://www.instagram.com/surd.pt/" target="_blank" rel="noopener noreferrer">
+            Através do nosso site, clicando no carrinho que se encontra no canto superior direito da página ou entrando em contacto direto conosco através
+            do nosso instagram (<a href="https://www.instagram.com/surd.pt/" target="_blank" rel="noopener noreferrer">
               @surd.pt
-            </a>). Se não tiver um desenho, não se preocupe,
-            podemos criar um com todos os pormenores que desejar!
-            <br />
-            (Este serviço tem um custo que dependerá da complexidade do desenho).
-            <br /><br />
-            Depois disso, basta enviar-nos uma mensagem no Instagram e nós tratamos do processo.
+            </a>)
+          </p>
+        </div>
+
+        <div className={styles.questionBlock123}>
+          <h2 className={styles.question123}>O que é o tratamento de imagem?</h2>
+          <p className={styles.answer123}>
+            O tratamento de imagem consiste na modificação de qualquer característica técnica relacionada com a imagem, como retirar
+            o fundo, alterar a forma, editar a imagem (contraste, brilho, exposição, etc.), retirar ou colocar objetos, efeitos, inserir
+            texto, entre outros.
+            O número de tratamentos representa o número máximo de alterações que podem ser feitas para cada quantidade, sem incorrer em
+            custos adicionais. Este pode ser aumentado sem necessidade de encomendar mais unidades, com um custo adicional de 1€ por
+            cada tratamento adicional.
           </p>
         </div>
 
@@ -40,7 +47,29 @@ export default function FAQ() {
         </div>
 
         <div className={styles.questionBlock123}>
-          <h2 className={styles.question123}>Qual o melhor modo de utilização?</h2>
+          <h2 className={styles.question123}> Como devo aplicar as tatuagens?</h2>
+          <ol className={styles.stepsList123} start="0">
+            <li>Limpe e seque bem a zona escolhida (esta não deve conter pelos).</li>
+            <li>Retire a película que está sobre a tatuagem.</li>
+            <li>Coloque o desenho da tatuagem sobre a pele.</li>
+            <li>Umedeça-o e pressione durante alguns segundos.</li>
+            <li>Retire o papel cuidadosamente e deixe secar.</li>
+          </ol>
+        </div>
+
+        <div className={styles.questionBlock123}>
+          <h2 className={styles.question123}> Quais as características das tatuagens?</h2>
+          <ul className={styles.stepsList123hjjy}>
+            <li>Duram aproximadamente entre 3-5 dias.</li>
+            <li>Indicado para peles sensíveis.</li>
+            <li>Testadas dermatologicamente em laboratório.</li>
+            <li>Feitas de um material seguro e não tóxico.</li>
+            <li>Recomendado para crianças a partir dos 3 anos de idade.</li>
+          </ul>
+        </div>
+
+        <div className={styles.questionBlock123}>
+          <h2 className={styles.question123}>Como devo aplicar os stickers?</h2>
           <ol className={styles.stepsList123}>
             <li>Escolha da superfície - Certifique-se de que a superfície onde vai aplicar o autocolante está limpa e seca.</li>
             <li>Preparação - Remova a película protetora cuidadosamente.</li>
@@ -53,18 +82,6 @@ export default function FAQ() {
             </li>
             <li>Ajustes finais - Depois de aplicado, pressione bem todos os cantos para garantir que o autocolante fique completamente fixo.</li>
           </ol>
-        </div>
-
-        <div className={styles.questionBlock123}>
-          <h2 className={styles.question123}>O que é o tratamento de imagem?</h2>
-          <p className={styles.answer123}>
-            O tratamento de imagem consiste na modificação de qualquer característica técnica relacionada com a imagem, como retirar
-            o fundo, alterar a forma, editar a imagem (contraste, brilho, exposição, etc.), retirar ou colocar objetos, efeitos, inserir
-            texto, entre outros.
-            O número de tratamentos representa o número máximo de alterações que podem ser feitas para cada quantidade, sem incorrer em
-            custos adicionais. Este pode ser aumentado sem necessidade de encomendar mais unidades, com um custo adicional de 1€ por
-            cada tratamento adicional.
-          </p>
         </div>
       </section>
     </div>

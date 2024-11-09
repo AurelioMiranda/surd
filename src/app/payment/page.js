@@ -25,6 +25,8 @@ const stickerPrices = {
     "10X10": [5.90, 3.15, 1.62, 1.18, 0.94, 0.78],
   },
   custom: {
+    "3X3": [2.55, 1.47, 0.84, 0.62, 0.52, 0.44],
+    "5X5": [3.83, 2.12, 1.16, 0.84, 0.68, 0.57],
     "7X7": [3.98, 2.44, 1.70, 1.36, 1.20, 0.97],
     "10X10": [4.49, 2.78, 2.04, 1.70, 1.51, 1.38],
   },
@@ -66,6 +68,8 @@ const stickerQuantities = {
     "10X10": [5, 10, 20, 30, 40, 50],
   },
   custom: {
+    "3X3": [5, 10, 20, 30, 40, 50],
+    "5X5": [5, 10, 20, 30, 40, 50],
     "7X7": [5, 10, 20, 30, 40, 50],
     "10X10": [5, 10, 20, 30, 40, 50],
   },
@@ -528,14 +532,14 @@ export default function Payment() {
 
   return (
     <div className={styles.containerPayment123}>
-      <h1 className={styles.titleXYZ}>Carrinho</h1>
+      <h1 className={styles.titleXYZ}>Realizar encomenda</h1>
 
       <div className={styles.progressBarContainer}>
         <div className={`${styles.stepItem} ${step >= 0 ? styles.activeStep : ""}`}>
-          <span className={styles.stepNumber}>1</span> Produtos
+          <span className={styles.stepNumber}>1</span> Seleção de produtos
         </div>
         <div className={`${styles.stepItem} ${step >= 4 ? styles.activeStep : ""}`}>
-          <span className={styles.stepNumber}>2</span> Endereço
+          <span className={styles.stepNumber}>2</span> Detalhes de envio
         </div>
         <div className={`${styles.stepItem} ${step >= 5 ? styles.activeStep : ""}`}>
           <span className={styles.stepNumber}>3</span> Checkout
@@ -568,7 +572,7 @@ export default function Payment() {
           {/* Size Selection */}
           <div>
             <label className={styles.label_001}>
-              Tamanho <span class="material-symbols-outlined" onClick={handleIconClick}>info</span>
+              Tamanho {'(cm)'} <span class="material-symbols-outlined" onClick={handleIconClick}>info</span>
               <select className={styles.select} value={size} onChange={(e) => setSize(e.target.value)}>
                 <option value="">Selecione um tamanho</option>
                 {stickerType && Object.keys(stickerPrices[stickerType]).map((sizeOption) => (
@@ -765,7 +769,7 @@ export default function Payment() {
           <span>
             {products.length > 1 && (
               <span className={styles.offerMessage}>
-                Oferta de portes: {products.length} produtos no carrinho!
+                Por ter {products.length} produtos no carrinho os portes são por nossa conta {';)'}
               </span>
             )}
           </span>
@@ -978,7 +982,7 @@ export default function Payment() {
               type="submit"
               className={styles.btnSubmit}
               disabled={!userEmail || !instagram || !deliveryAddress || !city || !country || !postalCode || !phoneNumber}>
-              Submeter
+              Continuar
             </button>
           </div>
         </form>
@@ -1000,9 +1004,15 @@ export default function Payment() {
             <p className={styles.userDetailItem}><strong>País:</strong> {country}</p>
             <p className={styles.userDetailItem}><strong>Telefone/telemóvel:</strong> {phoneNumber}</p>
             <p className={styles.userDetailItem}><strong>Notas de envio:</strong> {deliveryNotes}</p>
+            {products.length > 1 && (
+              <p className={styles.userDetailItem}><strong>Portes de envio:</strong> Grátis!</p>
+            )}
+            {products.length == 1 && (
+              <p className={styles.userDetailItem}><strong>Portes de envio:</strong> {shippingCosts[location]}€</p>
+            )}
 
             {/* Products List Section */}
-            <h2 className={styles.titleXYZ}>Produtos</h2>
+            <h2 className={styles.userDetailsTitle}>Produtos</h2>
             <ul className={styles.productsList_2024}>
               {tempProducts.map((product, index) => (
                 <li key={index} className={styles.itemProduct_1}>
