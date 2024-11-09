@@ -872,7 +872,9 @@ export default function Payment() {
       {(step === 3 && products.length > 0) && (
         <div>
           <div className={styles.btnAddProductContainer}>
-            <button className={styles.btnSubmit} onClick={() => handleSetStep(0)}>Voltar</button>
+            {!usedAffiliateCode &&
+              <button className={styles.btnSubmit} onClick={() => handleSetStep(0)}>Voltar</button>
+            }
             <button style={{ marginLeft: '10px' }} className={styles.btnSubmit} onClick={handleNext}>Continuar</button>
           </div>
         </div>
@@ -1020,7 +1022,7 @@ export default function Payment() {
             >
               Total: {(products.reduce((acc, product) => acc + product.price, 0) + shippingCosts[location]).toFixed(2)}€
             </p>
-            <p className={styles.totalPrice_99}>Total: ${totalPrice.toFixed(2)}</p>
+            <p className={styles.totalPrice_99}>Total: {totalPrice.toFixed(2)}€</p>
           </div>
 
 
