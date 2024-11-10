@@ -242,11 +242,20 @@ export default function Payment() {
   };
 
   const applyDiscountToProducts = (discountPercentage) => {
+    let discountWasApplied = false;
     const updatedProducts = tempProducts.map(product => {
-      const discountedPrice = product.price - (discountPercentage / 100) * product.price;
+      if ((product.stickerType === "circular" || product.stickerType === "custom" || product.stickerType === "square")
+        && product.quantity >= 10 && product.size != "10X10 (papel)" && product.size != "10X10 (vinil)") {
+        const discountedPrice = product.price - (discountPercentage / 100) * product.price;
+        discountWasApplied = true;
+
+        return {
+          ...product,
+          price: discountedPrice,
+        };
+      }
       return {
         ...product,
-        price: discountedPrice,
       };
     });
 
@@ -260,6 +269,7 @@ export default function Payment() {
 
     console.log("Updated Products with Discounted Prices:", updatedProducts);
     console.log("New Total Price:", tempPrice.toFixed(2));
+    return discountWasApplied;
   };
 
   const handleApplyDiscount = async (discountCodeTemp) => {
@@ -285,12 +295,16 @@ export default function Payment() {
 
     if (discountDocument.active && !usedAffiliateCode) {
       const discountPercentage = discountDocument.percentage || 0;
-      setAffiliateCode(discountPercentage);
-      setUsedAffiliateCode(true);
+      let discountWasApplied = applyDiscountToProducts(discountPercentage);
 
-      applyDiscountToProducts(discountPercentage);
+      if (discountWasApplied) {
+        setAffiliateCode(discountPercentage);
+        setUsedAffiliateCode(true);
 
-      alert(`Desconto aplicado!`);
+        alert(`Desconto aplicado!`);
+      } else {
+        alert(`Desconto não se aplica a nenhum produto corrente.`);
+      }
     } else if (discountDocument.active && usedAffiliateCode) {
       alert(`Um desconto já foi aplicado.`);
     } else if (!discountDocument.active && !usedAffiliateCode) {
@@ -1004,15 +1018,15 @@ export default function Payment() {
             <p className={styles.userDetailItem}><strong>País:</strong> {country}</p>
             <p className={styles.userDetailItem}><strong>Telefone/telemóvel:</strong> {phoneNumber}</p>
             <p className={styles.userDetailItem}><strong>Notas de envio:</strong> {deliveryNotes}</p>
+
+            {/* Products List Section */}
+            <h2 className={styles.userDetailsTitle}>Produtos</h2>
             {products.length > 1 && (
               <p className={styles.userDetailItem}><strong>Portes de envio:</strong> Grátis!</p>
             )}
             {products.length == 1 && (
               <p className={styles.userDetailItem}><strong>Portes de envio:</strong> {shippingCosts[location]}€</p>
             )}
-
-            {/* Products List Section */}
-            <h2 className={styles.userDetailsTitle}>Produtos</h2>
             <ul className={styles.productsList_2024}>
               {tempProducts.map((product, index) => (
                 <li key={index} className={styles.itemProduct_1}>

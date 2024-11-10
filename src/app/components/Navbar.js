@@ -18,7 +18,6 @@ const Navbar = () => {
         <nav className={styles.nav}>
             <div>
                 <div style={{ width: 'fit-content', height: 'fit-content' }} className={styles.extensionLinks}>
-                    <Link href="/">Início</Link>
                     <Link href="/contacto">Contacto</Link>
                     <Link href="/precos">Preços</Link>
                     <Link href="/faq">FAQ</Link>
@@ -58,12 +57,11 @@ const Navbar = () => {
             {isMenuOpen && (
                 <span className={styles.dropdownMenu}>
                     <div>
-                        <Link href="/">Início</Link>
-                        <Link href="/faq">FAQ</Link>
-                    </div>
-                    <div>
                         <Link href="/precos">Preços</Link>
                         <Link href="/contacto">Contacto</Link>
+                    </div>
+                    <div>
+                        <Link href="/faq">FAQ</Link>
                         <Link href="/payment">Comprar</Link>
                     </div>
                 </span>

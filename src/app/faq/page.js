@@ -47,17 +47,6 @@ export default function FAQ() {
         </div>
 
         <div className={styles.questionBlock123}>
-          <h2 className={styles.question123}> Como devo aplicar as tatuagens?</h2>
-          <ol className={styles.stepsList123} start="0">
-            <li>Limpe e seque bem a zona escolhida (esta não deve conter pelos).</li>
-            <li>Retire a película que está sobre a tatuagem.</li>
-            <li>Coloque o desenho da tatuagem sobre a pele.</li>
-            <li>Umedeça-o e pressione durante alguns segundos.</li>
-            <li>Retire o papel cuidadosamente e deixe secar.</li>
-          </ol>
-        </div>
-
-        <div className={styles.questionBlock123}>
           <h2 className={styles.question123}> Quais as características das tatuagens?</h2>
           <ul className={styles.stepsList123hjjy}>
             <li>Duram aproximadamente entre 3-5 dias.</li>
@@ -66,6 +55,17 @@ export default function FAQ() {
             <li>Feitas de um material seguro e não tóxico.</li>
             <li>Recomendado para crianças a partir dos 3 anos de idade.</li>
           </ul>
+        </div>
+
+        <div className={styles.questionBlock123}>
+          <h2 className={styles.question123}> Como devo aplicar as tatuagens?</h2>
+          <ol className={styles.stepsList123} start="0">
+            <li>Limpe e seque bem a zona escolhida (esta não deve conter pelos).</li>
+            <li>Retire a película que está sobre a tatuagem.</li>
+            <li>Coloque o desenho da tatuagem sobre a pele.</li>
+            <li>Umedeça-o e pressione durante alguns segundos.</li>
+            <li>Retire o papel cuidadosamente e deixe secar.</li>
+          </ol>
         </div>
 
         <div className={styles.questionBlock123}>
