@@ -24,21 +24,33 @@
     /*text-align: justify;*/
 }
 
-.equipe, .valores {
+.equipe,
+.valores {
     background-color: #f4f4f4;
     padding: 20px;
     border-radius: 8px;
     margin-bottom: 30px;
 }
 
-.equipe h2, .valores h2 {
+.weeklyStickers {
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    padding-bottom: 30px;
+}
+
+.equipe h2,
+.valores h2,
+.weeklyStickers h2 {
     font-size: 2rem;
     color: #555;
     margin-bottom: 10px;
     text-align: left;
 }
 
-.equipe p, .valores p {
+.equipe p,
+.valores p {
     font-size: 1.1rem;
     line-height: 1.6;
     color: #666;
@@ -68,4 +80,16 @@
     margin-bottom: 10px;
     line-height: 1.5;
     color: #444;
+}
+
+/* Carousel styles */
+@import "~slick-carousel/slick/slick.css";
+@import "~slick-carousel/slick/slick-theme.css";
+
+@media (min-width: 990px) {
+
+    .carouselSection,
+    .weeklyStickers {
+        display: none;
+    }
 }

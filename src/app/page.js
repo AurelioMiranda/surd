@@ -1,7 +1,31 @@
-// app/page.js
+'use client';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import React, { useEffect, useState } from 'react';
+import Slider from 'react-slick';
 import styles from './Home.module.css';
 
 export default function HomePage() {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 600,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+  };
+
+  if (!isClient) {
+    return null;
+  }
+
   return (
     <>
       <img maw={240} width="100%" height="25"
@@ -15,6 +39,30 @@ export default function HomePage() {
             A SURD é uma startup portuguesa que comercializa stickers e tatuagens completamente personalizados por si, de alta qualidade e de forma sustentável.
             Connosco vai poder personalizar TUDO! O seu produto terá o seu design ou caso não tenha um, nós criamo-lo por si, só tem de nos dizer o que deseja!
           </p>
+        </section>
+
+        <section className={styles.weeklyStickers}>
+          <h2>Stickers da Semana</h2>
+          {/* Image carousel */}
+          <section className={styles.carouselSection}>
+            <Slider {...settings}>
+              <div>
+                <img style={{ borderRadius: '10px' }} src="/weekly/28d10m/2.png" alt="Carousel Image 1" />
+              </div>
+              <div>
+                <img style={{ borderRadius: '10px' }} src="/weekly/28d10m/3.png" alt="Carousel Image 2" />
+              </div>
+              <div>
+                <img style={{ borderRadius: '10px' }} src="/weekly/28d10m/4.png" alt="Carousel Image 3" />
+              </div>
+              <div>
+                <img style={{ borderRadius: '10px' }} src="/weekly/28d10m/5.png" alt="Carousel Image 3" />
+              </div>
+              <div>
+                <img style={{ borderRadius: '10px' }} src="/weekly/28d10m/6.png" alt="Carousel Image 3" />
+              </div>
+            </Slider>
+          </section>
         </section>
 
         <section className={styles.equipe}>
