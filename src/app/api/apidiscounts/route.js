@@ -20,7 +20,7 @@ export async function POST(req) {
     const { discountCodeTemp } = await req.json(); 
 
     if (!discountCodeTemp) {
-      return new Response(JSON.stringify({ message: "Discount code is missing." }), { status: 400 });
+      return new Response(JSON.stringify({ message: "Código de desconto em falta." }), { status: 400 });
     }
 
     const discountsRef = collection(db, 'affiliateCodes');
@@ -40,10 +40,10 @@ export async function POST(req) {
       return new Response(JSON.stringify({ discount: discountDocument }), { status: 200 });
     } else {
       console.log("No discount found for code:", discountCodeTemp);
-      return new Response(JSON.stringify({ message: "No discount found for the provided code." }), { status: 404 });
+      return new Response(JSON.stringify({ message: "Não foi encontrado nenhum desconto para o código fornecido." }), { status: 404 });
     }
   } catch (error) {
     console.error("Error retrieving discount document: ", error);
-    return new Response(JSON.stringify({ message: "Error retrieving discount document: " + error }), { status: 500 });
+    return new Response(JSON.stringify({ message: "Erro ao recuperar o documento de desconto: " + error }), { status: 500 });
   }
 }
