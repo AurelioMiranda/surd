@@ -38,7 +38,7 @@ export async function POST(req) {
   };
 
   if (isNaN(finalPrice)) {
-    return new Response(JSON.stringify({ message: "Error processing order: Unable to process the price. If the issue persists, DM us @surd.pt on instagram." }), { status: 500 });
+    return new Response(JSON.stringify({ message: "Erro ao processar a encomenda: Não foi possível processar o preço. Se o problema persistir, envie-nos uma mensagem para @surd.pt no instagram." }), { status: 500 });
   }
 
   try {
@@ -73,7 +73,7 @@ export async function POST(req) {
 
 
     await sendgrid.send({
-      to: [userEmail, 'surd.emailsender@gmail.com'], //, 'stickyourdesign4customer@gmail.com' TODO: when payment ready
+      to: [userEmail, 'surd.emailsender@gmail.com', 'stickyourdesign4customer@gmail.com'],
       from: 'surd.emailsender@gmail.com',
       subject: 'Confirmação da sua encomenda',
       html: emailContent,
