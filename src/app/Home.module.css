@@ -37,7 +37,7 @@
     padding: 20px;
     border-radius: 8px;
     margin-bottom: 30px;
-    padding-bottom: 30px;
+    padding-bottom: 20px;
 }
 
 .equipe h2,
@@ -51,7 +51,7 @@
 
 .equipe p,
 .valores p {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     line-height: 1.6;
     color: #666;
     /*text-align: justify;*/
@@ -76,10 +76,16 @@
 }
 
 .sustentabilidade ul li {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     margin-bottom: 10px;
     line-height: 1.5;
     color: #444;
+}
+
+.belowCarousel {
+    margin-top: 25px;
+    font-size: 1.2rem;
+    line-height: 1.7;
 }
 
 /* Carousel styles */

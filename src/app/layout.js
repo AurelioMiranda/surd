@@ -21,9 +21,9 @@ export default function RootLayout({ children }) {
               <div>
                 <div style={{ width: 'fit-content', height: 'fit-content' }}>
                   <Link href="/" className='extensionLinks'>Início</Link>
-                  <Link href="/faq" className='extensionLinks'>FAQ</Link>
-                  <Link href="/precos" className='extensionLinks'>Preços</Link>
                   <Link href="/contacto" className='extensionLinks'>Contacto</Link>
+                  <Link href="/precos" className='extensionLinks'>Preços</Link>
+                  <Link href="/faq" className='extensionLinks'>FAQ</Link>
                 </div>
               </div>
               <div style={{ marginTop: '1.2rem' }}><Link href="/embaixadores" className='extensionLinks'>Vem ser nosso embaixador!</Link></div>

@@ -63,6 +63,11 @@ export default function HomePage() {
               </div>
             </Slider>
           </section>
+          <p className={styles.belowCarousel}>
+          Para comprar este tipo de artigo entre em contacto connosto através do nosso instagram <a href="https://www.instagram.com/surd.pt/" target="_blank" rel="noopener noreferrer">
+              @surd.pt
+            </a>.
+          </p>
         </section>
 
         <section className={styles.equipe}>
