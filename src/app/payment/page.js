@@ -332,7 +332,44 @@ export default function Payment() {
 
   const handleDiscountMode = () => {
     handleSetStep(3);
-    setTempProducts(JSON.parse(JSON.stringify(products)));
+
+    const updatedProducts = products.map(product => {
+      if ((product.stickerType === "circular" || product.stickerType === "square")
+        && (product.quantity == 10 || product.quantity == 30)) {
+        const quantityToAdd = (product.quantity == 10) ? 10 : 20;
+        const newQuantity = product.quantity + quantityToAdd;
+
+        return {
+          ...product,
+          quantity: newQuantity,
+        };
+      }
+      if (product.stickerType === "custom" && product.size != "7X7 (papel)" && product.size != "10X10 (papel)"
+        && (product.quantity == 10 || product.quantity == 30)) {
+        const quantityToAdd = (product.quantity == 10) ? 10 : 20;
+        const newQuantity = product.quantity + quantityToAdd;
+
+        return {
+          ...product,
+          quantity: newQuantity,
+        };
+      }
+      if ((product.stickerType === "instaStickers" && product.size == "15cm/20cm (Preto/Branco Exterior)") &&
+        (product.quantity == 1 || product.quantity == 5)) {
+        const quantityToAdd = (product.quantity == 1) ? 1 : 3;
+        const newQuantity = product.quantity + quantityToAdd;
+
+        return {
+          ...product,
+          quantity: newQuantity,
+        };
+      }
+      return {
+        ...product,
+      };
+    });
+
+    setTempProducts(JSON.parse(JSON.stringify(updatedProducts)));
     // setAffiliateCode(0)
     // setUsedAffiliateCode(false)
 
