@@ -497,3 +497,40 @@
     font-size: 15px;
     margin-left: 13px;
 }
+
+.productGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 20px;
+}
+
+.productCard {
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    text-align: center;
+    padding: 10px;
+    cursor: pointer;
+    transition: transform 0.2s, border-color 0.2s;
+}
+
+.productCard:hover {
+    transform: scale(1.05);
+    border-color: #007bff;
+}
+
+.productCard.selected {
+    border-color: #007bff;
+    background-color: #f0f8ff;
+}
+
+.productImage {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+.productLabel {
+    margin-top: 8px;
+    display: block;
+    font-weight: bold;
+}

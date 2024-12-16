@@ -3,6 +3,9 @@ import { useState } from "react";
 import styles from './Payment.module.css';
 import ImageUpload from './ImageUpload';
 import PhoneInput from 'react-phone-number-input'
+import Snackbar from '@mui/material/Snackbar';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import 'react-phone-number-input/style.css'
 
 const shippingCosts = {
@@ -200,6 +203,9 @@ export default function Payment() {
   const [discountApplied, setDiscountApplied] = useState(false);
   const [treatmentDiscountApplied, setTreatmentDiscount] = useState(false);
   const [quantityDiscountApplied, setQuantityDiscount] = useState(false);
+
+  const [open, setOpen] = useState(false);
+  const notify = () => toast.success("Produto adicionado ao carrinho com sucesso!");
 
   const handleIconClick = () => {
     setShowImage(true);
@@ -440,6 +446,7 @@ export default function Payment() {
     setProducts([...products, newProduct]); // Add the product to the list
     resetForm();
     setStep(0);  // Reset to first step for new product
+    setOpen(true);
   };
 
   const resetForm = () => {
@@ -597,25 +604,61 @@ export default function Payment() {
         </div>
       </div>
 
+      {/*<div className={styles.sectionEfrgt5}>
+          <label className={styles.label_001}>Produto</label>
+          <div className={styles.productGrid}>
+            {[
+              { type: "circular", label: "Sticker Circular", image: "/images/circular.png" },
+              { type: "custom", label: "Sticker Customizado", image: "/images/custom.png" },
+              { type: "square", label: "Sticker Quadrangular/Retangular", image: "/images/square.png" },
+              { type: "glass", label: "Sticker para vidros", image: "/images/glass.png" },
+              { type: "instaStickers", label: "Sticker com @ do Instagram", image: "/images/insta.png" },
+              { type: "temporary_tattoos", label: "Tatuagem temporária", image: "/images/tattoo.png" },
+            ].map((product) => (
+              <div
+                key={product.type}
+                className={`${styles.productCard} ${stickerType === product.type ? styles.selected : ""}`}
+                onClick={() => setStickerType(product.type)}
+              >
+                <img src={product.image} alt={product.label} className={styles.productImage} />
+                <span className={styles.productLabel}>{product.label}</span>
+              </div>
+            ))}
+          </div>
+          <div style={{ marginTop: "10px" }}>
+            <button className={styles.btnSubmit} onClick={handleNext} disabled={!stickerType}>
+              Selecionar
+            </button>
+          </div>
+        </div>*/}
+
       {step === 0 && (
         <div className={styles.sectionEfrgt5}>
-          {/* Sticker Type Selection */}
-          <label className={styles.label_001}>
-            Produto
-            <select className={styles.select} value={stickerType} onChange={(e) => setStickerType(e.target.value)}>
-              <option value="">Selecione um tipo</option>
-              <option value="circular">Sticker Circular</option>
-              <option value="custom">Sticker Customizado</option>
-              <option value="square">Sticker Quadrangular/Retangular</option>
-              <option value="glass">Sticker para vidros</option>
-              <option value="instaStickers">Sticker com @ do Instagram</option>
-              <option value="temporary_tattoos">Tatuagem temporária</option>
-            </select>
-          </label>
-          <div style={{ marginTop: '10px' }}>
-            <button className={styles.btnSubmit} onClick={handleNext} disabled={!stickerType}>Selecionar</button>
+          <label className={styles.label_001}>Produto</label>
+          <div className={styles.productGrid}>
+            {[
+              { type: "circular", label: "Sticker Circular", image: "/images/circular.png" },
+              { type: "custom", label: "Sticker Customizado", image: "/images/custom.png" },
+              { type: "square", label: "Sticker Quadrangular/Retangular", image: "/images/square.png" },
+              { type: "glass", label: "Sticker para vidros", image: "/images/glass.png" },
+              { type: "instaStickers", label: "Sticker com @ do Instagram", image: "/images/insta.png" },
+              { type: "temporary_tattoos", label: "Tatuagem temporária", image: "/images/tattoo.png" },
+            ].map((product) => (
+              <div
+                key={product.type}
+                className={`${styles.productCard} ${stickerType === product.type ? styles.selected : ""}`}
+                onClick={() => {
+                  setStickerType(product.type);
+                  handleNext();
+                }}
+              >
+                <img src={product.image} alt={product.label} className={styles.productImage} />
+                <span className={styles.productLabel}>{product.label}</span>
+              </div>
+            ))}
           </div>
         </div>
+
       )}
 
       {step === 1 && (
@@ -799,7 +842,7 @@ export default function Payment() {
           </div>
           <div className={styles.btnAddProductContainer}>
             <button className={styles.btnSubmit} onClick={handlePrevious}>Voltar</button>
-            <button style={{ marginLeft: '20px' }} className={styles.btnSubmit} onClick={handleAddProduct}>Adicionar produto</button>
+            <button style={{ marginLeft: '20px' }} className={styles.btnSubmit} onClick={() => { handleAddProduct(); notify(); }}>Adicionar produto</button>
           </div>
         </div>
       )}
@@ -1096,6 +1139,15 @@ export default function Payment() {
           </div>
         </div>
       )}
+
+      <Snackbar
+        open={open}
+        autoHideDuration={3000}
+        onClose={() => setOpen(false)}
+        message="Produto adicionado ao carrinho com sucesso!"
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      />
+      {/*<ToastContainer />*/}
     </div>
   );
 }
