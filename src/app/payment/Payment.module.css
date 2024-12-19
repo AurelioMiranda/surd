@@ -504,6 +504,21 @@
     gap: 20px;
 }
 
+@media (min-width: 990px) {
+    .productGrid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .productCard {
+        flex: 1 1 calc(33.33% - 20px);
+        max-width: calc(33.33% - 20px);
+        box-sizing: border-box;
+    }
+}
+
 .productCard {
     border: 2px solid #ccc;
     border-radius: 8px;

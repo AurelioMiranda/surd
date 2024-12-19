@@ -604,6 +604,12 @@ export default function Payment() {
         </div>
       </div>
 
+      {(stickerType && step !== 0 && step < 3) && 
+        <div>
+          <span className={styles.label_001}>A editar: <b>{stickerName[stickerType]}</b></span>
+        </div>
+      }
+
       {/*<div className={styles.sectionEfrgt5}>
           <label className={styles.label_001}>Produto</label>
           <div className={styles.productGrid}>
