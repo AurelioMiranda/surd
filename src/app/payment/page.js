@@ -4,6 +4,11 @@ import styles from './Payment.module.css';
 import ImageUpload from './ImageUpload';
 import PhoneInput from 'react-phone-number-input'
 import Snackbar from '@mui/material/Snackbar';
+import Accordion from '@mui/material/Accordion';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Typography from '@mui/material/Typography';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'react-phone-number-input/style.css'
@@ -604,7 +609,7 @@ export default function Payment() {
         </div>
       </div>
 
-      {(stickerType && step !== 0 && step < 3) && 
+      {(stickerType && step !== 0 && step < 3) &&
         <div>
           <span className={styles.label_001}>A editar: <b>{stickerName[stickerType]}</b></span>
         </div>
@@ -638,17 +643,17 @@ export default function Payment() {
           </div>
         </div>*/}
 
-      {step === 0 && (
+      {(step === 0 && products.length == 0) && (
         <div className={styles.sectionEfrgt5}>
-          <label className={styles.label_001}>Produto</label>
+          <label className={styles.label_002}>Produtos</label>
           <div className={styles.productGrid}>
             {[
-              { type: "circular", label: "Sticker Circular", image: "/images/circular.png" },
-              { type: "custom", label: "Sticker Customizado", image: "/images/custom.png" },
-              { type: "square", label: "Sticker Quadrangular/Retangular", image: "/images/square.png" },
-              { type: "glass", label: "Sticker para vidros", image: "/images/glass.png" },
-              { type: "instaStickers", label: "Sticker com @ do Instagram", image: "/images/insta.png" },
-              { type: "temporary_tattoos", label: "Tatuagem temporária", image: "/images/tattoo.png" },
+              { type: "circular", label: "Sticker Circular", image: "/general_stickers/circular.jpeg" },
+              { type: "custom", label: "Sticker Customizado", image: "/general_stickers/custom.jpeg" },
+              { type: "square", label: "Sticker Quadrangular Retangular", image: "/general_stickers/square.jpeg" },
+              { type: "glass", label: "Sticker para vidros", image: "/general_stickers/glass.jpeg" },
+              { type: "instaStickers", label: "Sticker com @ do Instagram", image: "/general_stickers/insta.jpeg" },
+              { type: "temporary_tattoos", label: "Tatuagem temporária", image: "/general_stickers/tattoo.jpeg" },
             ].map((product) => (
               <div
                 key={product.type}
@@ -659,12 +664,50 @@ export default function Payment() {
                 }}
               >
                 <img src={product.image} alt={product.label} className={styles.productImage} />
-                <span className={styles.productLabel}>{product.label}</span>
+                <div className={styles.productLabel}>{product.label}</div>
               </div>
             ))}
           </div>
         </div>
+      )}
 
+      {(step === 0 && products.length > 0) && (
+        <Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon fontSize="large"/>}
+            aria-controls="panel1-content"
+            id="panel1-header"
+          >
+            <Typography component="span">Adicionar outro produto</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <div className={styles.sectionEfrgt5}>
+              <label className={styles.label_002}>Produtos</label>
+              <div className={styles.productGrid}>
+                {[
+                  { type: "circular", label: "Sticker Circular", image: "/general_stickers/circular.jpeg" },
+                  { type: "custom", label: "Sticker Customizado", image: "/general_stickers/custom.jpeg" },
+                  { type: "square", label: "Sticker Quadrangular Retangular", image: "/general_stickers/square.jpeg" },
+                  { type: "glass", label: "Sticker para vidros", image: "/general_stickers/glass.jpeg" },
+                  { type: "instaStickers", label: "Sticker com @ do Instagram", image: "/general_stickers/insta.jpeg" },
+                  { type: "temporary_tattoos", label: "Tatuagem temporária", image: "/general_stickers/tattoo.jpeg" },
+                ].map((product) => (
+                  <div
+                    key={product.type}
+                    className={`${styles.productCard} ${stickerType === product.type ? styles.selected : ""}`}
+                    onClick={() => {
+                      setStickerType(product.type);
+                      handleNext();
+                    }}
+                  >
+                    <img src={product.image} alt={product.label} className={styles.productImage} />
+                    <div className={styles.productLabel}>{product.label}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </AccordionDetails>
+        </Accordion>
       )}
 
       {step === 1 && (
