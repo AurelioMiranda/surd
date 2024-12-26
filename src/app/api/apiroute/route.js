@@ -73,7 +73,7 @@ export async function POST(req) {
 
 
     await sendgrid.send({
-      to: [userEmail, 'surd.emailsender@gmail.com', 'stickyourdesign4customer@gmail.com'],
+      to: [userEmail, 'surd.emailsender@gmail.com', 'surd4customer@gmail.com'],
       from: 'surd.emailsender@gmail.com',
       subject: 'Confirmação da sua encomenda',
       html: emailContent,
