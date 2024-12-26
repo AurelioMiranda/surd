@@ -97,9 +97,9 @@ export async function POST(req) {
     console.log("Order and personal info saved in Firebase.");
 
     // Return success response
-    return new Response(JSON.stringify({ message: "Encomenda guardada e email enviado com sucesso, irá ser contactado pela @surd.pt/stickyourdesign4customer@gmail.com brevemente!" }), { status: 200 });
+    return new Response(JSON.stringify({ message: "Encomenda guardada e email enviado com sucesso, irá ser contactado pela @surd.pt/surd4customer@gmail.com brevemente!" }), { status: 200 });
   } catch (error) {
     console.error("Error saving order or sending email:", error);
-    return new Response(JSON.stringify({ message: "Erro a guardar encomenda ou a enviar email, contacte stickyourdesign4customer@gmail.com de imediato!" }), { status: 500 });
+    return new Response(JSON.stringify({ message: "Erro a guardar encomenda ou a enviar email, contacte surd4customer@gmail.com de imediato!" }), { status: 500 });
   }
 }
