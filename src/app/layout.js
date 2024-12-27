@@ -1,5 +1,6 @@
 // app/layout.js
 import Navbar from './/components/Navbar'
+import BuyNow from './/components/BuyNow'
 import Link from 'next/link'
 import "./globals.css";
 
@@ -15,6 +16,7 @@ export default function RootLayout({ children }) {
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,200,0,0" />
         <Navbar />
         {children}
+        <BuyNow />
         <footer>
           <div className='footer-top'>
             <div className='footer-top-container'>
@@ -83,7 +85,7 @@ export default function RootLayout({ children }) {
                 </div>
               </div>
               <div className='footer-banner-credits'>
-                <div style={{color: 'white'}}>
+                <div style={{ color: 'white' }}>
                   buy our stickers :)
                 </div>
                 <div style={{ fontSize: '0.9rem' }}>
