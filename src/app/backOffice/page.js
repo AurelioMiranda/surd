@@ -2,7 +2,7 @@
 import { useState } from "react";
 import CircularProgress from "@mui/material/CircularProgress";
 import styles from "./backend.module.css";
-import Backend from "./Backend";
+import Backend from "./BackOffice";
 
 export default function BackendLanding() {
   const [password, setPassword] = useState("");

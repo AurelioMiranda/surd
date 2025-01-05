@@ -9,7 +9,7 @@ export default function BuyNow() {
 
   return (
     <>
-      {pathname !== '/payment' && (
+      {(pathname !== '/payment' && pathname !== '/backOffice') && (
         <div className="buyNow">
           <Link href="/payment">Compre já</Link>
         </div>
