@@ -1,0 +1,117 @@
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.title {
+    text-align: center;
+    color: #333;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.codeInput {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.codeInput:focus {
+    border-color: #4a90e2;
+}
+
+.codeButton {
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: white;
+    background-color: #4a90e2;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.codeButton:hover {
+    background-color: #357ab7;
+}
+
+.codesList {
+    margin-top: 30px;
+}
+
+.loadingAnimation {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.codeItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.codeItem p {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.codeItem .codeButton {
+    padding: 8px 15px;
+    font-size: 0.9rem;
+    background-color: #f44336;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.codeItem .codeButton:hover {
+    background-color: #e53935;
+}
+
+.codeItem .codeButton:first-of-type {
+    background-color: #4caf50;
+}
+
+.codeItem .codeButton:first-of-type:hover {
+    background-color: #388e3c;
+}
+
+.codeButton:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.codeButton:disabled:hover {
+    background-color: #ccc;
+}
+
+.codeButtons button {
+    margin: 5px;
+    margin-left: 10px;
+}

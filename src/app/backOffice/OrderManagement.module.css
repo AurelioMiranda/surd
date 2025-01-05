@@ -1,0 +1,114 @@
+.container {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+    text-align: center;
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.ordersList {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.orderItem {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.orderItem p {
+    margin: 0;
+    font-size: 14px;
+    color: #555;
+}
+
+.orderDetails {
+    margin-top: 10px;
+}
+
+.orderDetails p {
+    font-size: 14px;
+    color: #555;
+}
+
+.orderItem button {
+    align-self: flex-start;
+    padding: 8px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.orderItem button:hover {
+    background-color: #0056b3;
+}
+
+.orderItem button:focus {
+    outline: none;
+}
+
+.flexToCenter {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.accordion button {
+    padding: 8px 15px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.accordion button:hover {
+    background-color: #218838;
+}
+
+.productList {
+    margin-top: 15px;
+}
+
+.productItem {
+    background-color: #f1f1f1;
+    padding: 10px;
+    border-radius: 6px;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.productImage {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.productItem p {
+    font-size: 14px;
+    color: #333;
+}
+
+.productItem strong {
+    font-weight: bold;
+}
