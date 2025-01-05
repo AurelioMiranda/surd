@@ -1,0 +1,108 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 30px;
+}
+
+.overview {
+    text-align: center;
+    font-weight: bolder;
+    font-size: larger;
+    margin-bottom: 10px;
+}
+
+.topBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    width: 100%;
+}
+
+.filterOrders {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    height: fit-content;
+    margin-bottom: 20px;
+}
+
+.filterOrders:hover {
+    background-color: #45a049;
+}
+
+.filterOrders:focus {
+    outline: none;
+}
+
+.stats {
+    margin-bottom: 20px;
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: fit-content;
+}
+
+.stats p {
+    margin: 5px 0;
+    font-size: 16px;
+    color: #333;
+    width: fit-content;
+}
+
+.charts {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 10px;
+    justify-items: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.chart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: lightgray;
+    padding: 10px;
+    border-radius: 10px;
+    width: 100%;
+}
+
+.pieChart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: lightgray;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+@media (max-width: 1135px) {
+    .charts {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .chart {
+        max-width: 80vw;
+        max-height: none;
+    }
+}
+
+@media (max-width: 725px) {
+    .topBar {
+        flex-direction: column;
+        align-items: center;
+    }
+}
