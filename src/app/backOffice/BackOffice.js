@@ -14,9 +14,9 @@ export default function AdminDashboard() {
   return (
     <Box>
       <Tabs value={tabIndex} onChange={handleTabChange}>
-        <Tab label="Overview" />
-        <Tab label="Affiliate Codes" />
-        <Tab label="Orders" />
+        <Tab label="Visão Geral" />
+        <Tab label="Códigos de afiliado" />
+        <Tab label="Pedidos" />
       </Tabs>
       {tabIndex === 0 && <DashboardOverview />}
       {tabIndex === 1 && <AffiliateCodes />}

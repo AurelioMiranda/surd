@@ -140,7 +140,7 @@ export default function DashboardOverview() {
 
   return (
     <div className={styles.container}>
-      <h2 className={styles.overview}>Dashboard Overview</h2>
+      <h2 className={styles.overview}>Visão geral</h2>
       <div className={styles.topBar}>
         <div className={styles.stats}>
           <p>Total de vendas: {totalSales}</p>
@@ -148,7 +148,7 @@ export default function DashboardOverview() {
           <p>Valor médio por venda: {(totalRevenue / totalSales || 0).toFixed(2)}€</p>
         </div>
         <button onClick={toggle2025Orders} className={styles.filterOrders}>
-          {is2025Only ? "Show All Orders" : "Show 2025 Orders Only"}
+          {is2025Only ? "Todas as encomendas" : "Encomendas de 2025"}
         </button>
       </div>
       <div className={styles.charts}>
