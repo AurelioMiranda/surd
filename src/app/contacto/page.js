@@ -2,7 +2,7 @@ import styles from './Contacto.module.css'
 
 export default function Contacto() {
   return (
-    <div className={styles.contactContainer321}>
+    <main role="main" className={styles.contactContainer321}>
       <section className={styles.contactSection321}>
         <h1 className={styles.contactTitle321}>Contacto</h1>
 
@@ -13,6 +13,6 @@ export default function Contacto() {
           </p>
         </div>
       </section>
-    </div>
+    </main>
   );
 }

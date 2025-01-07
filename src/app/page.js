@@ -32,7 +32,7 @@ export default function HomePage() {
         src="SURD-banner-fixed.png"
         alt="SURD Banner" className='banner-img-desktop' />
 
-      <div className={styles.container} style={{ marginTop: '1rem' }}>
+      <main role="main" className={styles.container} style={{ marginTop: '1rem' }}>
         <section className={styles.oqueESurd}>
           <h1>O que é a SURD?</h1>
           <p>
@@ -56,10 +56,10 @@ export default function HomePage() {
                 <img style={{ borderRadius: '10px' }} src="/weekly/28d10m/4.png" alt="Carousel Image 3" />
               </div>
               <div>
-                <img style={{ borderRadius: '10px' }} src="/weekly/28d10m/5.png" alt="Carousel Image 3" />
+                <img style={{ borderRadius: '10px' }} src="/weekly/28d10m/5.png" alt="Carousel Image 4" />
               </div>
               <div>
-                <img style={{ borderRadius: '10px' }} src="/weekly/28d10m/6.png" alt="Carousel Image 3" />
+                <img style={{ borderRadius: '10px' }} src="/weekly/28d10m/6.png" alt="Carousel Image 5" />
               </div>
             </Slider>
           </section>
@@ -97,7 +97,7 @@ export default function HomePage() {
             <li>Embalagens sustentáveis feitas de materiais reciclados ou biodegradáveis.</li>
           </ul>
         </section>
-      </div>
+      </main>
 
       <img maw={240} width="100%" height="25"
         src="SURD-banner-fixed.png"

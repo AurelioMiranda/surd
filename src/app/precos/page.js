@@ -2,7 +2,7 @@ import styles from './Precos.module.css'
 
 export default function Precos() {
   return (
-    <div className={styles.precosContainer987} style={{ marginTop: '20px', marginBottom: '20px' }}>
+    <main role="main" className={styles.precosContainer987} style={{ marginTop: '20px', marginBottom: '20px' }}>
       <section className={styles.precosSection987}>
         <h1 className={styles.precosTitle987}>Preçário</h1>
         {/*
@@ -68,6 +68,6 @@ export default function Precos() {
           </p>
         </div>
       </section>
-    </div>
+    </main>
   );
 }
