@@ -24,7 +24,7 @@ export default function AffiliateCodes() {
 
     const data = await response.json();
     setLoading(false);
-    setCodes(data);
+    setCodes([...data]);
   }
 
   useEffect(() => {
