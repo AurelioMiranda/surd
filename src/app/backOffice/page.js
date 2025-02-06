@@ -37,7 +37,7 @@ export default function BackendLanding() {
   }
 
   return (
-    <div className={styles.background}>
+    <main role="main" className={styles.background}>
       <div className={styles.passwordContainer}>
         <form onSubmit={handleSubmit} className={styles.formStyle}>
           <input
@@ -58,6 +58,6 @@ export default function BackendLanding() {
         </form>
         {error && <p style={{ color: "red" }}>{error}</p>}
       </div>
-    </div>
+    </main>
   );
 }
