@@ -14,6 +14,7 @@ export default function AffiliateCodes() {
     const response = await fetch('/api/fetchAffiliateCodes', {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
+      cache: 'no-store'
     });
 
     if (!response.ok) {
@@ -40,6 +41,7 @@ export default function AffiliateCodes() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ code: newCode, percentage }),
+      cache: 'no-store'
     });
 
     if (!response.ok) {
@@ -57,6 +59,7 @@ export default function AffiliateCodes() {
     const response = await fetch(`/api/deleteAffiliateCode`, {
       method: 'DELETE',
       body: JSON.stringify({ id: id }),
+      cache: 'no-store'
     });
 
     if (!response.ok) {
@@ -72,6 +75,7 @@ export default function AffiliateCodes() {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ id: id, active: !active }),
+      cache: 'no-store'
     });
 
     if (!response.ok) {
