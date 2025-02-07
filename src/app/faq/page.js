@@ -2,7 +2,7 @@ import styles from './FAQ.module.css'
 
 export default function FAQ() {
   return (
-    <main role="main" className={styles.faqContainer123} style={{ marginTop: '20px', marginBottom: '20px' }}>
+    <div className={styles.faqContainer123} style={{ marginTop: '20px', marginBottom: '20px' }}>
       <section className={styles.faqSection123}>
         <h1 className={styles.faqTitle123}>FAQ</h1>
 
@@ -84,6 +84,6 @@ export default function FAQ() {
           </ol>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

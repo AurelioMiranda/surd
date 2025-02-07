@@ -30,9 +30,11 @@ export default function HomePage() {
     <>
       <img maw={240} width="100%" height="25"
         src="SURD-banner-fixed.png"
-        alt="SURD Banner" className='banner-img-desktop' />
+        alt="SURD Banner" className='banner-img-desktop'
+        role="banner"
+      />
 
-      <main role="main" className={styles.container} style={{ marginTop: '1rem' }}>
+      <div className={styles.container} style={{ marginTop: '1rem' }}>
         <section className={styles.oqueESurd}>
           <h1>O que é a SURD?</h1>
           <p>
@@ -47,6 +49,12 @@ export default function HomePage() {
           <section className={styles.carouselSection}>
             <Slider {...settings}>
               <div>
+                <img style={{ borderRadius: '10px' }} src="/weekly/28d10m/6.png" alt="Carousel Image 5" />
+              </div>
+              <div>
+                <img style={{ borderRadius: '10px' }} src="/weekly/28d10m/5.png" alt="Carousel Image 4" />
+              </div>
+              <div>
                 <img style={{ borderRadius: '10px' }} src="/weekly/28d10m/2.png" alt="Carousel Image 1" />
               </div>
               <div>
@@ -55,16 +63,10 @@ export default function HomePage() {
               <div>
                 <img style={{ borderRadius: '10px' }} src="/weekly/28d10m/4.png" alt="Carousel Image 3" />
               </div>
-              <div>
-                <img style={{ borderRadius: '10px' }} src="/weekly/28d10m/5.png" alt="Carousel Image 4" />
-              </div>
-              <div>
-                <img style={{ borderRadius: '10px' }} src="/weekly/28d10m/6.png" alt="Carousel Image 5" />
-              </div>
             </Slider>
           </section>
           <p className={styles.belowCarousel}>
-          Para comprar este tipo de artigo entre em contacto connosto através do nosso instagram <a href="https://www.instagram.com/surd.pt/" target="_blank" rel="noopener noreferrer">
+            Para comprar este tipo de artigo entre em contacto connosto através do nosso instagram <a href="https://www.instagram.com/surd.pt/" target="_blank" rel="noopener noreferrer">
               @surd.pt
             </a>.
           </p>
@@ -97,11 +99,13 @@ export default function HomePage() {
             <li>Embalagens sustentáveis feitas de materiais reciclados ou biodegradáveis.</li>
           </ul>
         </section>
-      </main>
+      </div>
 
       <img maw={240} width="100%" height="25"
         src="SURD-banner-fixed.png"
-        alt="SURD Banner" className='banner-img-desktop' />
+        alt="SURD Banner" className='banner-img-desktop'
+        role="banner"
+      />
     </>
   )
 }

@@ -2,7 +2,7 @@ import styles from './Sobre.module.css'
 
 export default function Sobre() {
   return (
-    <main role="main" className={styles.container}>
+    <div  className={styles.container}>
       <section className={styles.intro}>
         <h1>Quem Somos</h1>
         <p>
@@ -61,6 +61,6 @@ export default function Sobre() {
           </tbody>
         </table>
       </section>
-    </main>
+    </div>
   );
 }

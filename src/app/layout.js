@@ -14,10 +14,14 @@ export default function RootLayout({ children }) {
     <html lang="pt">
       <body>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,200,0,0" />
-        <Navbar />
-        {children}
+        <header>
+          <Navbar />
+        </header>
+        <main role="main">
+          {children}
+        </main>
         <BuyNow />
-        <footer>
+        <footer role="contentinfo">
           <div className='footer-top'>
             <div className='footer-top-container'>
               <div>
@@ -52,20 +56,22 @@ export default function RootLayout({ children }) {
           </div>
           <div className='footer-bottom'>
             <div className='footer-bottom-container'>
-              <div className='footer-img-container'>
-                <img maw={240} width="25" height="25"
-                  src="Revolut-Logo.png"
-                  alt="Revolut" style={{ height: '60px' }} />
-                <img maw={240} width="25" height="25"
-                  src="PayPal-Logo.png"
-                  alt="PayPal" style={{ height: '60px' }} />
-                <img maw={240} width="25" height="25"
-                  src="mb.png"
-                  alt="Multibanco" />
-                <img maw={240} width="25" height="25"
-                  src="mbway.png"
-                  alt="MBWay" />
-              </div>
+              <nav aria-label="Footer navigation">
+                <div className='footer-img-container'>
+                  <img maw={240} width="25" height="25"
+                    src="Revolut-Logo.png"
+                    alt="Revolut" style={{ height: '60px' }} />
+                  <img maw={240} width="25" height="25"
+                    src="PayPal-Logo.png"
+                    alt="PayPal" style={{ height: '60px' }} />
+                  <img maw={240} width="25" height="25"
+                    src="mb.png"
+                    alt="Multibanco" />
+                  <img maw={240} width="25" height="25"
+                    src="mbway.png"
+                    alt="MBWay" />
+                </div>
+              </nav>
               <div className='footer-img-container-mobile' style={{ display: 'none' }}>
                 <div>
                   <img maw={240} width="25" height="25"

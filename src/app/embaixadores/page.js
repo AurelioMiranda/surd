@@ -2,7 +2,7 @@ import styles from './Embaixadores.module.css'
 
 export default function Embaixadores() {
   return (
-    <main role="main" className={styles.comingSoonContainer111}>
+    <div  className={styles.comingSoonContainer111}>
       <section className={styles.comingSoonSection111}>
         <h1 className={styles.comingSoonTitle111}>Embaixadores SURD</h1>
         <p className={styles.comingSoonText111}>
@@ -10,7 +10,7 @@ export default function Embaixadores() {
         </p>
         <p className={styles.comingSoonFooter111}>Em breve!</p>
       </section>
-    </main>
+    </div>
 
   );
 }

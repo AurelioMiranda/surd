@@ -21,7 +21,7 @@ const Navbar = () => {
     };
 
     return (
-        <nav className={styles.nav}>
+        <nav className={styles.nav} role="navigation">
             <div>
                 <div style={{ width: 'fit-content', height: 'fit-content' }} className={styles.extensionLinks}>
                     <Link href="/contacto">Contacto</Link>
