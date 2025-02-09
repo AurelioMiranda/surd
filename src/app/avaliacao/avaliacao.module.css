@@ -1,0 +1,84 @@
+.reviewContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+}
+
+.reviewSection {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    text-align: center;
+    max-width: 600px;
+    width: 100%;
+}
+
+.reviewTitle {
+    font-size: 2rem;
+    color: #333;
+    margin-top: 20px;
+}
+
+.reviewForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.clientRating {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+    flex-direction: column;
+}
+
+.textarea {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    resize: none;
+    margin-top: 15px;
+}
+
+.input {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-top: 15px;
+}
+
+.submitReviewButtonContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.submitButton {
+    background-color: #0070f3;
+    color: white;
+    font-size: 1rem;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+.submitButton:hover {
+    background-color: #005bb5;
+}
+
+.errorText {
+    color: red;
+    font-size: 0.9rem;
+    margin-top: 5px;
+  }
+  

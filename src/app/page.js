@@ -129,7 +129,6 @@ export default function HomePage() {
         <section className={styles.reviewsSection}>
           <h2>Avaliações dos Clientes</h2>
           <div className={styles.reviewsContainer}>
-
             <Slider {...settingsReview}>
               {reviews.map((review, index) => (
                 <div>
@@ -143,7 +142,7 @@ export default function HomePage() {
               <div>
                 <div className={styles.reviewCard} style={{ padding: '1rem', textAlign: 'center' }}>
                   <h3>Envie a sua avaliação!</h3>
-                  <p>Submita a sua avaliação <a className={styles.reviewLink} href="/">
+                  <p>Submita a sua avaliação <a className={styles.reviewLink} href="/avaliacao">
                     aqui
                   </a>.</p>
                 </div>

@@ -96,6 +96,10 @@
     line-height: 1.7;
 }
 
+.reviewsContainer {
+    margin-bottom: 15px;
+}
+
 .reviewCard {
     display: flex;
     width: 100%;
