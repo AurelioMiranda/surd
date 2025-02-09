@@ -32,6 +32,13 @@
     margin-bottom: 30px;
 }
 
+.reviewsSection {
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 40px;
+}
+
 .weeklyStickers {
     background-color: #f4f4f4;
     padding: 20px;
@@ -42,7 +49,8 @@
 
 .equipe h2,
 .valores h2,
-.weeklyStickers h2 {
+.weeklyStickers h2,
+.reviewsSection h2 {
     font-size: 2rem;
     color: #555;
     margin-bottom: 10px;
@@ -86,6 +94,39 @@
     margin-top: 25px;
     font-size: 1.2rem;
     line-height: 1.7;
+}
+
+.reviewCard {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.reviewText {
+    margin-top: 7px;
+    font-size: 1.1rem;
+    font-style: italic;
+    color: #333;
+}
+
+.reviewUser {
+    margin-top: 15px;
+}
+
+.reviewLink {
+    all: unset;
+    color: blue;
+    text-decoration: underline;
+}
+
+.reviewLink:hover {
+    cursor: pointer;
+}
+
+.reviewLink:visited {
+    color: purple;
 }
 
 /* Carousel styles */

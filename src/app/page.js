@@ -2,11 +2,14 @@
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import React, { useEffect, useState } from 'react';
+import { Rating, TextField, Button } from '@mui/material';
 import Slider from 'react-slick';
 import styles from './Home.module.css';
 
 export default function HomePage() {
   const [isClient, setIsClient] = useState(false);
+  const [newReview, setNewReview] = useState('');
+  const [newRating, setNewRating] = useState(2.5);
 
   useEffect(() => {
     setIsClient(true);
@@ -22,9 +25,32 @@ export default function HomePage() {
     autoplaySpeed: 3000,
   };
 
+  const settingsReview = {
+    dots: true,
+    infinite: true,
+    speed: 600,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 5000,
+  };
+
   if (!isClient) {
     return null;
   }
+
+  const reviews = [
+    {
+      user: 'Leandro',
+      text: 'Os stickers são incríveis! A qualidade é top e a entrega foi super rápida.',
+      rating: 5,
+    },
+    {
+      user: 'Catarina',
+      text: 'Adorei! Os detalhes do corte ficaram perfeitos e o material é resistente.',
+      rating: 5,
+    },
+  ];
 
   return (
     <>
@@ -98,6 +124,32 @@ export default function HomePage() {
             <li>Práticas de produção eficientes, reduzindo o desperdício.</li>
             <li>Embalagens sustentáveis feitas de materiais reciclados ou biodegradáveis.</li>
           </ul>
+        </section>
+
+        <section className={styles.reviewsSection}>
+          <h2>Avaliações dos Clientes</h2>
+          <div className={styles.reviewsContainer}>
+
+            <Slider {...settingsReview}>
+              {reviews.map((review, index) => (
+                <div>
+                  <div key={index} className={styles.reviewCard}>
+                    <Rating name={`read-only-${index}`} value={review.rating} precision={0.5} readOnly />
+                    <p className={styles.reviewText}>“{review.text}”</p>
+                    <p className={styles.reviewUser}>- {review.user}</p>
+                  </div>
+                </div>
+              ))}
+              <div>
+                <div className={styles.reviewCard} style={{ padding: '1rem', textAlign: 'center' }}>
+                  <h3>Envie a sua avaliação!</h3>
+                  <p>Submita a sua avaliação <a className={styles.reviewLink} href="/">
+                    aqui
+                  </a>.</p>
+                </div>
+              </div>
+            </Slider>
+          </div>
         </section>
       </div>
 
