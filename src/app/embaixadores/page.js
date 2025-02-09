@@ -2,7 +2,7 @@ import styles from './Embaixadores.module.css'
 
 export default function Embaixadores() {
   return (
-    <div className={styles.comingSoonContainer111}>
+    <div  className={styles.comingSoonContainer111}>
       <section className={styles.comingSoonSection111}>
         <h1 className={styles.comingSoonTitle111}>Embaixadores SURD</h1>
         <p className={styles.comingSoonText111}>

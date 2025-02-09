@@ -2,7 +2,7 @@ import styles from './Sobre.module.css'
 
 export default function Sobre() {
   return (
-    <div className={styles.container}>
+    <div  className={styles.container}>
       <section className={styles.intro}>
         <h1>Quem Somos</h1>
         <p>
