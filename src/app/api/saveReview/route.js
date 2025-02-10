@@ -13,7 +13,6 @@ export async function POST(req) {
                 review, 
                 rating
             });
-            console.log("gud");
 
             return new Response(JSON.stringify({ message: "Avaliação enviada com sucesso." }), { status: 200 });
         } catch (error) {

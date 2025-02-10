@@ -8,8 +8,6 @@ import styles from './Home.module.css';
 
 export default function HomePage() {
   const [isClient, setIsClient] = useState(false);
-  const [newReview, setNewReview] = useState('');
-  const [newRating, setNewRating] = useState(2.5);
 
   useEffect(() => {
     setIsClient(true);
