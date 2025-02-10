@@ -50,6 +50,12 @@ export default function SubmitReview() {
       return;
     }
 
+    await fetch('/api/newReviewNotification', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, displayName, review, rating }),
+    });
+
     setReview("");
     setEmail("");
     setDisplayName("");
@@ -110,7 +116,7 @@ export default function SubmitReview() {
           open={open}
           autoHideDuration={3000}
           onClose={() => setOpen(false)}
-          message="A sua avaliação foi enviada e estará disponível no website em breve."
+          message="A sua avaliação foi enviada e estará disponível no nosso website em breve."
           anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
         />
       </section>
