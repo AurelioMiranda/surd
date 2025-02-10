@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Rating } from "@mui/material";
 import styles from "./avaliacao.module.css";
 import Snackbar from '@mui/material/Snackbar';
+import CircularProgress from "@mui/material/CircularProgress";
 
 export default function SubmitReview() {
   const [review, setReview] = useState("");
@@ -10,6 +11,7 @@ export default function SubmitReview() {
   const [displayName, setDisplayName] = useState("");
   const [rating, setRating] = useState(0);
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [errors, setErrors] = useState({
     review: "",
@@ -18,7 +20,9 @@ export default function SubmitReview() {
     rating: "",
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
+    setLoading(true);
+
     e.preventDefault();
 
     let newErrors = { review: "", email: "", displayName: "", rating: "" };
@@ -29,8 +33,21 @@ export default function SubmitReview() {
 
     setErrors(newErrors);
 
-    if (!Object.values(newErrors).some((error) => error)) {
-      console.log({ review, email, displayName, rating });
+    if (Object.values(newErrors).some((error) => error)) {
+      setLoading(false);
+      return
+    }
+
+    const response = await fetch('/api/saveReview', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, displayName, review, rating }),
+    });
+
+    if (!response.ok) {
+      console.error('Failed to add review');
+      setLoading(false);
+      return;
     }
 
     setReview("");
@@ -38,6 +55,7 @@ export default function SubmitReview() {
     setDisplayName("");
     setRating(0);
     setOpen(true);
+    setLoading(false);
   };
 
   return (
@@ -81,7 +99,10 @@ export default function SubmitReview() {
           {errors.displayName && <p className={styles.errorText}>{errors.displayName}</p>}
 
           <div className={styles.submitReviewButtonContainer}>
-            <button type="submit" className={styles.submitButton}>Enviar Avaliação</button>
+            <button type="submit" className={styles.submitButton} disabled={loading}>
+              {loading && <CircularProgress size={24} color="inherit" />}
+              {!loading && "Enviar Avaliação"}
+            </button>
           </div>
         </form>
 
@@ -89,7 +110,7 @@ export default function SubmitReview() {
           open={open}
           autoHideDuration={3000}
           onClose={() => setOpen(false)}
-          message="A sua avaliação foi enviada! Estará disponível no website em breve."
+          message="A sua avaliação foi enviada e estará disponível no website em breve."
           anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
         />
       </section>
