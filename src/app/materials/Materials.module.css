@@ -2,9 +2,11 @@
     max-width: 900px;
     margin: 0 auto;
     padding: 15px;
+    padding-bottom: 5px;
     background: #f9f9f9;
     border-radius: 8px;
     margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .title {
@@ -27,6 +29,7 @@
 
 .materialSection h2 {
     font-size: 1.8rem;
+    font-weight: 500;
     color: #333;
 }
 
@@ -59,6 +62,7 @@
 .comparisonTable h2 {
     text-align: center;
     font-size: 1.8rem;
+    font-weight: 500;
     margin-bottom: 10px;
 }
 
@@ -95,6 +99,7 @@
 .faq h2 {
     text-align: center;
     font-size: 1.8rem;
+    font-weight: 500;
     margin-bottom: 10px;
 }
 
