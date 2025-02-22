@@ -10,6 +10,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import ContactMailIcon from '@mui/icons-material/ContactMail';
 import HelpIcon from '@mui/icons-material/Help';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import NoteIcon from '@mui/icons-material/Note';
 import styles from './Navbar.module.css';
 
 const Navbar = () => {
@@ -26,6 +27,7 @@ const Navbar = () => {
                 <div style={{ width: 'fit-content', height: 'fit-content' }} className={styles.extensionLinks}>
                     <Link href="/contacto">Contacto</Link>
                     <Link href="/precos">Preços</Link>
+                    <Link href="/materials">Materiais</Link>
                     <Link href="/faq">FAQ</Link>
                 </div>
 
@@ -77,12 +79,23 @@ const Navbar = () => {
                             </ListItemButton>
                         </ListItem>
 
+                        <Divider sx={{ marginY: 2 }} />
+
                         <ListItem>
-                            <ListItemButton component={Link} href="/precos">
+                            <ListItemButton component={Link} href="/materials">
                                 <ListItemIcon>
-                                    <AttachMoneyIcon />
+                                    <NoteIcon />
                                 </ListItemIcon>
-                                <ListItemText primary="Preços" />
+                                <ListItemText primary="Materiais" />
+                            </ListItemButton>
+                        </ListItem>
+
+                        <ListItem>
+                            <ListItemButton component={Link} href="/faq">
+                                <ListItemIcon>
+                                    <HelpIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="FAQ" />
                             </ListItemButton>
                         </ListItem>
 
@@ -95,12 +108,14 @@ const Navbar = () => {
                             </ListItemButton>
                         </ListItem>
 
+                        <Divider sx={{ marginY: 2 }} />
+
                         <ListItem>
-                            <ListItemButton component={Link} href="/faq">
+                            <ListItemButton component={Link} href="/precos">
                                 <ListItemIcon>
-                                    <HelpIcon />
+                                    <AttachMoneyIcon />
                                 </ListItemIcon>
-                                <ListItemText primary="FAQ" />
+                                <ListItemText primary="Preços" />
                             </ListItemButton>
                         </ListItem>
 
