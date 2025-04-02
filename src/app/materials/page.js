@@ -12,7 +12,7 @@ export default function Materials() {
       {/* Vinyl Stickers */}
       <section className={styles.materialSection}>
         <h2>Stickers de vinil</h2>
-        <img src="/images/vinyl-sticker.jpg" alt="Vinyl Sticker Example" className={styles.materialImage} />
+        <img src="/sticker-materials/vinyl.jpeg" alt="Vinyl Sticker Example" className={styles.materialImage} />
         <p>
           Os Stickers de vinil são conhecidos pela sua qualidade premium, durabilidade e por serem à prova de água.
           São ideais para o exterior, aplicações a longo prazo, resistir raios UV, água e riscos.
@@ -35,7 +35,7 @@ export default function Materials() {
       {/* Paper Stickers */}
       <section className={styles.materialSection}>
         <h2>Stickers de papel</h2>
-        <img src="/images/paper-sticker.jpg" alt="Paper Sticker Example" className={styles.materialImage} />
+        <img src="/sticker-materials/paper.jpeg" alt="Paper Sticker Example" className={styles.materialImage} />
         <p>
           Adesivos de papel são uma alternativa ecologicamente correta e econômica. São perfeitos para uso de curto prazo,
           encomendas e etiquetagem, mas não são resistentes à água ou condições extremas.
