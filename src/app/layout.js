@@ -29,6 +29,7 @@ export default function RootLayout({ children }) {
                   <Link href="/" className='extensionLinks'>Início</Link>
                   <Link href="/contacto" className='extensionLinks'>Contacto</Link>
                   <Link href="/precos" className='extensionLinks'>Preços</Link>
+                  <Link href="/materials" className='extensionLinks'>Materiais</Link>
                   <Link href="/faq" className='extensionLinks'>FAQ</Link>
                 </div>
               </div>

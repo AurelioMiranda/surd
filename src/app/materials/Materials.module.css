@@ -1,0 +1,119 @@
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 15px;
+    padding-bottom: 5px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.title {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.intro {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 30px;
+}
+
+.materialSection {
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.materialSection h2 {
+    font-size: 1.8rem;
+    font-weight: 500;
+    color: #333;
+}
+
+.materialSection h3 {
+    margin-top: 10px;
+}
+
+.materialSection p {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.6;
+}
+
+.materialSection ul {
+    margin-left: 10px;
+}
+
+.materialImage {
+    width: 100%;
+    max-width: 600px;
+    display: block;
+    margin: 10px auto;
+    border-radius: 8px;
+}
+
+.comparisonTable {
+    margin-top: 30px;
+}
+
+.comparisonTable h2 {
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.tableComparison {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tableComparison th {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+.tableComparison td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+.tableComparison th {
+    background: #333;
+    color: white;
+}
+
+.faq {
+    margin-top: 40px;
+    background: #f4f4f4;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+}
+
+.faq h2 {
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.faqDetails {
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.faqDetails summary {
+    font-weight: bold;
+}
+
+.faqDetails p {
+    margin-top: 5px;
+    font-size: 1rem;
+    color: #555;
+}

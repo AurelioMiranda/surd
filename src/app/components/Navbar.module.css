@@ -2,7 +2,7 @@
 .nav div {
     display: grid;
     grid-template-areas: "left-icon heading icons";
-    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     align-items: center;
     background-color: #fff;
   }
