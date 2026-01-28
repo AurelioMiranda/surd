@@ -1,119 +1,210 @@
 .container {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 15px;
-    padding-bottom: 5px;
-    background: #f9f9f9;
-    border-radius: 8px;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 1.5rem;
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .title {
-    font-size: 2.5rem;
+    font-size: 3rem;
     text-align: center;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
+    font-weight: 800;
+    color: #1a1a1a;
+}
+
+.title::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 5px;
+    background: #2e7d32;
+    margin: 15px auto;
+    border-radius: 10px;
 }
 
 .intro {
     text-align: center;
-    font-size: 1.2rem;
-    color: #555;
-    margin-bottom: 30px;
-}
-
-.materialSection {
-    padding: 15px;
-    margin-bottom: 20px;
-}
-
-.materialSection h2 {
-    font-size: 1.8rem;
-    font-weight: 500;
-    color: #333;
-}
-
-.materialSection h3 {
-    margin-top: 10px;
-}
-
-.materialSection p {
-    font-size: 1rem;
-    color: #555;
+    font-size: 1.25rem;
+    color: #666;
+    max-width: 700px;
+    margin: 0 auto 50px auto;
     line-height: 1.6;
 }
 
-.materialSection ul {
-    margin-left: 10px;
+/* Material Section Cards */
+.materialSection {
+    background: white;
+    padding: 40px;
+    margin-bottom: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    border: 1px solid #eee;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    transition: transform 0.3s ease;
+}
+
+.materialSection:hover {
+    transform: translateY(-5px);
+}
+
+.materialContent h2 {
+    font-size: 2.2rem;
+    color: #222;
+    margin-bottom: 15px;
 }
 
 .materialImage {
     width: 100%;
-    max-width: 600px;
-    display: block;
-    margin: 10px auto;
-    border-radius: 8px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
-.comparisonTable {
-    margin-top: 30px;
+.prosList {
+    list-style: none;
+    padding: 0;
 }
 
-.comparisonTable h2 {
-    text-align: center;
-    font-size: 1.8rem;
-    font-weight: 500;
-    margin-bottom: 10px;
+.prosList li::before {
+    content: "✓";
+    color: #2e7d32;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.consList {
+    list-style: none;
+    padding: 0;
+}
+
+.consList li::before {
+    content: "✕";
+    color: #d32f2f;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.tableWrapper {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-top: 20px;
+    border-radius: 10px;
+    border: 1px solid #eee;
 }
 
 .tableComparison {
     width: 100%;
     border-collapse: collapse;
+    min-width: 500px;
 }
 
 .tableComparison th {
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: center;
+    background: #2e7d32;
+    color: white;
+    padding: 15px 10px;
+    font-size: 1rem;
+    white-space: nowrap;
 }
 
 .tableComparison td {
-    border: 1px solid #ddd;
-    padding: 10px;
+    padding: 12px 8px;
     text-align: center;
+    border-bottom: 1px solid #eee;
+    color: #444;
+    font-size: 0.95rem;
 }
 
-.tableComparison th {
-    background: #333;
-    color: white;
+@media (max-width: 600px) {
+    .comparisonTable {
+        padding: 20px 15px;
+    }
+
+    .tableComparison th,
+    .tableComparison td {
+        font-size: 0.85rem;
+    }
+
+    .tableComparison td:first-child,
+    .tableComparison th:first-child {
+        position: sticky;
+        left: 0;
+        background: white;
+        z-index: 1;
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05);
+    }
+
+    .tableComparison th:first-child {
+        background: #2e7d32;
+    }
 }
 
+/* FAQ Styling */
 .faq {
-    margin-top: 40px;
-    background: #f4f4f4;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 6px;
+    margin-top: 60px;
+    padding-bottom: 40px;
 }
 
-.faq h2 {
-    text-align: center;
-    font-size: 1.8rem;
-    font-weight: 500;
+.faq h2,
+.comparisonTable h2 {
+    font-size: 2rem;
     margin-bottom: 10px;
+    font-weight: 600;
+    color: #1a1a1a;
 }
 
 .faqDetails {
-    margin-bottom: 10px;
-    cursor: pointer;
+    background: white;
+    margin-bottom: 15px;
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid #eee;
+    transition: all 0.3s ease;
+}
+
+.faqDetails[open] {
+    border-left: 5px solid #2e7d32;
 }
 
 .faqDetails summary {
-    font-weight: bold;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #333;
+    outline: none;
 }
 
-.faqDetails p {
-    margin-top: 5px;
-    font-size: 1rem;
-    color: #555;
+/* Desktop Logic: Side-by-Side Materials */
+@media (min-width: 850px) {
+    .materialSection {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .materialSection:nth-of-type(even) {
+        flex-direction: row-reverse;
+    }
+
+    .materialContent {
+        width: 50%;
+    }
+
+    .imageWrapper {
+        width: 50%;
+    }
 }

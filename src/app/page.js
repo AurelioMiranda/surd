@@ -20,6 +20,7 @@ export default function HomePage() {
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 3000,
+    arrows: true,
   };
 
   if (!isClient) {
@@ -43,33 +44,35 @@ export default function HomePage() {
           </p>
         </section>
 
+        {/* --- SPLIT SCREEN SECTION START --- */}
         <section className={styles.weeklyStickers}>
-          <h2>Stickers da Semana</h2>
-          {/* Image carousel */}
-          <section className={styles.carouselSection}>
-            <Slider {...settings}>
-              <div>
-                <img style={{ borderRadius: '10px' }} src="/weekly/28d10m/6.png" alt="Carousel Image 5" />
+          <div className={styles.splitContent}>
+
+            {/* Left Column: Text */}
+            <div className={styles.textColumn}>
+              <h2>Stickers da Semana</h2>
+              <p className={styles.belowCarousel}>
+                Para comprar este tipo de artigo entre em contacto connosco através do nosso instagram{' '}
+                <a href="https://www.instagram.com/surd.pt/" target="_blank" rel="noopener noreferrer">
+                  @surd.pt
+                </a>.
+              </p>
+            </div>
+
+            {/* Right Column: Carousel */}
+            <div className={styles.carouselColumn}>
+              <div className={styles.carouselColumnInner}>
+                <Slider {...settings}>
+                  <div><img className={styles.slideImg} src="/weekly/28d10m/6.png" alt="Carousel Image 5" /></div>
+                  <div><img className={styles.slideImg} src="/weekly/28d10m/5.png" alt="Carousel Image 4" /></div>
+                  <div><img className={styles.slideImg} src="/weekly/28d10m/2.png" alt="Carousel Image 1" /></div>
+                  <div><img className={styles.slideImg} src="/weekly/28d10m/3.png" alt="Carousel Image 2" /></div>
+                  <div><img className={styles.slideImg} src="/weekly/28d10m/4.png" alt="Carousel Image 3" /></div>
+                </Slider>
               </div>
-              <div>
-                <img style={{ borderRadius: '10px' }} src="/weekly/28d10m/5.png" alt="Carousel Image 4" />
-              </div>
-              <div>
-                <img style={{ borderRadius: '10px' }} src="/weekly/28d10m/2.png" alt="Carousel Image 1" />
-              </div>
-              <div>
-                <img style={{ borderRadius: '10px' }} src="/weekly/28d10m/3.png" alt="Carousel Image 2" />
-              </div>
-              <div>
-                <img style={{ borderRadius: '10px' }} src="/weekly/28d10m/4.png" alt="Carousel Image 3" />
-              </div>
-            </Slider>
-          </section>
-          <p className={styles.belowCarousel}>
-            Para comprar este tipo de artigo entre em contacto connosto através do nosso instagram <a href="https://www.instagram.com/surd.pt/" target="_blank" rel="noopener noreferrer">
-              @surd.pt
-            </a>.
-          </p>
+            </div>
+
+          </div>
         </section>
 
         <section className={styles.equipe}>

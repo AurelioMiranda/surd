@@ -25,10 +25,10 @@ const Navbar = () => {
         <nav className={styles.nav} role="navigation">
             <div>
                 <div style={{ width: 'fit-content', height: 'fit-content' }} className={styles.extensionLinks}>
-                    <Link href="/contacto">Contacto</Link>
-                    <Link href="/precos">Preços</Link>
                     <Link href="/materials">Materiais</Link>
+                    <Link href="/precos">Preços</Link>
                     <Link href="/faq">FAQ</Link>
+                    <Link href="/contacto">Contacto</Link>
                 </div>
 
                 {/* Burger Menu for smaller screens */}

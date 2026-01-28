@@ -43,7 +43,7 @@ export default function RootLayout({ children }) {
                   </a>
                   <a href="https://www.tiktok.com/@surd.pt" target="_blank" rel="noopener noreferrer">
                     <img maw={240} width="25" height="25" style={{ borderRadius: '5px' }}
-                      src="https://cdn.pixabay.com/photo/2021/06/15/12/28/tiktok-6338429_1280.png"
+                      src="https://img.freepik.com/fotos-premium/logotipo-do-tiktok_1080029-103.jpg?semt=ais_user_personalization&w=740&q=80"
                       alt="Tiktok" />
                   </a>
                   <a href="https://www.linkedin.com/in/mirandex/" target="_blank" rel="noopener noreferrer" style={{ display: 'none' }}>

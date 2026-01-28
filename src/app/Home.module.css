@@ -1,67 +1,166 @@
 .container {
-    padding: 20px;
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 0 auto;
+    padding: 0 1.5rem;
+    animation: fadeIn 0.8s ease-in-out;
 }
 
-.oqueESurd {
-    background-color: #f4f4f4;
-    padding: 20px;
-    border-radius: 8px;
-    margin-bottom: 30px;
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Glassmorphism / Refined Section Styles */
+.oqueESurd,
+.equipe,
+.valores,
+.weeklyStickers {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 16px;
+    margin-bottom: 40px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #eee;
+}
+
+/* Lift effect when hovering over sections */
+.oqueESurd:hover,
+.equipe:hover,
+.valores:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
 }
 
 .oqueESurd h1 {
-    font-size: 2.5rem;
-    color: #333;
+    font-size: 2.8rem;
+    color: #1a1a1a;
     text-align: center;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+    font-weight: 800;
 }
 
 .oqueESurd p {
-    font-size: 1.2rem;
-    line-height: 1.7;
-    /*text-align: justify;*/
-}
-
-.equipe,
-.valores {
-    background-color: #f4f4f4;
-    padding: 20px;
-    border-radius: 8px;
-    margin-bottom: 30px;
-}
-
-.weeklyStickers {
-    background-color: #f4f4f4;
-    padding: 20px;
-    border-radius: 8px;
-    margin-bottom: 30px;
-    padding-bottom: 20px;
+    font-size: 1.25rem;
+    line-height: 1.8;
+    color: #444;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
 }
 
 .equipe h2,
 .valores h2,
 .weeklyStickers h2 {
-    font-size: 2rem;
-    color: #555;
-    margin-bottom: 10px;
-    text-align: left;
+    font-size: 2.2rem;
+    color: #222;
+    margin-bottom: 20px;
+    font-weight: 700;
+    position: relative;
 }
 
+/* Green accent underline for headings */
+.equipe h2::after,
+.valores h2::after,
+.weeklyStickers h2::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 4px;
+    background: #2e7d32;
+    margin-top: 8px;
+    border-radius: 2px;
+}
+
+/* --- CAROUSEL & SPLIT SCREEN STYLES --- */
+
+.splitContent {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.textColumn {
+    width: 100%;
+}
+
+.carouselColumn {
+    width: 100%;
+}
+
+.belowCarousel,
 .equipe p,
 .valores p {
+    margin-top: 25px;
     font-size: 1.2rem;
-    line-height: 1.6;
-    color: #666;
-    /*text-align: justify;*/
+    line-height: 1.7;
 }
 
+.slideImg {
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+
+    border-radius: 10px;
+    display: block;
+}
+
+/* --- Updated Desktop View (Split Screen) --- */
+@media (min-width: 768px) {
+    .splitContent {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .textColumn {
+        width: 45%;
+        align-self: baseline;
+    }
+
+    .carouselColumn {
+        width: 50%;
+        min-width: 0;
+        display: flex;
+        justify-content: center;
+    }
+
+    .carouselColumnInner {
+        width: 100%;
+        max-width: 350px;
+    }
+
+    .slideImg {
+        height: 400px;
+        width: 100%;
+        object-fit: cover;
+    }
+}
+
+/* Ensure mobile still looks good */
+@media (max-width: 767px) {
+    .slideImg {
+        height: 300px;
+        width: 100%;
+        object-fit: cover;
+    }
+}
+
+/* --- SUSTAINABILITY SECTION --- */
 .sustentabilidade {
-    background-color: #e9ffe9;
-    padding: 20px;
-    border-radius: 8px;
-    margin-top: 40px;
+    background: linear-gradient(135deg, #e9ffe9 0%, #f0fff0 100%);
+    padding: 40px;
+    border-radius: 16px;
+    margin-top: 50px;
+    margin-bottom: 20px;
+    border: 1px dashed #2e7d32;
 }
 
 .sustentabilidade h3 {
@@ -80,22 +179,4 @@
     margin-bottom: 10px;
     line-height: 1.5;
     color: #444;
-}
-
-.belowCarousel {
-    margin-top: 25px;
-    font-size: 1.2rem;
-    line-height: 1.7;
-}
-
-/* Carousel styles */
-@import "~slick-carousel/slick/slick.css";
-@import "~slick-carousel/slick/slick-theme.css";
-
-@media (min-width: 990px) {
-
-    .carouselSection,
-    .weeklyStickers {
-        display: none;
-    }
 }

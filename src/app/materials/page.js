@@ -6,110 +6,111 @@ export default function Materials() {
       <h1 className={styles.title}>Materiais dos Stickers</h1>
       <p className={styles.intro}>
         Escolher o material certo para os seus autocolantes é essencial para a sua durabilidade, estética e propósito.
-        Aqui está uma análise dos materiais que oferecemos: Vinil e Papel.
+        Aqui está uma análise dos materiais que oferecemos.
       </p>
 
       {/* Vinyl Stickers */}
       <section className={styles.materialSection}>
-        <h2>Stickers de vinil</h2>
-        <img src="/sticker-materials/vinyl.jpeg" alt="Vinyl Sticker Example" className={styles.materialImage} />
-        <p>
-          Os Stickers de vinil são conhecidos pela sua qualidade premium, durabilidade e por serem à prova de água.
-          São ideais para o exterior, aplicações a longo prazo, resistir raios UV, água e riscos.
-        </p>
-
-        <h3>Pros:</h3>
-        <ul>
-          <li>À prova de água e resistente ao tempo</li>
-          <li>Longa duração, resistente a desvanecimento</li>
-          <li>Adesivo forte, adere à maior parte das superfícies</li>
-          <li>Ótimo para uso externo, garrafas e eletrônicos</li>
-        </ul>
-
-        <h3>Contras:</h3>
-        <ul>
-          <li>Mais caro que autocolantes de papel</li>
-        </ul>
+        <div className={styles.imageWrapper}>
+          <img src="/sticker-materials/vinyl.jpeg" alt="Vinyl Sticker Example" className={styles.materialImage} />
+        </div>
+        <div className={styles.materialContent}>
+          <h2>Stickers de Vinil</h2>
+          <p>
+            Os Stickers de vinil são conhecidos pela sua qualidade premium, durabilidade e por serem à prova de água.
+            São ideais para o exterior, resistindo a raios UV, água e riscos.
+          </p>
+          <h3>Pros:</h3>
+          <ul className={styles.prosList}>
+            <li>À prova de água e resistente ao tempo</li>
+            <li>Longa duração e resistente a desvanecimento</li>
+            <li>Adesivo forte para qualquer superfície</li>
+            <li>Ótimo para garrafas e eletrónicos</li>
+          </ul>
+          <h3>Contras:</h3>
+          <ul className={styles.consList}>
+            <li>Investimento superior ao papel</li>
+          </ul>
+        </div>
       </section>
 
       {/* Paper Stickers */}
       <section className={styles.materialSection}>
-        <h2>Stickers de papel</h2>
-        <img src="/sticker-materials/paper.jpeg" alt="Paper Sticker Example" className={styles.materialImage} />
-        <p>
-          Adesivos de papel são uma alternativa ecologicamente correta e econômica. São perfeitos para uso de curto prazo,
-          encomendas e etiquetagem, mas não são resistentes à água ou condições extremas.
-        </p>
-
-        <h3>Pros:</h3>
-        <ul>
-          <li>Mais barato</li>
-          <li>Leve e fácil de escrever por cima</li>
-          <li>Perfeito para uso interior e encomendas</li>
-        </ul>
-
-        <h3>Contras:</h3>
-        <ul>
-          <li>Não é à prova d'água ou resistente ao tempo</li>
-          <li>Menos durável ao longo do tempo</li>
-        </ul>
+        <div className={styles.imageWrapper}>
+          <img src="/sticker-materials/paper.jpeg" alt="Paper Sticker Example" className={styles.materialImage} />
+        </div>
+        <div className={styles.materialContent}>
+          <h2>Stickers de Papel</h2>
+          <p>
+            Uma alternativa ecologicamente correta e económica. Perfeitos para uso de curto prazo,
+            etiquetagem de encomendas e organização interior.
+          </p>
+          <h3>Pros:</h3>
+          <ul className={styles.prosList}>
+            <li>Opção mais económica</li>
+            <li>Leve e fácil de escrever por cima</li>
+            <li>Perfeito para packaging e eventos</li>
+          </ul>
+          <h3>Contras:</h3>
+          <ul className={styles.consList}>
+            <li>Não resistente à água ou humidade</li>
+            <li>Menor durabilidade externa</li>
+          </ul>
+        </div>
       </section>
 
       {/* Comparison Table */}
       <section className={styles.comparisonTable}>
-        <h2>Vinvl vs. Papel</h2>
-        <table className={styles.tableComparison}>
-          <thead>
-            <tr>
-              <th>Caracteristica</th>
-              <th>Vinil</th>
-              <th>Papel</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Durabilidade</td>
-              <td>Alta (anos)</td>
-              <td>Baixa (meses)</td>
-            </tr>
-            <tr>
-              <td>À prova de água</td>
-              <td>Sim</td>
-              <td>Não</td>
-            </tr>
-            <tr>
-              <td>Uso exterior</td>
-              <td>Sim</td>
-              <td>Não</td>
-            </tr>
-            <tr>
-              <td>Eco-Friendly</td>
-              <td>Sim</td>
-              <td>Sim</td>
-            </tr>
-            <tr>
-              <td>Melhores usos</td>
-              <td>Carros, garrafas, eletrónicos</td>
-              <td>Etiquetas, embalagens, eventos</td>
-            </tr>
-          </tbody>
-        </table>
+        <h2>Vinil vs. Papel</h2>
+        <div className={styles.tableWrapper}>
+          <table className={styles.tableComparison}>
+            <thead>
+              <tr>
+                <th>Característica</th>
+                <th>Vinil</th>
+                <th>Papel</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Durabilidade</strong></td>
+                <td>Alta (Anos)</td>
+                <td>Média (Meses)</td>
+              </tr>
+              <tr>
+                <td><strong>À prova de água</strong></td>
+                <td>Sim</td>
+                <td>Não</td>
+              </tr>
+              <tr>
+                <td><strong>Uso exterior</strong></td>
+                <td>Sim</td>
+                <td>Não recomendado</td>
+              </tr>
+              <tr>
+                <td><strong>Sustentabilidade</strong></td>
+                <td>Biodegradável</td>
+                <td>Reciclável</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </section>
 
       {/* FAQ */}
       <section className={styles.faq}>
-        <h2>Perguntas frequentes</h2>
+        <h2>Perguntas Frequentes</h2>
         <details className={styles.faqDetails}>
           <summary>Os autocolantes de vinil são reutilizáveis?</summary>
-          <p>A maioria dos autocolantes de vinil são projetados para uso único, mas existem opções de vinil removíveis.</p>
+          <p>A maioria é projetada para uma aplicação permanente, mas a sua remoção não deixa resíduos na maioria das superfícies.</p>
         </details>
         <details className={styles.faqDetails}>
-          <summary>Adesivos de papel podem ser laminados para proteção?</summary>
-          <p>Sim! Laminar autocolantes de papel pode adicionar alguma resistência à água, mas não os tornará totalmente à prova de água.</p>
+          <summary>Adesivos de papel podem ser laminados?</summary>
+          <p>Sim! Laminar adiciona uma camada de proteção contra riscos, mas o núcleo de papel ainda pode absorver humidade lateralmente.</p>
         </details>
         <details className={styles.faqDetails}>
-          <summary>Que material é mais indicado para uma marca empresarial?</summary>
-          <p>Se você precisa de autocolantes premium e duradouros, opte por vinil. Para embalagens e rótulos, papel é uma ótima escolha.</p>
+          <summary>Qual o melhor para branding de packaging?</summary>
+          <p>Para selar caixas e envelopes, o papel é excelente. Para logótipos que o cliente vá guardar (em portáteis, etc), o vinil é a melhor escolha.</p>
         </details>
       </section>
     </div>

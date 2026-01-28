@@ -1,75 +1,143 @@
-.faqContainer123 {
-    padding: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-    background-color: #f9f9f9;
-    border-radius: 8px;
+.container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 1.5rem;
+    animation: fadeIn 0.8s ease-in-out;
 }
 
-.faqSection123 {
-    margin-top: 10px;
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-.faqTitle123 {
-    font-size: 2.5rem;
-    color: #2b2b2b;
+.title {
+    font-size: 3rem;
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 50px;
+    font-weight: 800;
+    color: #1a1a1a;
+    letter-spacing: -1px;
 }
 
-.questionBlock123 {
+/* Signature Green Underline */
+.title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 5px;
+    background: #2e7d32;
+    margin: 15px auto;
+    border-radius: 10px;
+}
+
+.questionBlock {
     background-color: #fff;
-    padding: 20px;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    margin-bottom: 30px;
+    padding: 30px;
+    border-radius: 16px;
+    margin-bottom: 25px;
+    border: 1px solid #eee;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+    transition: all 0.3s ease;
 }
 
-.question123 {
-    font-size: 1.8rem;
-    color: #333;
-    margin-bottom: 15px;
+.questionBlock:hover {
+    transform: translateX(5px);
+    border-left: 6px solid #2e7d32;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 
-.answer123 {
-    font-size: 1.2rem;
+.question {
+    font-size: 1.5rem;
+    color: #1a1a1a;
+    margin-bottom: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Small question mark icon */
+.question::before {
+    content: '?';
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background: #e9ffe9;
+    color: #2e7d32;
+    border-radius: 50%;
+    font-size: 0.9rem;
+}
+
+.answer {
+    font-size: 1.1rem;
     color: #555;
     line-height: 1.7;
 }
 
-.stepsList123 {
+.answer a {
+    color: #2e7d32;
+    font-weight: 700;
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    transition: 0.3s;
+}
+
+.answer a:hover {
+    border-bottom: 2px solid #2e7d32;
+}
+
+/* List Styling */
+.stepsList, .tattooList {
     margin-top: 20px;
     padding-left: 20px;
-    list-style-type: decimal;
+    list-style: none;
 }
 
-.stepsList123 li {
-    margin-bottom: 10px;
+.stepsList li, .tattooList li {
+    position: relative;
+    margin-bottom: 15px;
+    padding-left: 30px;
     font-size: 1.1rem;
-    color: #666;
+    color: #555;
+    line-height: 1.6;
 }
 
-.stepsList123hjjy {
-    list-style-type: disc;
-    margin-top: 20px;
-    padding-left: 20px;
+/* Custom Numbering for Steps */
+.stepsList { counter-reset: step-counter; }
+.stepsList li::before {
+    content: counter(step-counter);
+    counter-increment: step-counter;
+    position: absolute;
+    left: 0;
+    top: 2px;
+    width: 22px;
+    height: 22px;
+    background: #2e7d32;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: bold;
 }
 
-.stepsList123hjjy li {
-    margin-bottom: 10px;
-    font-size: 1.1rem;
-    color: #666;
+/* Custom Bullets for Tattoo list */
+.tattooList li::before {
+    content: "✦";
+    position: absolute;
+    left: 0;
+    color: #2e7d32;
+    font-weight: bold;
 }
 
-.subStepsList123 {
-    margin-top: 8px;
-    list-style-type: none;
-    counter-reset: substep;
-    margin-left: 20px;
-}
-
-.subStepsList123 li::before {
-    content: "4." counter(substep);
-    counter-increment: substep;
-    margin-right: 5px;
+/* Sub-steps (Bubble removal) */
+.subSteps {
+    margin-top: 10px;
+    padding: 15px;
+    background: #f9f9f9;
+    border-radius: 10px;
+    border-left: 3px solid #ccc;
 }
