@@ -21,85 +21,55 @@ export default function RootLayout({ children }) {
           {children}
         </main>
         <BuyNow />
-        <footer role="contentinfo">
-          <div className='footer-top'>
-            <div className='footer-top-container'>
-              <div>
-                <div style={{ width: 'fit-content', height: 'fit-content' }}>
-                  <Link href="/" className='extensionLinks'>Início</Link>
-                  <Link href="/contacto" className='extensionLinks'>Contacto</Link>
-                  <Link href="/precos" className='extensionLinks'>Preços</Link>
-                  <Link href="/materials" className='extensionLinks'>Materiais</Link>
-                  <Link href="/faq" className='extensionLinks'>FAQ</Link>
-                </div>
-              </div>
-              <div style={{ marginTop: '1.2rem' }}><Link href="/embaixadores" className='extensionLinks'>Vem ser nosso embaixador!</Link></div>
-              <div style={{ marginTop: '1.7rem' }}>
-                <div className='socials'>
+        <footer className="footer" role="contentinfo">
+          <div className="footer-container">
+
+            {/* TOP: Main Footer Content */}
+            <div className="footer-main">
+              <div className="footer-col">
+                <h3 className="footer-heading">SURD</h3>
+                <p className="footer-tagline">Stick yoUR Design.</p>
+                <div className="socials">
                   <a href="https://www.instagram.com/surd.pt/" target="_blank" rel="noopener noreferrer">
-                    <img maw={240} width="25" height="25"
-                      src="https://www.iconpacks.net/icons/2/free-instagram-logo-icon-3497-thumb.png"
-                      alt="Instagram" />
+                    <img src="https://www.iconpacks.net/icons/2/free-instagram-logo-icon-3497-thumb.png" alt="Instagram" />
                   </a>
                   <a href="https://www.tiktok.com/@surd.pt" target="_blank" rel="noopener noreferrer">
-                    <img maw={240} width="25" height="25" style={{ borderRadius: '5px' }}
-                      src="https://img.freepik.com/fotos-premium/logotipo-do-tiktok_1080029-103.jpg?semt=ais_user_personalization&w=740&q=80"
-                      alt="Tiktok" />
-                  </a>
-                  <a href="https://www.linkedin.com/in/mirandex/" target="_blank" rel="noopener noreferrer" style={{ display: 'none' }}>
-                    <img maw={240} width="25" height="25"
-                      src="https://cdn-icons-png.flaticon.com/512/61/61109.png"
-                      alt="LinkedIn" />
+                    <img src="https://img.freepik.com/fotos-premium/logotipo-do-tiktok_1080029-103.jpg?w=740" alt="Tiktok" />
                   </a>
                 </div>
               </div>
-            </div>
-          </div>
-          <div className='footer-bottom'>
-            <div className='footer-bottom-container'>
-              <nav aria-label="Footer navigation">
-                <div className='footer-img-container'>
-                  <img maw={240} width="25" height="25"
-                    src="Revolut-Logo.png"
-                    alt="Revolut" style={{ height: '60px' }} />
-                  <img maw={240} width="25" height="25"
-                    src="PayPal-Logo.png"
-                    alt="PayPal" style={{ height: '60px' }} />
-                  <img maw={240} width="25" height="25"
-                    src="mb.png"
-                    alt="Multibanco" />
-                  <img maw={240} width="25" height="25"
-                    src="mbway.png"
-                    alt="MBWay" />
-                </div>
-              </nav>
-              <div className='footer-img-container-mobile' style={{ display: 'none' }}>
-                <div>
-                  <img maw={240} width="25" height="25"
-                    src="Revolut-Logo.png"
-                    alt="Revolut" style={{ height: '60px' }} />
-                  <img maw={240} width="25" height="25"
-                    src="PayPal-Logo.png"
-                    alt="PayPal" style={{ height: '60px' }} />
-                </div>
-                <div>
-                  <img maw={240} width="25" height="25"
-                    src="mb.png"
-                    alt="Multibanco" />
-                  <img maw={240} width="25" height="25"
-                    src="mbway.png"
-                    alt="MBWay" />
-                </div>
+
+              <div className="footer-col">
+                <h4 className="footer-subheading">Explorar</h4>
+                <Link href="/">Início</Link>
+                <Link href="/materials">Materiais</Link>
+                <Link href="/precos">Preçário</Link>
+                <Link href="/faq">FAQ</Link>
               </div>
-              <div className='footer-banner-credits'>
-                <div style={{ color: 'white' }}>
-                  buy our stickers :)
-                </div>
-                <div style={{ fontSize: '0.9rem' }}>
-                  © 2024, SURD
-                </div>
+
+              <div className="footer-col">
+                <h4 className="footer-subheading">Comunidade</h4>
+                <Link href="/contacto">Contacto</Link>
+                <Link href="/embaixadores">Vem ser embaixador!</Link>
+                <p className="footer-cta-text">buy our stickers :)</p>
               </div>
             </div>
+
+            <hr className="footer-divider" />
+
+            {/* BOTTOM: Payments & Credits */}
+            <div className="footer-bottom">
+              <div className="payment-methods">
+                <img src="Revolut-Logo.png" alt="Revolut" className="payment-icon revolut" />
+                <img src="PayPal-Logo.png" alt="PayPal" className="payment-icon paypal" />
+                <img src="mb.png" alt="Multibanco" className="payment-icon" />
+                <img src="mbway.png" alt="MBWay" className="payment-icon" />
+              </div>
+              <div className="footer-credits">
+                <span>© {new Date().getFullYear()} SURD. Todos os direitos reservados.</span>
+              </div>
+            </div>
+
           </div>
         </footer>
       </body>

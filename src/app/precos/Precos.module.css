@@ -1,57 +1,112 @@
-.precosContainer987 {
-    padding: 20px;
-    max-width: 1000px;
-    margin: 0 auto;
-    background-color: #f9f9f9;
-    border-radius: 8px;
+.container {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 1.5rem;
+    animation: fadeIn 0.8s ease-in-out;
 }
 
-.precosSection987 {
-    margin-top: 10px;
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-.precosTitle987 {
-    font-size: 2.5rem;
-    color: #222222;
+.title {
+    font-size: 3rem;
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 50px;
+    font-weight: 800;
+    color: #1a1a1a;
 }
 
-.precosTitle958 {
-    font-size: 2rem;
-    color: #222222;
-    text-align: center;
-    margin-bottom: 15px;
+.title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 5px;
+    background: #2e7d32;
+    margin: 15px auto;
+    border-radius: 10px;
 }
 
-.priceImageContainer987 {
+.categorySection {
+    margin-bottom: 60px;
+}
+
+.categoryTitle {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 25px;
+    font-weight: 700;
+    padding-left: 15px;
+    border-left: 4px solid #2e7d32;
+}
+
+/* Grid Layout for Desktop */
+.priceGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 30px;
+}
+
+.imageCard {
+    background: white;
+    padding: 15px;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    border: 1px solid #eee;
+    transition: all 0.3s ease;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    margin-bottom: 20px;
 }
 
-.precoImage987 {
+.imageCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+    border-color: #2e7d32;
+}
+
+.precoImage {
     width: 100%;
     height: auto;
-    max-width: 600px;
-    border: 1px solid #e0e0e0;
-    border-radius: 5px;
+    border-radius: 10px;
 }
 
-.imageCaption987 {
-    font-size: 0.9rem;
-    color: #525252;
-    margin-top: 5px;
-}
-
-.deliveryInfo987 {
-    font-size: 1.2rem;
-    color: #333;
-    margin-top: 30px;
+.imageCaption {
+    font-size: 0.95rem;
+    color: #777;
+    margin-top: 15px;
     text-align: center;
-    padding: 10px;
-    background-color: #ffffff;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
+    font-style: italic;
+}
+
+/* Delivery Info - Styled like a Commitment Box */
+.deliveryInfo {
+    margin-top: 80px;
+    padding: 40px;
+    background: linear-gradient(135deg, #ffffff 0%, #f4fcf4 100%);
+    border: 1px dashed #2e7d32;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(46, 125, 50, 0.05);
+}
+
+.deliveryInfo p {
+    font-size: 1.2rem;
+    color: #444;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.deliveryInfo strong {
+    color: #2e7d32;
+    font-weight: 800;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+    .priceGrid {
+        grid-template-columns: 1fr;
+    }
+    .title { font-size: 2.2rem; }
 }

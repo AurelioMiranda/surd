@@ -1,38 +1,147 @@
-.contactContainer321 {
+.container {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 40px;
+    padding: 40px 20px;
     min-height: 80vh;
+    animation: fadeIn 0.8s ease-in-out;
 }
 
-.contactSection321 {
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.contactCard {
     background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 30px;
-    max-width: 600px;
+    border-radius: 24px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+    padding: 60px 40px;
+    max-width: 850px;
     text-align: center;
+    width: 100%;
+    border: 1px solid #f0f0f0;
+}
+
+.title {
+    font-size: 2.8rem;
+    color: #1a1a1a;
+    margin-bottom: 10px;
+    font-weight: 800;
+}
+
+.title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 5px;
+    background: #2e7d32;
+    margin: 15px auto;
+    border-radius: 10px;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 50px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.options {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.optionItem {
+    flex: 1;
+    min-width: 280px;
+    padding: 30px;
+    border-radius: 20px;
+    background: #fcfcfc;
+    border: 1px solid #eee;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.optionItem:hover {
+    transform: translateY(-5px);
+    border-color: #2e7d32;
+}
+
+.iconCircle {
+    width: 60px;
+    height: 60px;
+    background: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px auto;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+}
+
+.icon { width: 30px; }
+.emailIcon { font-size: 24px; color: #2e7d32; }
+
+.optionItem h3 {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+    color: #1a1a1a;
+}
+
+.optionItem p {
+    font-size: 0.95rem;
+    color: #777;
+    margin-bottom: 25px;
+    min-height: 45px;
+}
+
+/* Primary Instagram Button */
+.button {
+    display: inline-block;
+    padding: 12px 28px;
+    background: #2e7d32;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 12px;
+    font-weight: 700;
+    transition: background 0.3s ease;
     width: 100%;
 }
 
-.contactTitle321 {
-    font-size: 2rem;
-    color: #333;
-    margin-bottom: 20px;
+.button:hover {
+    background: #1b5e20;
 }
 
-.contactTextContainer321 {
-    font-size: 1.2rem;
-    color: #555;
-    line-height: 1.6;
-}
-
-.contactLink321 {
-    color: #0070f3;
+/* Secondary Email Button */
+.buttonSecondary {
+    display: inline-block;
+    padding: 12px 28px;
+    background: transparent;
+    color: #2e7d32;
     text-decoration: none;
+    border-radius: 12px;
+    font-weight: 700;
+    border: 2px solid #2e7d32;
+    transition: all 0.3s ease;
+    width: 100%;
 }
 
-.contactLink321:hover {
-    text-decoration: underline;
+.buttonSecondary:hover {
+    background: #e9ffe9;
+}
+
+.footerInfo {
+    margin-top: 40px;
+    font-size: 0.9rem;
+    color: #aaa;
+    font-style: italic;
+}
+
+@media (max-width: 600px) {
+    .contactCard { padding: 40px 20px; }
+    .title { font-size: 2rem; }
 }
