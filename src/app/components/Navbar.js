@@ -57,7 +57,7 @@ const Navbar = () => {
                         //<span class="material-symbols-outlined" style={{ fontSize: '1.9rem', color: 'black' }}>search</span>
                     }
                     <a href='/payment'>
-                        <span class="material-symbols-outlined" style={{ fontSize: '1.9rem', color: 'black', marginLeft: '10px' }}>shopping_cart</span>
+                        <span className="material-symbols-outlined" style={{ fontSize: '1.9rem', color: 'black', marginLeft: '10px' }}>shopping_cart</span>
                     </a>
                 </div>
             </div>
